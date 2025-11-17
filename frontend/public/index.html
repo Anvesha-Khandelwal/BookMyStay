@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StaySphere — Experience something new</title>
+
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <span class="brand-icon">🌍</span>
+        <span class="brand-name">StaySphere</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#">Home</a>
+        <a href="#offers">Offers</a>
+        <a href="#popular">Popular</a>
+        <a href="#contact">Contact</a>
+        <button id="themeToggle" class="btn-ghost">Dark</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main>
+
+    <!-- ========= HERO SECTION =========== -->
+    <section class="hero">
+      <div class="hero-inner">
+
+        <div class="hero-media">
+          <img src="assets/hero.jpg" alt="resort pool" class="hero-img"/>
+        </div>
+
+        <div class="hero-content">
+          <h1>Experience something new every moment</h1>
+          <p class="lead">
+            Escape to a place where you can relax and unwind, rejuvenate, and reconnect.
+          </p>
+
+          <!-- Search card -->
+          <form class="search-card" id="searchForm">
+            <div class="search-row">
+
+              <label>
+                <span class="small">Location</span>
+                <input type="text" id="location" placeholder="Bali, Indonesia"/>
+              </label>
+
+              <label>
+                <span class="small">Check In</span>
+                <input type="date" id="checkin"/>
+              </label>
+
+              <label>
+                <span class="small">Check Out</span>
+                <input type="date" id="checkout"/>
+              </label>
+
+              <label>
+                <span class="small">Guests</span>
+                <select id="guests">
+                  <option>1 Room, 1 Guest</option>
+                  <option>1 Room, 2 Guests</option>
+                  <option>1 Room, 3 Guests</option>
+                </select>
+              </label>
+
+              <button class="btn-primary" type="submit">Search</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========= OFFERS SECTION =========== -->
+    <section id="offers" class="section has-bg">
+      <div class="container">
+
+        <div class="section-head">
+          <h2>Best offer this month</h2>
+          <p class="muted">This can be a detailed description or just a short text.</p>
+        </div>
+
+        <div class="offers-grid">
+
+          <article class="offer-card">
+            <img src="assets/off1.jpg" alt="offer"/>
+            <div class="offer-body">
+              <h3>50% Off</h3>
+              <p>Short description about the offer and why users should book.</p>
+              <a class="btn-ghost" href="#">Book Now</a>
+            </div>
+          </article>
+
+          <article class="offer-card">
+            <img src="assets/off2.jpg" alt="offer"/>
+            <div class="offer-body">
+              <h3>30% Off</h3>
+              <p>Short description about the offer and why users should book.</p>
+              <a class="btn-ghost" href="#">Book Now</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========= POPULAR HOTELS =========== -->
+    <section id="popular" class="section">
+      <div class="container">
+
+        <div class="section-head">
+          <h2>Explore popular hotel</h2>
+          <p class="muted">Handpicked stays for you</p>
+        </div>
+
+        <div class="cards-grid">
+          <article class="card">
+            <img src="assets/h1.jpg" alt="hotel"/>
+            <div class="card-body">
+              <h3>Sea Breeze Resort</h3>
+              <p class="muted">Bali, Indonesia — ⭐ 4.7</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <img src="assets/h2.jpg" alt="hotel"/>
+            <div class="card-body">
+              <h3>Mountain Retreat</h3>
+              <p class="muted">Goa, India — ⭐ 4.6</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <img src="assets/h3.jpg" alt="hotel"/>
+            <div class="card-body">
+              <h3>Urban Stay</h3>
+              <p class="muted">Bengaluru, India — ⭐ 4.5</p>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========= FOOTER =========== -->
+  <footer id="contact">
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+          <h4>About StaySphere</h4>
+          <p class="muted">Your trusted partner in creating memorable travel experiences.</p>
+        </div>
+
+        <div>
+          <h4>Contact</h4>
+          <p class="muted">hello@staysphere.com</p>
+        </div>
+
+      </div>
+
+      <p class="copy">© 2024 StaySphere — All rights reserved.</p>
+
+    </div>
+  </footer>
+
+  <script>
+    // theme toggle
+    document.getElementById('themeToggle').addEventListener('click', function(){
+      document.body.classList.toggle('dark-mode');
+      this.textContent = document.body.classList.contains('dark-mode') ? 'Light' : 'Dark';
+    });
+
+    // search redirect
+    document.getElementById('searchForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const value = document.getElementById('location').value;
+      localStorage.setItem('searchCity', value);
+      window.location.href = \"listings.html\";
+    });
+  </script>
+
+</body>
+</html>
