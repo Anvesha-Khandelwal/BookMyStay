@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Sea Breeze Resort",
+    "location": "Bali, Indonesia",
+    "price": 180,
+    "rating": 4.7,
+    "image": "assets/h1.jpg",
+    "description": "A luxury beachside resort with pools and spa."
+  },
+  {
+    "id": 2,
+    "name": "Mountain Retreat",
+    "location": "Goa, India",
+    "price": 140,
+    "rating": 4.6,
+    "image": "assets/h2.jpg",
+    "description": "A peaceful retreat surrounded by nature."
+  },
+  {
+    "id": 3,
+    "name": "Urban Stay",
+    "location": "Bengaluru, India",
+    "price": 110,
+    "rating": 4.5,
+    "image": "assets/h3.jpg",
+    "description": "Modern hotel in the heart of the city."
+  },
+  {
+    "id": 4,
+    "name": "Lagoon Paradise",
+    "location": "Maldives",
+    "price": 220,
+    "rating": 4.8,
+    "image": "assets/h4.jpg",
+    "description": "Overwater bungalows with stunning views."
+  },
+  {
+    "id": 5,
+    "name": "Desert Oasis",
+    "location": "Dubai, UAE",
+    "price": 200,
+    "rating": 4.7,
+    "image": "assets/h5.jpg",
+    "description": "A luxurious stay in the desert with all amenities."
+  },
+  {
+    "id": 6,
+    "name": "Countryside Inn",
+    "location": "Tuscany, Italy",
+    "price": 160,
+    "rating": 4.6,
+    "image": "assets/h6.jpg",
+    "description": "Charming inn surrounded by vineyards."
+  }
+]
