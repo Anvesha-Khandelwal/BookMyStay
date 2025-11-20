@@ -3,36 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StaySphere — Experience Luxury Travel</title>
-  
+  <title>BookMyStay — Experience Luxury Travel</title>
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- External Stylesheet -->
+
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <!-- =====================================================
-       NAVIGATION
-       ===================================================== -->
-  <nav class="navbar" id="navbar">
+       NAVIGATION — FIXED & MATCHED WITH YOUR CSS
+  ====================================================== -->
+  <nav>
     <div class="nav-container">
-      <a href="#" class="brand">
-        <span class="brand-icon">🌍</span>
-        <span class="brand-name">BookMyStay</span>
+
+      <!-- LOGO -->
+      <a href="#" class="logo">
+        🌍 BookMyStay
       </a>
 
-      <ul class="nav-menu">
-        <li><a href="#"><span>Home</span></a></li>
-        <li><a href="#offers"><span>Offers</span></a></li>
-        <li><a href="#popular"><span>Hotels</span></a></li>
-        <li><a href="#attractions"><span>Explore</span></a></li>
-        <li><a href="#contact"><span>Contact</span></a></li>
+      <!-- NAVIGATION LINKS (Must match .nav-links from CSS) -->
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#offers">Offers</a></li>
+        <li><a href="#popular">Hotels</a></li>
+        <li><a href="#attractions">Explore</a></li>
+        <li><a href="#contact">Contact</a></li>
+
+        <!-- DARK MODE BUTTON -->
         <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
       </ul>
+
     </div>
   </nav>
+
+  <!-- =====================================================
+       HERO SECTION (Your CSS Already Supports This)
+  ====================================================== -->
+  <section class="hero" id="hero">
+
+    <!-- Background image overlay -->
+    <div class="hero-background">
+      <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&h=800&fit=crop" alt="Resort">
+    </div>
+
+    <div class="hero-content">
+      <h1>Experience something new every moment</h1>
+      <p>
+        Escape to a place where you can relax and unwind, rejuvenate,
+        and reconnect. Your perfect getaway awaits.
+      </p>
+    </div>
+  </section>
+
+  <!-- Your remaining code continues here… -->
 
   <!-- =====================================================
        HERO SECTION
@@ -364,22 +391,20 @@
 
     // Search Form Submission
     document.getElementById('searchForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const location = document.getElementById('location').value;
-      const checkin = document.getElementById('checkin').value;
-      const checkout = document.getElementById('checkout').value;
-      const guests = document.getElementById('guests').value;
+  e.preventDefault();
 
-      // Store search data
-      localStorage.setItem('searchCity', location);
-      localStorage.setItem('searchCheckin', checkin);
-      localStorage.setItem('searchCheckout', checkout);
-      localStorage.setItem('searchGuests', guests);
+  const location = document.getElementById('location').value;
+  const checkin = document.getElementById('checkin').value;
+  const checkout = document.getElementById('checkout').value;
+  const guests = document.getElementById('guests').value;
 
-      // Redirect to listings page
-      window.location.href = 'listings.html';
-    });
+  localStorage.setItem('searchCity', location);
+  localStorage.setItem('searchCheckin', checkin);
+  localStorage.setItem('searchCheckout', checkout);
+  localStorage.setItem('searchGuests', guests);
+
+  window.location.href = "listings.html";
+});
 
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
