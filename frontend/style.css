@@ -127,7 +127,7 @@ nav {
 }
 
 /* =====================================================
-   HERO SECTION - PREMIUM WITH IMAGE OVERLAY
+   HERO SECTION - PREMIUM
    ===================================================== */
 
 .hero {
@@ -162,36 +162,37 @@ nav {
     z-index: 1;
 }
 
-..hero-image img {
-    height: 450px !important;
-    object-fit: cover;
-    border-radius: 16px;
-}
-
-/* Offer Cards */
-.offers-grid img {
-    height: 260px !important;
+.hero-content {
+    position: relative;
+    text-align: left;
+    color: white;
+    z-index: 2;
+    padding: 3rem 3rem 0;
+    max-width: 1400px;
     width: 100%;
-    object-fit: cover;
-    border-radius: 12px;
+    margin: 0 auto;
 }
 
-/* Popular Hotels */
-.card img,
-.hotel-card img {
-    height: 250px !important;
-    width: 750%;
-    object-fit: cover;
+.hero h1 {
+    font-size: 3.8rem;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    animation: fadeInUp 0.8s ease-out;
 }
 
-/* Attraction Cards */
-.attraction-card img {
-    height: 260px !important;
-    width: 100%;
-    object-fit: cover;
+.hero p {
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+    max-width: 600px;
 }
+
 /* =====================================================
-   SEARCH BAR - INTEGRATED OVERLAY STYLE
+   SEARCH BAR
    ===================================================== */
 
 .search-bar {
@@ -277,12 +278,8 @@ nav {
     box-shadow: var(--shadow-hover);
 }
 
-.search-btn:active {
-    transform: translateY(0);
-}
-
 /* =====================================================
-   CONTAINER & SECTIONS
+   CONTENT & CARDS
    ===================================================== */
 
 .container {
@@ -296,12 +293,11 @@ nav {
     margin-bottom: 2.5rem;
     color: var(--text-primary);
     font-weight: 700;
-    letter-spacing: -0.5px;
     text-align: center;
 }
 
 /* =====================================================
-   HOTEL GRID & CARDS - PREMIUM STYLE
+   HOTEL GRID
    ===================================================== */
 
 .hotel-grid {
@@ -319,592 +315,114 @@ nav {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    animation: fadeIn 0.6s ease-out;
 }
 
 .hotel-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-hover);
-    border-color: rgba(77, 208, 225, 0.3);
+    transform: translateY(-10px);
     background: var(--card-hover);
 }
 
 .hotel-image {
-    position: relative;
     height: 240px;
     overflow: hidden;
-    background: linear-gradient(135deg, #1a2947, #263a5a);
 }
 
 .hotel-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.hotel-card:hover .hotel-image img {
-    transform: scale(1.1);
-}
-
-.hotel-badge {
-    position: absolute;
-    top: 1.2rem;
-    left: 1.2rem;
-    background: rgba(77, 208, 225, 0.95);
-    color: var(--primary-dark);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    backdrop-filter: blur(10px);
-}
-
-.favorite-btn {
-    position: absolute;
-    top: 1.2rem;
-    right: 1.2rem;
-    background: rgba(255, 255, 255, 0.95);
-    border: none;
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 10;
-    font-size: 1.2rem;
-    box-shadow: var(--shadow-input);
-}
-
-.favorite-btn:hover {
-    transform: scale(1.1);
-    background: white;
-}
-
-.favorite-btn.active {
-    animation: pulse 0.6s ease;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-}
-
-.hotel-info {
-    padding: 1.8rem;
-}
-
-.hotel-name {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.6rem;
-    color: var(--text-primary);
-    line-height: 1.3;
-}
-
-.hotel-location {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.hotel-amenities {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-bottom: 1.2rem;
-}
-
-.amenity-tag {
-    background: rgba(77, 208, 225, 0.15);
-    color: var(--accent-cyan);
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border: 1px solid rgba(77, 208, 225, 0.2);
-}
-
-.hotel-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1.2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.rating {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.rating .star {
-    color: #ffd700;
-    font-size: 1rem;
-}
-
-.rating-count {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 500;
-}
-
-.price {
-    text-align: right;
-}
-
-.price-amount {
-    font-size: 1.7rem;
-    font-weight: 800;
-    color: var(--accent-cyan);
-    display: flex;
-    align-items: baseline;
-    gap: 0.3rem;
-}
-
-.price-currency {
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.price-period {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    margin-top: 0.2rem;
 }
 
 /* =====================================================
-   DESTINATIONS - PREMIUM
+   DESTINATIONS
    ===================================================== */
 
+.attractions-grid,
 .destinations-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.8rem;
+    gap: 2rem;
 }
 
-.destination-card {
+.attraction-card, .destination-card {
     position: relative;
-    height: 280px;
     border-radius: var(--border-radius);
     overflow: hidden;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    box-shadow: var(--shadow-card);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    height: 280px;
 }
 
-.destination-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: var(--shadow-hover);
-}
-
+.attraction-card img,
 .destination-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.destination-card:hover img {
-    transform: scale(1.15);
-}
-
-.destination-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(15, 24, 41, 0.85), rgba(15, 24, 41, 0.2));
-    display: flex;
-    align-items: flex-end;
-    padding: 2rem;
-}
-
-.destination-name {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* =====================================================
-   FILTERS - PREMIUM DARK
-   ===================================================== */
-
-.filters-container {
-    background: var(--card-bg);
-    padding: 2.5rem;
-    border-radius: var(--border-radius);
-    margin-bottom: 2.5rem;
-    box-shadow: var(--shadow-card);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.filters-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-.filters-header h2 {
-    font-size: 1.3rem;
-    color: var(--text-primary);
-    margin: 0;
-}
-
-.filters-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.filter-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.8rem;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.filter-group input[type="range"] {
-    width: 100%;
-    height: 6px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    outline: none;
-    -webkit-appearance: none;
-    appearance: none;
-}
-
-.filter-group input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--accent-cyan);
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(77, 208, 225, 0.4);
-    transition: all 0.3s ease;
-}
-
-.filter-group input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-    box-shadow: 0 4px 12px rgba(77, 208, 225, 0.6);
-}
-
-.filter-group input[type="range"]::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--accent-cyan);
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 8px rgba(77, 208, 225, 0.4);
-    transition: all 0.3s ease;
-}
-
-.price-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-top: 0.8rem;
-    font-weight: 600;
-}
-
-.price-labels span:last-child {
-    color: var(--accent-cyan);
-    font-weight: 700;
-}
-
-.filter-group select {
-    width: 100%;
-    padding: 0.9rem 1.2rem;
-    border: 1.5px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius-sm);
-    background: rgba(15, 24, 41, 0.6);
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234dd0e1' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-}
-
-.filter-group select:hover {
-    border-color: var(--accent-cyan);
-    background: rgba(15, 24, 41, 0.8);
-}
-
-.filter-group select:focus {
-    outline: none;
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 0 3px rgba(77, 208, 225, 0.15);
-}
-
-/* =====================================================
-   RESULTS INFO
-   ===================================================== */
-
-.results-info {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-}
-
-.results-info span {
-    color: var(--accent-cyan);
-}
-
-/* =====================================================
-   EMPTY STATE
-   ===================================================== */
-
-.empty-state {
-    text-align: center;
-    padding: 4rem 2rem;
-}
-
-.empty-state p {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-}
-
-/* =====================================================
-   FOOTER - PREMIUM DARK
+   FOOTER
    ===================================================== */
 
 footer {
     background: rgba(15, 24, 41, 0.95);
-    color: var(--text-secondary);
     padding: 4rem 3rem 2rem;
     margin-top: 5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.footer-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 3rem;
-    margin-bottom: 2.5rem;
-}
-
-.footer-section h3 {
-    margin-bottom: 1.2rem;
-    font-size: 1rem;
-    color: var(--accent-cyan);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.footer-section p {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.8;
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section ul li {
-    margin-bottom: 0.8rem;
-}
-
-.footer-section a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.footer-section a:hover {
-    color: var(--accent-cyan);
-    transform: translateX(3px);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text-muted);
-    font-size: 0.9rem;
 }
 
 /* =====================================================
-   ANIMATIONS
+   RESPONSIVE
    ===================================================== */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* =====================================================
-   RESPONSIVE DESIGN
-   ===================================================== */
-
-@media (max-width: 1200px) {
-    .search-form {
-        grid-template-columns: 1fr 1fr 1fr auto;
-    }
-    
-    .search-input-group:first-child {
-        grid-column: 1 / -1;
-    }
-}
-
-@media (max-width: 1024px) {
-    .nav-container {
-        padding: 0 2rem;
-    }
-
-    .container {
-        padding: 3rem 2rem;
-    }
-
-    .hero-content {
-        padding: 3rem 2rem 0;
-    }
-
-    .hero h1 {
-        font-size: 3rem;
-    }
-}
 
 @media (max-width: 768px) {
-    .nav-links {
-        gap: 1.5rem;
-    }
-
-    .nav-links a {
-        font-size: 0.85rem;
-    }
-
-    .hero {
-        height: 500px;
-    }
-
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
     .search-form {
         grid-template-columns: 1fr;
     }
 
-    .search-bar {
-        padding: 1.8rem;
-    }
-
-    .section-title {
-        font-size: 1.8rem;
+    .hero h1 {
+        font-size: 2.4rem;
     }
 
     .hotel-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .destinations-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .filters-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .container {
-        padding: 2rem 1.5rem;
-    }
-
-    .filters-container {
-        padding: 2rem;
     }
 }
 
-@media (max-width: 480px) {
-    .nav-container {
-        padding: 0 1rem;
-    }
+/* =====================================================
+   NEW IMAGE SIZES (OPTION B + Reduced Width)
+   ===================================================== */
 
-    .hero h1 {
-        font-size: 1.8rem;
-    }
+.hero-image img {
+    height: 450px !important;
+    width: 85% !important;
+    margin: 0 auto;
+    display: block;
+    border-radius: 16px;
+    object-fit: cover;
+}
 
-    .hero p {
-        font-size: 0.95rem;
-    }
+.offers-grid img {
+    height: 260px !important;
+    width: 85% !important;
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 12px;
+}
 
-    .section-title {
-        font-size: 1.5rem;
-    }
+.card img,
+.hotel-card img {
+    height: 300px !important;
+    width: 85% !important;
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 12px;
+}
 
-    .destinations-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .search-form {
-        gap: 1rem;
-    }
-
-    .search-bar {
-        padding: 1.5rem;
-    }
-
-    footer {
-        padding: 3rem 1.5rem 1.5rem;
-    }
+.attraction-card img {
+    height: 260px !important;
+    width: 85% !important;
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 12px;
 }
