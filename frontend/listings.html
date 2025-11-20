@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+
+<!-- Hotel Cards -->
+<div class="cards-grid" id="hotelsList"></div>
+</div>
+</section>
+
+
+<script>
+let hotelsData = [];
+
+
+async function loadHotels() {
+const res = await fetch("hotels.json");
+hotelsData = await res.json();
+showHotels();
+}
+
+
+function showHotels() {
+const maxPrice = parseInt(document.getElementById('maxPrice').value);
+const minRating = parseFloat(document.getElementById('minRating').value);
+const sortBy = document.getElementById('sortBy').value;
+
+
+let filtered = hotelsData.filter(h => h.price <= maxPrice && h.rating >= minRating);
+
+
+if (sortBy === "price-low") filtered.sort((a,b)=>a.price-b.price);
+if (sortBy === "price-high") filtered.sort((a,b)=>b.price-a.price);
+if (sortBy === "rating") filtered.sort((a,b)=>b.rating-a.rating);
+
+
+document.getElementById('resultsInfo').textContent = `Found ${filtered.length} hotels`;
+
+
+document.getElementById('hotelsList').innerHTML = filtered.map(hotel => `
+<div class='card' onclick='view(${hotel.id})'>
+<img src="${hotel.image}" />
+<div class='card-body'>
+<h3>${hotel.name}</h3>
+<p class='muted'>${hotel.location} — ⭐ ${hotel.rating}</p>
+<p class='price'>$${hotel.price}/night</p>
+</div>
+</div>
+`).join('');
+}
+
+
+function view(id) {
+localStorage.setItem("selectedHotel", id);
+location.href = "hotel.html";
+}
+
+
+document.getElementById('maxPrice').oninput = e => {
+document.getElementById('maxPriceLabel').textContent = e.target.value;
+showHotels();
+};
+document.getElementById('minRating').onchange = showHotels;
+document.getElementById('sortBy').onchange = showHotels;
+
+
+loadHotels();
+</script>
+</body>
+</html>

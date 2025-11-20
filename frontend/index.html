@@ -1,203 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>StaySphere — Experience something new</title>
-
-
-   <link rel="stylesheet" href="style.css">
-
-
-
-
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StaySphere — Experience Luxury Travel</title>
+  
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <header class="nav">
-    <div class="nav-inner">
-      <div class="brand">
+  <!-- =====================================================
+       NAVIGATION
+       ===================================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
         <span class="brand-icon">🌍</span>
         <span class="brand-name">BookMyStay</span>
-      </div>
+      </a>
 
-      <nav class="nav-links">
-        <a href="#">Home</a>
-        <a href="#offers">Offers</a>
-        <a href="#popular">Popular</a>
-        <a href="#contact">Contact</a>
-        <button id="themeToggle" class="btn-ghost">Dark</button>
-      </nav>
+      <ul class="nav-menu">
+        <li><a href="#"><span>Home</span></a></li>
+        <li><a href="#offers"><span>Offers</span></a></li>
+        <li><a href="#popular"><span>Hotels</span></a></li>
+        <li><a href="#attractions"><span>Explore</span></a></li>
+        <li><a href="#contact"><span>Contact</span></a></li>
+        <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+      </ul>
     </div>
-  </header>
+  </nav>
 
-  <!-- ===== MAIN CONTENT ===== -->
-  <main>
+  <!-- =====================================================
+       HERO SECTION
+       ===================================================== -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>Experience something new every moment</h1>
+        <p class="lead">
+          Escape to a place where you can relax and unwind, rejuvenate, and reconnect with nature. 
+          Your perfect getaway awaits with world-class amenities and breathtaking views.
+        </p>
+      </div>
 
-    <!-- ========= HERO SECTION =========== -->
-    <section class="hero">
-      <div class="hero-inner">
-
-        <div class="hero-media">
-          <img src="assets/hero.jpg" alt="resort pool" class="hero-img"/>
-        </div>
-
-        <div class="hero-content">
-          <h1>Experience something new every moment</h1>
-          <p class="lead">
-            Escape to a place where you can relax and unwind, rejuvenate, and reconnect.
-          </p>
-
-          <!-- Search card -->
-          <form class="search-card" id="searchForm">
-            <div class="search-row">
-
-              <label>
-                <span class="small">Location</span>
-                <input type="text" id="location" placeholder="Bali, Indonesia"/>
-              </label>
-
-              <label>
-                <span class="small">Check In</span>
-                <input type="date" id="checkin"/>
-              </label>
-
-              <label>
-                <span class="small">Check Out</span>
-                <input type="date" id="checkout"/>
-              </label>
-
-              <label>
-                <span class="small">Guests</span>
-                <select id="guests">
-                  <option>1 Room, 1 Guest</option>
-                  <option>1 Room, 2 Guests</option>
-                  <option>1 Room, 3 Guests</option>
-                </select>
-              </label>
-
-              <button class="btn-primary" type="submit">Search</button>
-            </div>
-          </form>
-
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&h=800&fit=crop" alt="Luxury Resort Pool">
+        <div class="hero-badge">
+          <div class="hero-badge-title">Starting From</div>
+          <div class="hero-badge-value">$99/night</div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ========= OFFERS SECTION =========== -->
-    <section id="offers" class="section has-bg">
-      <div class="container">
+  <!-- =====================================================
+       SEARCH BAR
+       ===================================================== -->
+  <div class="search-wrapper">
+    <form class="search-card" id="searchForm">
+      <div class="search-row">
+        <label>
+          <span class="small">📍 Location</span>
+          <input type="text" id="location" placeholder="Bali, Indonesia" required>
+        </label>
 
-        <div class="section-head">
-          <h2>Best offer this month</h2>
-          <p class="muted">This can be a detailed description or just a short text.</p>
-        </div>
+        <label>
+          <span class="small">📅 Check In</span>
+          <input type="date" id="checkin" required>
+        </label>
 
-        <div class="offers-grid">
+        <label>
+          <span class="small">📅 Check Out</span>
+          <input type="date" id="checkout" required>
+        </label>
 
-          <article class="offer-card">
-            <img src="assets/off1.jpg" alt="offer"/>
-            <div class="offer-body">
-              <h3>50% Off</h3>
-              <p>Short description about the offer and why users should book.</p>
-              <a class="btn-ghost" href="#">Book Now</a>
-            </div>
-          </article>
+        <label>
+          <span class="small">👥 Guests</span>
+          <select id="guests">
+            <option>1 Room, 1 Guest</option>
+            <option>1 Room, 2 Guests</option>
+            <option>1 Room, 3 Guests</option>
+            <option>1 Room, 4 Guests</option>
+            <option>2 Rooms, 4 Guests</option>
+          </select>
+        </label>
 
-          <article class="offer-card">
-            <img src="assets/off2.jpg" alt="offer"/>
-            <div class="offer-body">
-              <h3>30% Off</h3>
-              <p>Short description about the offer and why users should book.</p>
-              <a class="btn-ghost" href="#">Book Now</a>
-            </div>
-          </article>
-
-        </div>
+        <button class="btn-primary" type="submit">🔍 Search</button>
       </div>
-    </section>
+    </form>
+  </div>
 
-    <!-- ========= POPULAR HOTELS =========== -->
-    <section id="popular" class="section">
-      <div class="container">
-
-        <div class="section-head">
-          <h2>Explore popular hotel</h2>
-          <p class="muted">Handpicked stays for you</p>
-        </div>
-
-        <div class="cards-grid">
-          <article class="card">
-            <img src="assets/h1.jpg" alt="hotel"/>
-            <div class="card-body">
-              <h3>Sea Breeze Resort</h3>
-              <p class="muted">Bali, Indonesia — ⭐ 4.7</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img src="assets/h2.jpg" alt="hotel"/>
-            <div class="card-body">
-              <h3>Mountain Retreat</h3>
-              <p class="muted">Goa, India — ⭐ 4.6</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <img src="assets/h3.jpg" alt="hotel"/>
-            <div class="card-body">
-              <h3>Urban Stay</h3>
-              <p class="muted">Bengaluru, India — ⭐ 4.5</p>
-            </div>
-          </article>
-        </div>
-
+  <!-- =====================================================
+       OFFERS SECTION
+       ===================================================== -->
+  <section id="offers" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Best Offers This Month</h2>
+        <p>Exclusive deals and discounts on luxury stays. Book now and save big on your dream vacation!</p>
       </div>
-    </section>
 
-  </main>
+      <div class="offers-grid">
+        <article class="offer-card">
+          <div class="offer-badge">50% OFF</div>
+          <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop" alt="Luxury Beach Resort">
+          <div class="offer-body">
+            <h3>Tropical Paradise Escape</h3>
+            <p>Experience the ultimate beach getaway with pristine waters, golden sands, and world-class service. Limited time offer on all ocean-view suites.</p>
+            <a class="btn-ghost" href="#">Book Now →</a>
+          </div>
+        </article>
 
-  <!-- ========= FOOTER =========== -->
+        <article class="offer-card">
+          <div class="offer-badge">30% OFF</div>
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop" alt="Mountain Resort">
+          <div class="offer-body">
+            <h3>Mountain Retreat Package</h3>
+            <p>Escape to the serene mountains with breathtaking views, cozy fireplaces, and peaceful surroundings. Perfect for a rejuvenating getaway.</p>
+            <a class="btn-ghost" href="#">Book Now →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       POPULAR HOTELS SECTION
+       ===================================================== -->
+  <section id="popular" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Explore Popular Hotels</h2>
+        <p>Handpicked luxury stays with exceptional reviews and unforgettable experiences</p>
+      </div>
+
+      <div class="cards-grid">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop" alt="Sea Breeze Resort">
+          <div class="card-body">
+            <h3>Sea Breeze Resort</h3>
+            <p class="muted">📍 Bali, Indonesia · ⭐ 4.8 (324 reviews)</p>
+            <div class="card-price">
+              <div>
+                <div class="price-tag">$129</div>
+                <div class="price-period">per night</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop" alt="Mountain Retreat">
+          <div class="card-body">
+            <h3>Mountain Retreat Lodge</h3>
+            <p class="muted">📍 Swiss Alps, Switzerland · ⭐ 4.9 (198 reviews)</p>
+            <div class="card-price">
+              <div>
+                <div class="price-tag">$189</div>
+                <div class="price-period">per night</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&h=600&fit=crop" alt="Urban Stay">
+          <div class="card-body">
+            <h3>Urban Luxury Hotel</h3>
+            <p class="muted">📍 New York, USA · ⭐ 4.7 (512 reviews)</p>
+            <div class="card-price">
+              <div>
+                <div class="price-tag">$159</div>
+                <div class="price-period">per night</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1596436889106-be35e843f974?w=800&h=600&fit=crop" alt="Desert Oasis">
+          <div class="card-body">
+            <h3>Desert Oasis Resort</h3>
+            <p class="muted">📍 Dubai, UAE · ⭐ 4.9 (287 reviews)</p>
+            <div class="card-price">
+              <div>
+                <div class="price-tag">$249</div>
+                <div class="price-period">per night</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&h=600&fit=crop" alt="Island Paradise">
+          <div class="card-body">
+            <h3>Island Paradise Resort</h3>
+            <p class="muted">📍 Maldives · ⭐ 5.0 (421 reviews)</p>
+            <div class="card-price">
+              <div>
+                <div class="price-tag">$299</div>
+                <div class="price-period">per night</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1549294413-26f195200c16?w=800&h=600&fit=crop" alt="Countryside Villa">
+          <div class="card-body">
+            <h3>Countryside Villa</h3>
+            <p class="muted">📍 Tuscany, Italy · ⭐ 4.8 (356 reviews)</p>
+            <div class="card-price">
+              <div>
+                <div class="price-tag">$179</div>
+                <div class="price-period">per night</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       NEARBY ATTRACTIONS SECTION
+       ===================================================== -->
+  <section id="attractions" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Discover Nearby Attractions</h2>
+        <p>Explore exciting places and activities around your destination</p>
+      </div>
+
+      <div class="attractions-grid">
+        <article class="attraction-card">
+          <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop" alt="Beach">
+          <div class="attraction-overlay">
+            <h3>🏖️ Pristine Beaches</h3>
+            <p>Crystal clear waters and golden sands await you</p>
+          </div>
+        </article>
+
+        <article class="attraction-card">
+          <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800&h=600&fit=crop" alt="Waterfall">
+          <div class="attraction-overlay">
+            <h3>💧 Hidden Waterfalls</h3>
+            <p>Discover breathtaking natural wonders</p>
+          </div>
+        </article>
+
+        <article class="attraction-card">
+          <img src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&h=600&fit=crop" alt="Museum">
+          <div class="attraction-overlay">
+            <h3>🎨 Cultural Museums</h3>
+            <p>Explore rich history and artistic heritage</p>
+          </div>
+        </article>
+
+        <article class="attraction-card">
+          <img src="https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800&h=600&fit=crop" alt="Adventure">
+          <div class="attraction-overlay">
+            <h3>🎢 Adventure Parks</h3>
+            <p>Thrilling experiences for the whole family</p>
+          </div>
+        </article>
+
+        <article class="attraction-card">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=600&fit=crop" alt="Night Market">
+          <div class="attraction-overlay">
+            <h3>🌃 Night Markets</h3>
+            <p>Experience local culture and delicious cuisine</p>
+          </div>
+        </article>
+
+        <article class="attraction-card">
+          <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&h=600&fit=crop" alt="Monument">
+          <div class="attraction-overlay">
+            <h3>🏛️ Historic Monuments</h3>
+            <p>Walk through centuries of fascinating history</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
   <footer id="contact">
     <div class="container">
-
       <div class="footer-grid">
-
         <div>
           <h4>About BookMyStay</h4>
-          <p class="muted">Your trusted partner in creating memorable travel experiences.</p>
+          <p>Your trusted partner in creating memorable travel experiences. We connect you with the world's finest hotels and resorts, ensuring every journey is extraordinary.</p>
         </div>
 
         <div>
-          <h4>Contact</h4>
-          <p class="muted">bookMyStay09@gmail.com</p>
+          <h4>Quick Links</h4>
+          <p>About Us</p>
+          <p>Careers</p>
+          <p>Privacy Policy</p>
+          <p>Terms & Conditions</p>
         </div>
 
+        <div>
+          <h4>Contact Us</h4>
+          <p>📧 bookMyStay09@gmail.com</p>
+          <p>📞 +1 (555) 123-4567</p>
+          <p>📍 123 Travel Street, Wanderlust City</p>
+        </div>
+
+        <div>
+          <h4>Follow Us</h4>
+          <p>Stay connected for exclusive deals and travel inspiration</p>
+          <p>🌐 Facebook · Instagram · Twitter</p>
+        </div>
       </div>
 
-      <p class="copy">© 2024 BookMyStay — All rights reserved.</p>
-
+      <p class="copy">© 2024 BookMyStay — All rights reserved. Crafted with ❤️ for travelers worldwide.</p>
     </div>
   </footer>
 
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
   <script>
-    // theme toggle
-    document.getElementById('themeToggle').addEventListener('click', function(){
-      document.body.classList.toggle('dark-mode');
-      this.textContent = document.body.classList.contains('dark-mode') ? 'Light' : 'Dark';
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+      body.classList.add('dark-mode');
+      themeToggle.textContent = '☀️ Light';
+    }
+
+    themeToggle.addEventListener('click', function() {
+      body.classList.toggle('dark-mode');
+      
+      if (body.classList.contains('dark-mode')) {
+        themeToggle.textContent = '☀️ Light';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeToggle.textContent = '🌙 Dark';
+        localStorage.setItem('theme', 'light');
+      }
     });
 
-    // search redirect
-    document.getElementById('searchForm').addEventListener('submit', function(e){
+    // Navbar Scroll Effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Search Form Submission
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const value = document.getElementById('location').value;
-      localStorage.setItem('searchCity', value);
-      window.location.href = "listings.html";
+      
+      const location = document.getElementById('location').value;
+      const checkin = document.getElementById('checkin').value;
+      const checkout = document.getElementById('checkout').value;
+      const guests = document.getElementById('guests').value;
+
+      // Store search data
+      localStorage.setItem('searchCity', location);
+      localStorage.setItem('searchCheckin', checkin);
+      localStorage.setItem('searchCheckout', checkout);
+      localStorage.setItem('searchGuests', guests);
+
+      // Redirect to listings page
+      window.location.href = 'listings.html';
+    });
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Set minimum date for check-in to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('checkin').setAttribute('min', today);
+    document.getElementById('checkout').setAttribute('min', today);
+
+    // Update checkout min date when checkin changes
+    document.getElementById('checkin').addEventListener('change', function() {
+      const checkinDate = this.value;
+      document.getElementById('checkout').setAttribute('min', checkinDate);
     });
   </script>
 

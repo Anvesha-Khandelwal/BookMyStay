@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BookMyStay</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<header class="nav">
+<div class="nav-inner">
+<div class="brand"><span class="brand-icon">🌍</span>BookMyStay</div>
+<nav class="nav-links">
+<a href="index.html">Home</a>
+<a href="listings.html">Hotels</a>
+</nav>
+</div>
+</header>
+
+
+<section class="section">
+<div class="container" id="hotelContainer"></div>
+</section>
+
+
+<script>
+async function loadHotel() {
+const id = localStorage.getItem("selectedHotel");
+const res = await fetch("hotels.json");
+const data = await res.json();
+const h = data.find(x => x.id == id);
+
+
+document.getElementById('hotelContainer').innerHTML = `
+<h1>${h.name}</h1>
+<p class='muted'>${h.location} — ⭐ ${h.rating}</p>
+<img src='${h.image}' style='width:100%;border-radius:12px;margin:1rem 0;' />
+<p>${h.description}</p>
+<h2 style='margin-top:1rem'>$${h.price} / night</h2>
+<button onclick="location.href='booking.html'" class='btn-primary'>Book Now</button>
+`;
+}
+loadHotel();
+</script>
+</body>
+</html>
