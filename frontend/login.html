@@ -863,4 +863,9 @@
         }
     </script>
 </body>
-</html>
+</html><script>
+if (sortBy === "price-low") filteredHotels.sort((a,b)=> a.price - b.price);
+    if (sortBy === "price-high") filteredHotels.sort((a,b)=> b.price - a.price);
+    if (sortBy === "rating") filteredHotels.sort((a,b)=> b.rating - a.rating);
+
+    displayHotels();
