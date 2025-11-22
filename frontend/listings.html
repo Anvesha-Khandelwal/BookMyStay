@@ -1,68 +1,91 @@
-<!DOCTYPE html>
-
-
-<!-- Hotel Cards -->
-<div class="cards-grid" id="hotelsList"></div>
-</div>
-</section>
-
-
 <script>
 let hotelsData = [];
+let filteredHotels = [];
 
-
+// Load hotels JSON
 async function loadHotels() {
-const res = await fetch("hotels.json");
-hotelsData = await res.json();
-showHotels();
+    try {
+        const res = await fetch("hotels.json");   // JSON MUST be inside /frontend/
+        hotelsData = await res.json();
+        applyFilters();
+    }
+    catch (err) {
+        console.error("Error loading hotels.json", err);
+    }
 }
 
+function applyFilters() {
+    const searchCity = (localStorage.getItem("searchCity") || "").toLowerCase();
+    const maxPrice = Number(document.getElementById('maxPrice').value);
+    const minRating = Number(document.getElementById('minRating').value);
+    const sortBy = document.getElementById('sortBy').value;
 
-function showHotels() {
-const maxPrice = parseInt(document.getElementById('maxPrice').value);
-const minRating = parseFloat(document.getElementById('minRating').value);
-const sortBy = document.getElementById('sortBy').value;
+    // Main filtering
+    filteredHotels = hotelsData.filter(hotel => {
+        const matchCity = hotel.city.toLowerCase().includes(searchCity);
+        const matchPrice = hotel.price <= maxPrice;
+        const matchRating = hotel.rating >= minRating;
+        return matchCity && matchPrice && matchRating;
+    });
 
+    // Sorting
+    if (sortBy === "price-low") filteredHotels.sort((a,b)=> a.price - b.price);
+    if (sortBy === "price-high") filteredHotels.sort((a,b)=> b.price - a.price);
+    if (sortBy === "rating") filteredHotels.sort((a,b)=> b.rating - a.rating);
 
-let filtered = hotelsData.filter(h => h.price <= maxPrice && h.rating >= minRating);
-
-
-if (sortBy === "price-low") filtered.sort((a,b)=>a.price-b.price);
-if (sortBy === "price-high") filtered.sort((a,b)=>b.price-a.price);
-if (sortBy === "rating") filtered.sort((a,b)=>b.rating-a.rating);
-
-
-document.getElementById('resultsInfo').textContent = `Found ${filtered.length} hotels`;
-
-
-document.getElementById('hotelsList').innerHTML = filtered.map(hotel => `
-<div class='card' onclick='view(${hotel.id})'>
-<img src="${hotel.image}" />
-<div class='card-body'>
-<h3>${hotel.name}</h3>
-<p class='muted'>${hotel.location} — ⭐ ${hotel.rating}</p>
-<p class='price'>$${hotel.price}/night</p>
-</div>
-</div>
-`).join('');
+    displayHotels();
 }
 
+function displayHotels() {
+    const container = document.getElementById("hotelsList");
+    const count = filteredHotels.length;
 
-function view(id) {
-localStorage.setItem("selectedHotel", id);
-location.href = "hotel.html";
+    document.getElementById("resultsInfo").textContent = `Found ${count} hotel${count !== 1 ? "s" : ""}`;
+
+    if (count === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-search"></i>
+                <h3>No hotels found</h3>
+                <p>Try adjusting filters or search another location.</p>
+            </div>`;
+        return;
+    }
+
+    container.innerHTML = filteredHotels.map(hotel => `
+        <div class="card hotel-card" onclick="viewHotel(${hotel.id})">
+
+            <img src="${hotel.image}" class="hotel-img" />
+
+            <div class="card-body">
+                <h3>${hotel.name}</h3>
+
+                <p class="muted">
+                    📍 ${hotel.city} — ⭐ ${hotel.rating}
+                </p>
+
+                <p class="price">$${hotel.price}/night</p>
+            </div>
+
+        </div>
+    `).join("");
 }
 
+// When clicking a hotel card
+function viewHotel(id) {
+    localStorage.setItem("selectedHotel", id);
+    location.href = "hotel.html";
+}
 
+// Filters update instantly
 document.getElementById('maxPrice').oninput = e => {
-document.getElementById('maxPriceLabel').textContent = e.target.value;
-showHotels();
+    document.getElementById('maxPriceLabel').textContent = "$" + e.target.value;
+    applyFilters();
 };
-document.getElementById('minRating').onchange = showHotels;
-document.getElementById('sortBy').onchange = showHotels;
 
+document.getElementById('minRating').onchange = applyFilters;
+document.getElementById('sortBy').onchange = applyFilters;
 
+// Load everything
 loadHotels();
 </script>
-</body>
-</html>

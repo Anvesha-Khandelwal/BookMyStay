@@ -28,12 +28,25 @@
   },
   {
     "id": 4,
-    "name": "Lagoon Paradise",
-    "location": "Maldives",
-    "price": 220,
-    "rating": 4.8,
-    "image": "assets/h4.jpg",
-    "description": "Overwater bungalows with stunning views."
+    "name": "Downtown Boutique Hotel",
+    "location": "Union Square, CA",
+    "price": 279,
+    "rating": 4.7,
+    "reviews": 198,
+    "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
+    "images": [
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+      "https://images.unsplash.com/photo-1501117716987-c8e1ecb21047?w=800",
+      "https://images.unsplash.com/photo-1544168190-79c17527004f?w=800"
+    ],
+    "description": "A stylish boutique hotel located in the center of San Francisco with modern rooms and curated experiences.",
+    "amenities": ["WiFi", "Restaurant", "Bar", "Parking", "Gym", "City View", "Pet Friendly"],
+    "guestReviews": [
+      { "author": "Sophia Miller", "rating": "5/5", "text": "Very stylish and modern! Perfect location." },
+      { "author": "Olivia Taylor", "rating": "4.7/5", "text": "Loved the room decor and friendly staff." },
+      { "author": "Jacob Harris", "rating": "4.8/5", "text": "One of the best boutique hotels in SF." }
+    ]
   },
   {
     "id": 5,
