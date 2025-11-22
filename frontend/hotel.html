@@ -4,922 +4,755 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Details - BookMyStay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* =====================================================
-           HOTEL DETAIL PAGE - CUSTOM STYLES
-           ===================================================== */
-
-        .hotel-detail-page {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-navy) 100%);
-            min-height: 100vh;
-        }
-
-        /* =====================================================
-           BREADCRUMB
-           ===================================================== */
-
-        .hotel-breadcrumb {
-            background: rgba(26, 41, 71, 0.95);
-            border-bottom: 1px solid rgba(77, 208, 225, 0.2);
-            padding: 1rem 0;
-            position: sticky;
-            top: 60px;
-            z-index: 99;
-        }
-
-        .breadcrumb-container {
-            max-width: 1200px;
+        /* Hotel Detail Page Styles */
+        .hotel-detail-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 2rem 3rem;
+        }
+
+        /* Search Bar Mini */
+        .search-bar-mini {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem 2rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .breadcrumb-item {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            color: var(--text-secondary);
-        }
-
-        .breadcrumb-item.active {
-            color: var(--accent-cyan);
-            font-weight: 600;
-        }
-
-        .breadcrumb-separator {
-            color: var(--text-muted);
-        }
-
-        /* =====================================================
-           HOTEL DETAIL SECTION
-           ===================================================== */
-
-        .hotel-detail-section {
-            padding: 3rem 2rem 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .hotel-detail-header {
+            gap: 2rem;
             margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease-out;
+            box-shadow: var(--shadow-card);
         }
 
-        .hotel-detail-title {
-            font-size: 2.8rem;
-            font-weight: 800;
+        .search-bar-mini .search-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .search-bar-mini .search-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .search-bar-mini .search-value {
+            font-size: 0.95rem;
+            font-weight: 600;
             color: var(--text-primary);
+        }
+
+        .search-btn-mini {
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: var(--border-radius-sm);
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        /* Hotel Header */
+        .hotel-header {
+            margin-bottom: 2rem;
+        }
+
+        .hotel-title {
+            font-size: 2.2rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-
-        .hotel-detail-meta {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        .hotel-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .hotel-meta-item i {
-            color: var(--accent-cyan);
-            font-size: 1.1rem;
+            color: var(--text-primary);
         }
 
         .hotel-rating {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--accent-gold);
-            font-weight: 600;
-        }
-
-        /* =====================================================
-           IMAGE GALLERY
-           ===================================================== */
-
-        .hotel-gallery {
-            margin-bottom: 3rem;
-            animation: fadeInUp 0.8s ease-out 0.1s backwards;
-        }
-
-        .gallery-main {
-            position: relative;
-            height: 500px;
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow-card);
-            cursor: pointer;
-        }
-
-        .gallery-main img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .gallery-main:hover img {
-            transform: scale(1.05);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--accent-cyan);
-            color: var(--primary-dark);
-            padding: 0.8rem 1.2rem;
-            border-radius: var(--border-radius-sm);
-            font-weight: 700;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
             font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        .gallery-overlay:hover {
-            background: #3bbdd1;
-            transform: translateY(-2px);
+        .hotel-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 0.8rem;
         }
 
-        .gallery-thumbnails {
+        /* Gallery and Room Section */
+        .gallery-room-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
 
-        .gallery-thumbnail {
-            height: 120px;
-            border-radius: var(--border-radius-sm);
+        .gallery-item {
+            position: relative;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-input);
+            height: 280px;
         }
 
-        .gallery-thumbnail img {
+        .gallery-item.large {
+            grid-row: span 2;
+            height: 100%;
+        }
+
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
         }
 
-        .gallery-thumbnail:hover {
-            border-color: var(--accent-cyan);
+        .gallery-item:hover img {
             transform: scale(1.05);
         }
 
-        .gallery-thumbnail.active {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 0 3px rgba(77, 208, 225, 0.3);
-        }
-
-        /* =====================================================
-           CONTENT GRID
-           ===================================================== */
-
-        .hotel-content-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 3rem;
-        }
-
-        /* =====================================================
-           DETAILS COLUMN
-           ===================================================== */
-
-        .hotel-details {
-            animation: fadeInUp 0.8s ease-out 0.2s backwards;
-        }
-
-        .hotel-section {
-            background: rgba(38, 58, 90, 0.95);
-            padding: 2rem;
-            border-radius: var(--border-radius-lg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-card);
-        }
-
-        .hotel-section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .hotel-section-title i {
-            color: var(--accent-cyan);
-            font-size: 1.3rem;
-        }
-
-        .hotel-description {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .hotel-amenities {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .amenity {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 1rem;
-            background: rgba(77, 208, 225, 0.1);
-            border-radius: var(--border-radius-sm);
-            transition: all 0.3s ease;
-        }
-
-        .amenity:hover {
-            background: rgba(77, 208, 225, 0.2);
-            transform: translateX(5px);
-        }
-
-        .amenity i {
-            color: var(--accent-cyan);
-            font-size: 1.3rem;
-            min-width: 30px;
-        }
-
-        .amenity-name {
-            color: var(--text-primary);
+        .gallery-badge {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
             font-weight: 600;
-            font-size: 0.95rem;
         }
 
-        .hotel-reviews {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
+        /* Room Booking Card */
+        .room-booking-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-card);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
         }
 
-        .review-item {
-            padding: 1.5rem;
-            background: rgba(15, 24, 41, 0.6);
-            border-radius: var(--border-radius-sm);
-            border-left: 4px solid var(--accent-cyan);
+        .room-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
         }
 
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .room-capacity {
+            color: var(--text-secondary);
             margin-bottom: 0.8rem;
         }
 
-        .review-author {
-            color: var(--text-primary);
-            font-weight: 700;
-        }
-
-        .review-rating {
-            color: var(--accent-gold);
-            font-weight: 600;
-        }
-
-        .review-text {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        /* =====================================================
-           BOOKING CARD (SIDEBAR)
-           ===================================================== */
-
-        .hotel-booking-card {
-            background: rgba(38, 58, 90, 0.95);
-            padding: 2rem;
-            border-radius: var(--border-radius-lg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: var(--shadow-card);
-            position: sticky;
-            top: 120px;
-            animation: fadeInUp 0.8s ease-out 0.3s backwards;
-        }
-
-        .booking-price {
+        .room-feature {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .booking-price-amount {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--accent-cyan);
-        }
-
-        .booking-price-period {
             color: var(--text-secondary);
-            font-size: 1rem;
+            margin-bottom: 0.8rem;
         }
 
-        .booking-rating {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 1rem;
-            background: rgba(77, 208, 225, 0.1);
-            border-radius: var(--border-radius-sm);
-            margin-bottom: 1.5rem;
-        }
-
-        .booking-rating-stars {
-            display: flex;
-            gap: 0.3rem;
-            color: var(--accent-gold);
-            font-size: 1.1rem;
-        }
-
-        .booking-rating-text {
-            color: var(--text-primary);
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .booking-btn {
-            width: 100%;
-            padding: 1.3rem;
-            background: var(--accent-cyan);
-            color: var(--primary-dark);
-            border: none;
-            border-radius: var(--border-radius-sm);
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: var(--shadow-input);
-            margin-bottom: 1rem;
-        }
-
-        .booking-btn:hover {
-            background: #3bbdd1;
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .booking-features {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
+        .price-section {
+            margin: 1.5rem 0;
             padding: 1.5rem 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .booking-feature {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 0.9rem;
+        .price-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .price-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .price-amount span {
+            font-size: 1rem;
             color: var(--text-secondary);
+            font-weight: 500;
         }
 
-        .booking-feature i {
-            color: var(--accent-cyan);
-            font-size: 1.1rem;
+        .price-tax {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
         }
 
-        /* =====================================================
-           MODAL - IMAGE GALLERY
-           ===================================================== */
-
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            position: relative;
-            width: 90%;
-            max-width: 900px;
-            height: 80vh;
-            background: var(--primary-dark);
-            border-radius: var(--border-radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .modal-image {
+        .book-btn {
             width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
             background: var(--accent-cyan);
             color: var(--primary-dark);
             border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 1.5rem;
+            padding: 1.2rem;
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .modal-close:hover {
+        .book-btn:hover {
             background: #3bbdd1;
-            transform: rotate(90deg);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
         }
 
-        .modal-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(77, 208, 225, 0.9);
-            color: var(--primary-dark);
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-nav:hover {
-            background: #3bbdd1;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .modal-prev {
-            left: 1.5rem;
-        }
-
-        .modal-next {
-            right: 1.5rem;
-        }
-
-        .modal-counter {
-            position: absolute;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 0.8rem 1.5rem;
+        .more-options-btn {
+            width: 100%;
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 2px solid var(--accent-cyan);
+            padding: 0.9rem;
             border-radius: var(--border-radius-sm);
             font-weight: 700;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        /* Tabs Navigation */
+        .tabs-navigation {
+            display: flex;
+            gap: 3rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 80px;
+            background: var(--primary-dark);
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
             font-size: 1rem;
+            font-weight: 600;
+            padding: 0.8rem 0;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .tab-btn:hover,
+        .tab-btn.active {
+            color: var(--text-primary);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-cyan);
         }
 
-        /* =====================================================
-           RESPONSIVE DESIGN
-           ===================================================== */
+        /* Experiences Section */
+        .experiences-section {
+            margin: 3rem 0;
+        }
 
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title-small {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .new-badge {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-left: 0.8rem;
+        }
+
+        .experience-categories {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .category-btn {
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            border: 2px solid transparent;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: transparent;
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .experiences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .experience-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .experience-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .experience-content {
+            padding: 1.5rem;
+        }
+
+        .experience-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .experience-price-badge {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .experience-free-badge {
+            background: #4caf50;
+        }
+
+        .view-details-btn {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        /* Super Package Banner */
+        .super-package-banner {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin: 3rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .super-package-content h3 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .super-package-content p {
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Responsive */
         @media (max-width: 1024px) {
-            .hotel-content-grid {
+            .gallery-room-section {
                 grid-template-columns: 1fr;
             }
 
-            .hotel-booking-card {
+            .room-booking-card {
                 position: static;
-            }
-
-            .hotel-detail-title {
-                font-size: 2.2rem;
-            }
-
-            .gallery-main {
-                height: 400px;
             }
         }
 
         @media (max-width: 768px) {
-            .hotel-detail-section {
-                padding: 1.5rem 1rem 3rem;
-            }
-
-            .hotel-section {
-                padding: 1.5rem;
-            }
-
-            .hotel-detail-title {
-                font-size: 1.8rem;
-            }
-
-            .hotel-detail-meta {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.8rem;
-            }
-
-            .gallery-main {
-                height: 300px;
-            }
-
-            .gallery-thumbnails {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            }
-
-            .hotel-amenities {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .booking-price-amount {
-                font-size: 2rem;
-            }
-
-            .breadcrumb-container {
-                padding: 0 1rem;
-                gap: 0.5rem;
-                flex-wrap: wrap;
-            }
-
-            .modal-content {
-                width: 95%;
-                height: 70vh;
-            }
-
-            .modal-nav {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-            }
-
-            .modal-close {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hotel-detail-section {
+            .hotel-detail-container {
                 padding: 1rem;
             }
 
-            .hotel-section {
-                padding: 1.2rem;
-                margin-bottom: 1.5rem;
+            .search-bar-mini {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
             }
 
-            .hotel-detail-title {
-                font-size: 1.5rem;
+            .search-btn-mini {
+                width: 100%;
+                margin-left: 0;
             }
 
-            .hotel-section-title {
-                font-size: 1.2rem;
-            }
-
-            .gallery-main {
-                height: 250px;
-            }
-
-            .hotel-amenities {
+            .gallery-grid {
                 grid-template-columns: 1fr;
             }
 
-            .amenity {
-                padding: 0.8rem;
+            .tabs-navigation {
+                overflow-x: auto;
+                gap: 1.5rem;
             }
 
-            .booking-price-amount {
-                font-size: 1.8rem;
-            }
-
-            .booking-btn {
-                padding: 1.1rem;
-                font-size: 1rem;
-            }
-
-            .modal-content {
-                width: 100%;
-                height: 60vh;
-                border-radius: 0;
-            }
-
-            .modal-nav {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
-            }
-
-            .modal-prev {
-                left: 0.8rem;
-            }
-
-            .modal-next {
-                right: 0.8rem;
+            .experiences-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
-<body class="hotel-detail-page">
+<body>
     <!-- Navigation -->
-    <nav class="nav">
+    <nav>
         <div class="nav-container">
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <i class="fas fa-building"></i>
                 BookMyStay
-            </div>
+            </a>
             <ul class="nav-links">
-                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="listings.html"><i class="fas fa-hotel"></i> Hotels</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html">Hotels</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                    Dark
+                </button>
             </ul>
         </div>
     </nav>
 
-    <!-- Breadcrumb -->
-    <div class="hotel-breadcrumb">
-        <div class="breadcrumb-container">
-            <span class="breadcrumb-item"><a href="index.html" style="color: inherit; text-decoration: none;"><i class="fas fa-home"></i> Home</a></span>
-            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-            <span class="breadcrumb-item"><a href="listings.html" style="color: inherit; text-decoration: none;"><i class="fas fa-hotel"></i> Hotels</a></span>
-            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-            <span class="breadcrumb-item active" id="breadcrumbHotel">Hotel Details</span>
-        </div>
-    </div>
-
-    <!-- Hotel Detail Section -->
-    <section class="hotel-detail-section">
-        <div class="hotel-detail-header">
-            <h1 class="hotel-detail-title" id="hotelName">Grand Palace Hotel</h1>
-            <div class="hotel-detail-meta">
-                <div class="hotel-meta-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span id="hotelLocation">Manhattan, NY</span>
-                </div>
-                <div class="hotel-meta-item hotel-rating">
-                    <i class="fas fa-star"></i>
-                    <span id="hotelRating">4.8</span>
-                    <span id="hotelReviews">(342 reviews)</span>
-                </div>
+    <div class="hotel-detail-container">
+        <!-- Search Bar Mini -->
+        <div class="search-bar-mini">
+            <div class="search-item">
+                <div class="search-label">Property</div>
+                <div class="search-value" id="hotelName">Hyatt Ronil Goa</div>
             </div>
-        </div>
-
-        <!-- Image Gallery -->
-        <div class="hotel-gallery">
-            <div class="gallery-main" id="galleryMain" onclick="openModal()">
-                <img id="mainImage" src="" alt="Hotel">
-                <div class="gallery-overlay">
-                    <i class="fas fa-expand"></i>
-                    View All Photos
-                </div>
+            <div class="search-item">
+                <div class="search-label">Check-In</div>
+                <div class="search-value" id="displayCheckin">Mon, 24 Nov 2025</div>
             </div>
-            <div class="gallery-thumbnails" id="thumbnails"></div>
+            <div class="search-item">
+                <div class="search-label">Check-Out</div>
+                <div class="search-value" id="displayCheckout">Tue, 25 Nov 2025</div>
+            </div>
+            <div class="search-item">
+                <div class="search-label">Rooms & Guests</div>
+                <div class="search-value" id="displayGuests">1 Room, 2 Adults</div>
+            </div>
+            <button class="search-btn-mini" onclick="window.location.href='listings.html'">
+                <i class="fas fa-search"></i> SEARCH
+            </button>
         </div>
 
-        <!-- Content Grid -->
-        <div class="hotel-content-grid">
-            <!-- Details Column -->
-            <div class="hotel-details">
-                <!-- Description -->
-                <div class="hotel-section">
-                    <h2 class="hotel-section-title">
-                        <i class="fas fa-info-circle"></i>
-                        About This Hotel
-                    </h2>
-                    <p class="hotel-description" id="hotelDescription">
-                        Experience luxury in the heart of Manhattan with stunning city views and world-class amenities.
-                    </p>
-                </div>
+        <!-- Hotel Header -->
+        <div class="hotel-header">
+            <h1 class="hotel-title" id="hotelTitle">Hyatt Ronil Goa - a JdV by Hyatt</h1>
+            <div>
+                <span class="hotel-rating">
+                    <i class="fas fa-star"></i> 4.4 Excellent
+                </span>
+            </div>
+            <p class="hotel-subtitle">Vibrant resort with two pools, floating breakfast & close proximity to the beach</p>
+        </div>
 
-                <!-- Amenities -->
-                <div class="hotel-section">
-                    <h2 class="hotel-section-title">
-                        <i class="fas fa-star"></i>
-                        Amenities
-                    </h2>
-                    <div class="hotel-amenities" id="amenitiesList"></div>
+        <!-- Gallery and Room Section -->
+        <div class="gallery-room-section">
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop" alt="Hotel Pool">
+                    <div class="gallery-badge">+120 Property Photos</div>
                 </div>
-
-                <!-- Reviews -->
-                <div class="hotel-section">
-                    <h2 class="hotel-section-title">
-                        <i class="fas fa-comments"></i>
-                        Guest Reviews
-                    </h2>
-                    <div class="hotel-reviews" id="reviewsList"></div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="Hotel Drink">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=300&fit=crop" alt="Guest Photo">
+                    <div class="gallery-badge">+487 Guest Photos</div>
                 </div>
             </div>
 
-            <!-- Booking Card -->
-            <div class="hotel-booking-card">
-                <div class="booking-price">
-                    <span class="booking-price-amount" id="hotelPrice">$299</span>
-                    <span class="booking-price-period">per night</span>
+            <!-- Room Booking Card -->
+            <div class="room-booking-card">
+                <h3 class="room-title">1 KING BED WITH BALCONY</h3>
+                <p class="room-capacity">Fits 2 Adults</p>
+                <div class="room-feature">
+                    <i class="fas fa-times-circle" style="color: #ff6b6b;"></i>
+                    <span>Non-Refundable</span>
                 </div>
-
-                <div class="booking-rating">
-                    <div class="booking-rating-stars" id="ratingStars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                
+                <div class="price-section">
+                    <div class="price-label">Per Night:</div>
+                    <div class="price-amount">
+                        ₹ 7,000 <span>+ ₹ 350 taxes & fees</span>
                     </div>
-                    <span class="booking-rating-text" id="bookingRating">4.8 Excellent</span>
                 </div>
 
-                <button class="booking-btn" onclick="goToBooking()">
-                    <i class="fas fa-calendar-check"></i>
-                    Book Now
+                <button class="book-btn" onclick="alert('Booking feature coming soon!')">
+                    BOOK THIS NOW
                 </button>
+                <button class="more-options-btn" onclick="scrollToRooms()">
+                    23 More Options
+                </button>
+            </div>
+        </div>
 
-                <div class="booking-features">
-                    <div class="booking-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Free Cancellation</span>
-                    </div>
-                    <div class="booking-feature">
-                        <i class="fas fa-lock"></i>
-                        <span>Secure Booking</span>
-                    </div>
-                    <div class="booking-feature">
-                        <i class="fas fa-headset"></i>
-                        <span>24/7 Support</span>
-                    </div>
+        <!-- Tabs Navigation -->
+        <div class="tabs-navigation">
+            <button class="tab-btn active" onclick="scrollToSection('overview')">OVERVIEW</button>
+            <button class="tab-btn" onclick="scrollToSection('rooms')">ROOMS</button>
+            <button class="tab-btn" onclick="scrollToSection('location')">LOCATION</button>
+            <button class="tab-btn" onclick="scrollToSection('rules')">PROPERTY RULES</button>
+            <button class="tab-btn" onclick="scrollToSection('reviews')">USER REVIEWS</button>
+        </div>
+
+        <!-- Not-To-Miss Experiences Section -->
+        <div class="experiences-section" id="overview">
+            <div class="section-header">
+                <h2 class="section-title-small">
+                    Not-To-Miss Experiences
+                    <span class="new-badge">new</span>
+                </h2>
+            </div>
+
+            <div class="experience-categories">
+                <button class="category-btn active" onclick="filterExperiences('all')">All Experiences</button>
+                <button class="category-btn" onclick="filterExperiences('dining')">Dining Experiences</button>
+                <button class="category-btn" onclick="filterExperiences('wellness')">Wellness & Beyond</button>
+                <button class="category-btn" onclick="filterExperiences('party')">Party & Play</button>
+                <button class="category-btn" onclick="filterExperiences('heritage')">Heritage & Culture</button>
+                <button class="category-btn" onclick="filterExperiences('fun')">Fun Adventures</button>
+            </div>
+
+            <div class="experiences-grid" id="experiencesGrid">
+                <!-- Experiences will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Super Package Banner -->
+        <div class="super-package-banner">
+            <div class="super-package-content">
+                <h3>Super Package</h3>
+                <p>Enjoy benefits worth ₹ 3500 at just ₹ 1400</p>
+            </div>
+        </div>
+
+        <!-- Rooms Section -->
+        <div id="rooms" style="margin-top: 4rem;">
+            <h2 class="section-title-small">Available Rooms</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Check-in: 3 PM | Check-out: 12 PM</p>
+            <!-- Room listings will go here -->
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>About BookMyStay</h4>
+                    <p>Your trusted partner in creating memorable travel experiences.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <p><a href="#">About Us</a></p>
+                    <p><a href="#">Careers</a></p>
+                    <p><a href="#">Privacy Policy</a></p>
+                </div>
+                <div>
+                    <h4>Contact Us</h4>
+                    <p>📧 bookMyStay09@gmail.com</p>
+                    <p>📞 +91 7568937915</p>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Image Gallery Modal -->
-    <div class="modal" id="imageModal">
-        <div class="modal-content">
-            <img class="modal-image" id="modalImage" src="" alt="Hotel">
-            <button class="modal-nav modal-prev" onclick="prevImage()">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="modal-nav modal-next" onclick="nextImage()">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            <button class="modal-close" onclick="closeModal()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-counter">
-                <span id="modalCounter">1 / 3</span>
-            </div>
-        </div>
-    </div>
+    </footer>
 
     <script>
-        let currentHotel = null;
-        let currentImageIndex = 0;
-        let allImages = [];
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
+        }
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark';
+                localStorage.setItem('theme', 'light');
+            }
+        });
 
-        // Sample hotels data with multiple images
-        const hotelsData = [
+        // Experience Data
+        const experiences = [
             {
                 id: 1,
-                name: "Grand Palace Hotel",
-                city: "New York",
-                location: "Manhattan, NY",
-                price: 299,
-                rating: 4.8,
-                reviews: 342,
-                image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800",
-                images: [
-                    "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800",
-                    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800",
-                    "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=800",
-                    "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800"
-                ],
-                description: "Experience luxury in the heart of Manhattan with stunning city views and world-class amenities. Our Grand Palace Hotel offers elegant rooms, fine dining, and exceptional service.",
-                amenities: ["WiFi", "Pool", "Spa", "Restaurant", "Gym", "Parking", "Bar", "Business Center"],
-                reviews: [
-                    { author: "Sarah Johnson", rating: "5/5", text: "Amazing experience! The staff was incredibly helpful and the views were breathtaking." },
-                    { author: "Michael Brown", rating: "4.5/5", text: "Great hotel with excellent service. Highly recommended for business travelers." },
-                    { author: "Emma Davis", rating: "5/5", text: "Beautiful property and perfect location. Will definitely come back!" }
-                ]
+                category: 'dining',
+                title: 'Floating Breakfast',
+                description: 'Elegant breakfast spread served on a floating tray in the pool.',
+                price: 'CHARGEABLE',
+                image: 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400&h=300&fit=crop'
             },
             {
                 id: 2,
-                name: "Sunset Beach Resort",
-                city: "Miami",
-                location: "South Beach, FL",
-                price: 249,
-                rating: 4.6,
-                reviews: 289,
-                image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
-                images: [
-                    "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800",
-                    "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800",
-                    "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800",
-                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800"
-                ],
-                description: "Oceanfront paradise with pristine beaches and breathtaking sunset views. Perfect for a relaxing getaway with direct beach access.",
-                amenities: ["WiFi", "Beach Access", "Pool", "Bar", "Restaurant", "Spa", "Water Sports"],
-                reviews: [
-                    { author: "James Wilson", rating: "5/5", text: "Best beach resort ever! Food was amazing and staff very friendly." },
-                    { author: "Lisa Anderson", rating: "4.5/5", text: "Wonderful views and great atmosphere. A perfect vacation spot." },
-                    { author: "David Martinez", rating: "5/5", text: "Outstanding service and beautiful location. Worth every penny!" }
-                ]
+                category: 'party',
+                title: 'Firepit & S\'mores',
+                description: 'Cosy evening by the fire with s\'mores under starlit skies.',
+                price: 'FREE',
+                image: 'https://images.unsplash.com/photo-1520962922320-2038ff3a3929?w=400&h=300&fit=crop'
             },
             {
                 id: 3,
-                name: "Mountain View Lodge",
-                city: "Denver",
-                location: "Rocky Mountains, CO",
-                price: 199,
-                rating: 4.9,
-                reviews: 456,
-                image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800",
-                images: [
-                    "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800",
-                    "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800",
-                    "https://images.unsplash.com/photo-1596436889106-be35e843f974?w=800",
-                    "https://images.unsplash.com/photo-1618271472829-4119dfa3f13e?w=800"
-                ],
-                description: "Cozy mountain retreat with spectacular views and outdoor adventures. Enjoy skiing, hiking, and the beauty of the Rocky Mountains.",
-                amenities: ["WiFi", "Fireplace", "Hiking", "Restaurant", "Spa", "Mountain View", "Ski Access"],
-                reviews: [
-                    { author: "Thomas Lee", rating: "5/5", text: "Spectacular mountain views! The lodge is cozy and perfect for outdoor activities." },
-                    { author: "Rachel Green", rating: "4.9/5", text: "Amazing nature and excellent service. Unforgettable experience." },
-                    { author: "Daniel White", rating: "5/5", text: "Best mountain getaway. Highly recommend for adventure seekers!" }
-                ]
+                category: 'dining',
+                title: 'BBQ Picnic by the Pool',
+                description: 'Garden-side grilling with refreshing slushies and craft beer.',
+                price: 'CHARGEABLE',
+                image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop'
             },
             {
                 id: 4,
-                name: "Downtown Boutique Hotel",
-                city: "San Francisco",
-                location: "Union Square, CA",
-                price: 279,
-                rating: 4.7,
-                reviews: 198,
-                image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
-                images: [
-                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
-                    "https://images.unsplash.com/photo-1560448070-8b6f3f3b3f3f?w=800",
-                    "https://images.unsplash.com/photo-1582719478250-c89cae4    dc85b?w=800",
-                    "https://images.unsplash.com/photo-1595576508898-0ad5c                      c879a061?w=800"
-                ],                                                                                                                                                                                                      
+                category: 'wellness',
+                title: 'Yoga by the Beach',
+                description: 'Morning yoga sessions with ocean views and fresh sea breeze.',
+                price: 'FREE',
+                image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=300&fit=crop'
+            },
+            {
+                id: 5,
+                category: 'fun',
+                title: 'Water Sports Adventure',
+                description: 'Exciting water activities including jet ski, parasailing and more.',
+                price: 'CHARGEABLE',
+                image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop'
+            },
+            {
+                id: 6,
+                category: 'heritage',
+                title: 'Local Culture Tour',
+                description: 'Explore local heritage sites and traditional Goan architecture.',
+                price: 'CHARGEABLE',
+                image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=300&fit=crop'
+            }
+        ];
+
+        // Load Experiences
+        function loadExperiences(filter = 'all') {
+            const grid = document.getElementById('experiencesGrid');
+            const filtered = filter === 'all' ? experiences : experiences.filter(exp => exp.category === filter);
+            
+            grid.innerHTML = filtered.map(exp => `
+                <div class="experience-card">
+                    <div class="experience-image">
+                        <img src="${exp.image}" alt="${exp.title}">
+                    </div>
+                    <div class="experience-content">
+                        <h3 class="experience-title">${exp.title}</h3>
+                        <p class="experience-description">${exp.description}</p>
+                        <span class="experience-price-badge ${exp.price === 'FREE' ? 'experience-free-badge' : ''}">${exp.price}</span>
+                        <a href="#" class="view-details-btn">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Experiences
+        function filterExperiences(category) {
+            loadExperiences(category);
+            
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Scroll to Section
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Update active tab
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function scrollToRooms() {
+            scrollToSection('rooms');
+        }
+
+        // Initialize
+        loadExperiences();
+    </script>
+</body>
+</html>
