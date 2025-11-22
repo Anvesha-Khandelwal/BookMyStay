@@ -8,103 +8,150 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Hotel Detail Page Styles */
+        /* Hotel Detail - Aesthetic Professional Design */
+        
+        body {
+            background: var(--bg-secondary);
+        }
+
         .hotel-detail-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem 3rem;
+            padding: 2.5rem 3rem;
         }
 
-        /* Search Bar Mini */
+        /* Breadcrumb & Search Mini */
+        .breadcrumb {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
         .search-bar-mini {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 1.5rem 2rem;
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: 1.8rem 2.5rem;
             display: flex;
             align-items: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
             box-shadow: var(--shadow-card);
+            border: 1px solid var(--border-light);
+            flex-wrap: wrap;
         }
 
-        .search-bar-mini .search-item {
+        .search-item {
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
+            gap: 0.4rem;
         }
 
-        .search-bar-mini .search-label {
+        .search-label {
             font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
         }
 
-        .search-bar-mini .search-value {
-            font-size: 0.95rem;
+        .search-value {
+            font-size: 1rem;
             font-weight: 600;
-            color: var(--text-primary);
+            color: var(--primary);
         }
 
         .search-btn-mini {
-            background: var(--accent-cyan);
-            color: var(--primary-dark);
+            background: var(--accent);
+            color: white;
             border: none;
-            padding: 0.9rem 2rem;
-            border-radius: var(--border-radius-sm);
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-md);
             font-weight: 700;
             cursor: pointer;
             margin-left: auto;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .search-btn-mini:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
         }
 
         /* Hotel Header */
         .hotel-header {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .hotel-title {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
+            margin-bottom: 1rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .hotel-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
         }
 
         .hotel-rating {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: var(--accent-cyan);
-            color: var(--primary-dark);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
+            gap: 0.6rem;
+            background: var(--accent-teal);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(107, 207, 127, 0.3);
         }
 
         .hotel-subtitle {
             color: var(--text-secondary);
-            font-size: 1rem;
+            font-size: 1.05rem;
             margin-top: 0.8rem;
+            line-height: 1.7;
         }
 
-        /* Gallery and Room Section */
+        /* Gallery Section */
         .gallery-room-section {
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
         }
 
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .gallery-item {
             position: relative;
-            border-radius: var(--border-radius);
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            height: 280px;
+            height: 300px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
         }
 
         .gallery-item.large {
@@ -116,72 +163,91 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease;
         }
 
         .gallery-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .gallery-badge {
             position: absolute;
-            bottom: 1rem;
-            left: 1rem;
-            background: rgba(0, 0, 0, 0.8);
+            bottom: 1.5rem;
+            left: 1.5rem;
+            background: rgba(45, 52, 54, 0.92);
+            backdrop-filter: blur(10px);
             color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
             font-size: 0.9rem;
             font-weight: 600;
+            box-shadow: var(--shadow-md);
         }
 
         /* Room Booking Card */
         .room-booking-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            box-shadow: var(--shadow-card);
+            background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
             height: fit-content;
             position: sticky;
             top: 100px;
+            border: 1px solid var(--border-light);
         }
 
         .room-title {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+            color: var(--primary);
+            letter-spacing: -0.3px;
         }
 
         .room-capacity {
             color: var(--text-secondary);
-            margin-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+        }
+
+        .room-features {
+            margin-bottom: 1.5rem;
         }
 
         .room-feature {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             color: var(--text-secondary);
             margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .room-feature i {
+            font-size: 1.1rem;
         }
 
         .price-section {
-            margin: 1.5rem 0;
-            padding: 1.5rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            border: 2px dashed var(--border-medium);
         }
 
         .price-label {
             font-size: 0.85rem;
             color: var(--text-muted);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
         }
 
         .price-amount {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            color: var(--text-primary);
+            color: var(--accent);
         }
 
         .price-amount span {
@@ -190,56 +256,60 @@
             font-weight: 500;
         }
 
-        .price-tax {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 0.3rem;
-        }
-
         .book-btn {
             width: 100%;
-            background: var(--accent-cyan);
-            color: var(--primary-dark);
+            background: var(--accent);
+            color: white;
             border: none;
-            padding: 1.2rem;
-            border-radius: var(--border-radius-sm);
-            font-size: 1rem;
+            padding: 1.3rem;
+            border-radius: var(--radius-md);
+            font-size: 1.05rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
         }
 
         .book-btn:hover {
-            background: #3bbdd1;
+            background: var(--accent-dark);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
+            box-shadow: 0 6px 24px rgba(255, 107, 107, 0.4);
         }
 
         .more-options-btn {
             width: 100%;
             background: transparent;
-            color: var(--accent-cyan);
-            border: 2px solid var(--accent-cyan);
-            padding: 0.9rem;
-            border-radius: var(--border-radius-sm);
-            font-weight: 700;
+            color: var(--primary);
+            border: 2px solid var(--border-medium);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
             cursor: pointer;
             margin-top: 1rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .more-options-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
 
         /* Tabs Navigation */
         .tabs-navigation {
             display: flex;
-            gap: 3rem;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 2rem;
+            gap: 3.5rem;
+            border-bottom: 2px solid var(--border-light);
+            margin-bottom: 3.5rem;
             position: sticky;
             top: 80px;
-            background: var(--primary-dark);
+            background: var(--bg-secondary);
             z-index: 100;
-            padding: 1rem 0;
+            padding: 1.2rem 0;
         }
 
         .tab-btn {
@@ -252,11 +322,13 @@
             cursor: pointer;
             position: relative;
             transition: color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .tab-btn:hover,
         .tab-btn.active {
-            color: var(--text-primary);
+            color: var(--primary);
         }
 
         .tab-btn.active::after {
@@ -266,85 +338,111 @@
             left: 0;
             width: 100%;
             height: 3px;
-            background: var(--accent-cyan);
+            background: var(--accent);
+            border-radius: 2px;
         }
 
         /* Experiences Section */
         .experiences-section {
-            margin: 3rem 0;
+            margin: 4rem 0;
         }
 
         .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .section-title-small {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            letter-spacing: -0.5px;
         }
 
         .new-badge {
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #ffb700 100%);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            margin-left: 0.8rem;
+            box-shadow: 0 2px 8px rgba(255, 217, 61, 0.4);
         }
 
         .experience-categories {
             display: flex;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             overflow-x: auto;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.8rem;
+        }
+
+        .experience-categories::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .experience-categories::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+        }
+
+        .experience-categories::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
         }
 
         .category-btn {
-            background: var(--card-bg);
+            background: var(--bg-primary);
             color: var(--text-secondary);
-            border: 2px solid transparent;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
+            border: 2px solid var(--border-light);
+            padding: 0.9rem 1.8rem;
+            border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
 
-        .category-btn:hover,
+        .category-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
         .category-btn.active {
-            background: transparent;
-            border-color: var(--accent-cyan);
-            color: var(--accent-cyan);
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
         }
 
         .experiences-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 2.5rem;
         }
 
         .experience-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
             overflow: hidden;
             box-shadow: var(--shadow-card);
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-light);
         }
 
         .experience-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
         }
 
         .experience-image {
-            height: 200px;
+            height: 240px;
             overflow: hidden;
         }
 
@@ -352,71 +450,123 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .experience-card:hover .experience-image img {
+            transform: scale(1.1);
         }
 
         .experience-content {
-            padding: 1.5rem;
+            padding: 1.8rem;
         }
 
         .experience-title {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+            color: var(--primary);
+            letter-spacing: -0.3px;
         }
 
         .experience-description {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
         }
 
         .experience-price-badge {
             display: inline-block;
             background: var(--accent-gold);
-            color: var(--primary-dark);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            color: var(--primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
             font-weight: 700;
             font-size: 0.85rem;
             text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(255, 217, 61, 0.3);
         }
 
         .experience-free-badge {
-            background: #4caf50;
+            background: var(--accent-teal);
+            color: white;
+            box-shadow: 0 2px 8px rgba(107, 207, 127, 0.3);
         }
 
         .view-details-btn {
-            color: var(--accent-cyan);
+            color: var(--accent);
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            margin-top: 0.8rem;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .view-details-btn:hover {
+            gap: 0.8rem;
+            color: var(--accent-dark);
         }
 
         /* Super Package Banner */
         .super-package-banner {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin: 3rem 0;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #ffb700 100%);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem 3rem;
+            margin: 4rem 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 8px 32px rgba(255, 217, 61, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .super-package-banner::before {
+            content: '🎁';
+            position: absolute;
+            right: 2rem;
+            bottom: 1rem;
+            font-size: 8rem;
+            opacity: 0.15;
+        }
+
+        .super-package-content {
+            position: relative;
+            z-index: 1;
         }
 
         .super-package-content h3 {
-            color: var(--primary-dark);
-            font-size: 1.5rem;
+            color: var(--primary);
+            font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
         }
 
         .super-package-content p {
-            color: var(--primary-dark);
-            font-size: 1.1rem;
+            color: var(--primary);
+            font-size: 1.15rem;
             font-weight: 600;
+        }
+
+        /* Rooms Section */
+        .rooms-section {
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 2px solid var(--border-light);
+        }
+
+        .rooms-section-info {
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         /* Responsive */
@@ -432,13 +582,14 @@
 
         @media (max-width: 768px) {
             .hotel-detail-container {
-                padding: 1rem;
+                padding: 1.5rem;
             }
 
             .search-bar-mini {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.2rem;
                 align-items: flex-start;
+                padding: 1.5rem;
             }
 
             .search-btn-mini {
@@ -450,13 +601,22 @@
                 grid-template-columns: 1fr;
             }
 
+            .gallery-item.large {
+                grid-row: span 1;
+                height: 300px;
+            }
+
             .tabs-navigation {
                 overflow-x: auto;
-                gap: 1.5rem;
+                gap: 2rem;
             }
 
             .experiences-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .hotel-title {
+                font-size: 2rem;
             }
         }
     </style>
@@ -483,22 +643,27 @@
     </nav>
 
     <div class="hotel-detail-container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> / <a href="listings.html">Hotels</a> / <span>Hyatt Ronil Goa</span>
+        </div>
+
         <!-- Search Bar Mini -->
         <div class="search-bar-mini">
             <div class="search-item">
-                <div class="search-label">Property</div>
+                <div class="search-label"><i class="fas fa-map-marker-alt"></i> Property</div>
                 <div class="search-value" id="hotelName">Hyatt Ronil Goa</div>
             </div>
             <div class="search-item">
-                <div class="search-label">Check-In</div>
+                <div class="search-label"><i class="fas fa-calendar"></i> Check-In</div>
                 <div class="search-value" id="displayCheckin">Mon, 24 Nov 2025</div>
             </div>
             <div class="search-item">
-                <div class="search-label">Check-Out</div>
+                <div class="search-label"><i class="fas fa-calendar"></i> Check-Out</div>
                 <div class="search-value" id="displayCheckout">Tue, 25 Nov 2025</div>
             </div>
             <div class="search-item">
-                <div class="search-label">Rooms & Guests</div>
+                <div class="search-label"><i class="fas fa-users"></i> Rooms & Guests</div>
                 <div class="search-value" id="displayGuests">1 Room, 2 Adults</div>
             </div>
             <button class="search-btn-mini" onclick="window.location.href='listings.html'">
@@ -508,8 +673,8 @@
 
         <!-- Hotel Header -->
         <div class="hotel-header">
-            <h1 class="hotel-title" id="hotelTitle">Hyatt Ronil Goa - a JdV by Hyatt</h1>
-            <div>
+            <h1 class="hotel-title">Hyatt Ronil Goa - a JdV by Hyatt</h1>
+            <div class="hotel-meta">
                 <span class="hotel-rating">
                     <i class="fas fa-star"></i> 4.4 Excellent
                 </span>
@@ -522,38 +687,49 @@
             <div class="gallery-grid">
                 <div class="gallery-item large">
                     <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop" alt="Hotel Pool">
-                    <div class="gallery-badge">+120 Property Photos</div>
+                    <div class="gallery-badge"><i class="fas fa-images"></i> +120 Property Photos</div>
                 </div>
                 <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="Hotel Drink">
                 </div>
                 <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=300&fit=crop" alt="Guest Photo">
-                    <div class="gallery-badge">+487 Guest Photos</div>
+                    <div class="gallery-badge"><i class="fas fa-camera"></i> +487 Guest Photos</div>
                 </div>
             </div>
 
             <!-- Room Booking Card -->
             <div class="room-booking-card">
                 <h3 class="room-title">1 KING BED WITH BALCONY</h3>
-                <p class="room-capacity">Fits 2 Adults</p>
-                <div class="room-feature">
-                    <i class="fas fa-times-circle" style="color: #ff6b6b;"></i>
-                    <span>Non-Refundable</span>
+                <p class="room-capacity"><i class="fas fa-users"></i> Fits 2 Adults</p>
+                
+                <div class="room-features">
+                    <div class="room-feature">
+                        <i class="fas fa-times-circle" style="color: #ff6b6b;"></i>
+                        <span>Non-Refundable</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-wifi" style="color: #6bcf7f;"></i>
+                        <span>Free WiFi</span>
+                    </div>
+                    <div class="room-feature">
+                        <i class="fas fa-utensils" style="color: #6bcf7f;"></i>
+                        <span>Breakfast Included</span>
+                    </div>
                 </div>
                 
                 <div class="price-section">
-                    <div class="price-label">Per Night:</div>
+                    <div class="price-label"><i class="fas fa-tag"></i> Per Night:</div>
                     <div class="price-amount">
                         ₹ 7,000 <span>+ ₹ 350 taxes & fees</span>
                     </div>
                 </div>
 
                 <button class="book-btn" onclick="alert('Booking feature coming soon!')">
-                    BOOK THIS NOW
+                    <i class="fas fa-check-circle"></i> BOOK THIS NOW
                 </button>
                 <button class="more-options-btn" onclick="scrollToRooms()">
-                    23 More Options
+                    <i class="fas fa-th-large"></i> 23 More Options
                 </button>
             </div>
         </div>
@@ -563,46 +739,45 @@
             <button class="tab-btn active" onclick="scrollToSection('overview')">OVERVIEW</button>
             <button class="tab-btn" onclick="scrollToSection('rooms')">ROOMS</button>
             <button class="tab-btn" onclick="scrollToSection('location')">LOCATION</button>
-            <button class="tab-btn" onclick="scrollToSection('rules')">PROPERTY RULES</button>
-            <button class="tab-btn" onclick="scrollToSection('reviews')">USER REVIEWS</button>
+            <button class="tab-btn" onclick="scrollToSection('rules')">RULES</button>
+            <button class="tab-btn" onclick="scrollToSection('reviews')">REVIEWS</button>
         </div>
 
-        <!-- Not-To-Miss Experiences Section -->
+        <!-- Not-To-Miss Experiences -->
         <div class="experiences-section" id="overview">
             <div class="section-header">
                 <h2 class="section-title-small">
                     Not-To-Miss Experiences
-                    <span class="new-badge">new</span>
+                    <span class="new-badge">NEW</span>
                 </h2>
             </div>
 
             <div class="experience-categories">
                 <button class="category-btn active" onclick="filterExperiences('all')">All Experiences</button>
-                <button class="category-btn" onclick="filterExperiences('dining')">Dining Experiences</button>
-                <button class="category-btn" onclick="filterExperiences('wellness')">Wellness & Beyond</button>
+                <button class="category-btn" onclick="filterExperiences('dining')">Dining</button>
+                <button class="category-btn" onclick="filterExperiences('wellness')">Wellness</button>
                 <button class="category-btn" onclick="filterExperiences('party')">Party & Play</button>
-                <button class="category-btn" onclick="filterExperiences('heritage')">Heritage & Culture</button>
-                <button class="category-btn" onclick="filterExperiences('fun')">Fun Adventures</button>
+                <button class="category-btn" onclick="filterExperiences('heritage')">Heritage</button>
+                <button class="category-btn" onclick="filterExperiences('fun')">Adventures</button>
             </div>
 
-            <div class="experiences-grid" id="experiencesGrid">
-                <!-- Experiences will be loaded here -->
-            </div>
+            <div class="experiences-grid" id="experiencesGrid"></div>
         </div>
 
         <!-- Super Package Banner -->
         <div class="super-package-banner">
             <div class="super-package-content">
-                <h3>Super Package</h3>
-                <p>Enjoy benefits worth ₹ 3500 at just ₹ 1400</p>
+                <h3>🌟 Super Package Deal</h3>
+                <p>Enjoy benefits worth ₹ 3,500 at just ₹ 1,400</p>
             </div>
         </div>
 
         <!-- Rooms Section -->
-        <div id="rooms" style="margin-top: 4rem;">
+        <div class="rooms-section" id="rooms">
             <h2 class="section-title-small">Available Rooms</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Check-in: 3 PM | Check-out: 12 PM</p>
-            <!-- Room listings will go here -->
+            <p class="rooms-section-info">
+                <i class="fas fa-clock"></i> Check-in: 3 PM | Check-out: 12 PM
+            </p>
         </div>
 
     </div>
@@ -617,12 +792,12 @@
                 </div>
                 <div>
                     <h4>Quick Links</h4>
-                    <p><a href="#">About Us</a></p>
+                    <p><a href="#">About</a></p>
                     <p><a href="#">Careers</a></p>
-                    <p><a href="#">Privacy Policy</a></p>
+                    <p><a href="#">Privacy</a></p>
                 </div>
                 <div>
-                    <h4>Contact Us</h4>
+                    <h4>Contact</h4>
                     <p>📧 bookMyStay09@gmail.com</p>
                     <p>📞 +91 7568937915</p>
                 </div>
@@ -631,81 +806,18 @@
     </footer>
 
     <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        if (currentTheme === 'dark') {
-            body.classList.add('dark-mode');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
-        }
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark';
-                localStorage.setItem('theme', 'light');
-            }
-        });
-
-        // Experience Data
         const experiences = [
-            {
-                id: 1,
-                category: 'dining',
-                title: 'Floating Breakfast',
-                description: 'Elegant breakfast spread served on a floating tray in the pool.',
-                price: 'CHARGEABLE',
-                image: 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400&h=300&fit=crop'
-            },
-            {
-                id: 2,
-                category: 'party',
-                title: 'Firepit & S\'mores',
-                description: 'Cosy evening by the fire with s\'mores under starlit skies.',
-                price: 'FREE',
-                image: 'https://images.unsplash.com/photo-1520962922320-2038ff3a3929?w=400&h=300&fit=crop'
-            },
-            {
-                id: 3,
-                category: 'dining',
-                title: 'BBQ Picnic by the Pool',
-                description: 'Garden-side grilling with refreshing slushies and craft beer.',
-                price: 'CHARGEABLE',
-                image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop'
-            },
-            {
-                id: 4,
-                category: 'wellness',
-                title: 'Yoga by the Beach',
-                description: 'Morning yoga sessions with ocean views and fresh sea breeze.',
-                price: 'FREE',
-                image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=300&fit=crop'
-            },
-            {
-                id: 5,
-                category: 'fun',
-                title: 'Water Sports Adventure',
-                description: 'Exciting water activities including jet ski, parasailing and more.',
-                price: 'CHARGEABLE',
-                image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop'
-            },
-            {
-                id: 6,
-                category: 'heritage',
-                title: 'Local Culture Tour',
-                description: 'Explore local heritage sites and traditional Goan architecture.',
-                price: 'CHARGEABLE',
-                image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=300&fit=crop'
-            }
+            { id: 1, category: 'dining', title: 'Floating Breakfast', description: 'Elegant breakfast spread served on a floating tray in the pool.', price: 'CHARGEABLE', image: 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400&h=300&fit=crop' },
+            { id: 2, category: 'party', title: 'Firepit & S\'mores', description: 'Cosy evening by the fire with s\'mores under starlit skies.', price: 'FREE', image: 'https://images.unsplash.com/photo-1520962922320-2038ff3a3929?w=400&h=300&fit=crop' },
+            { id: 3, category: 'dining', title: 'BBQ Picnic', description: 'Garden-side grilling with refreshing slushies and craft beer.', price: 'CHARGEABLE', image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop' },
+            { id: 4, category: 'wellness', title: 'Beach Yoga', description: 'Morning yoga sessions with ocean views and fresh sea breeze.', price: 'FREE', image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=300&fit=crop' },
+            { id: 5, category: 'fun', title: 'Water Sports', description: 'Exciting activities including jet ski, parasailing and more.', price: 'CHARGEABLE', image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop' },
+            { id: 6, category: 'heritage', title: 'Culture Tour', description: 'Explore local heritage sites and traditional architecture.', price: 'CHARGEABLE', image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=300&fit=crop' }
         ];
 
-        // Load Experiences
         function loadExperiences(filter = 'all') {
             const grid = document.getElementById('experiencesGrid');
-            const filtered = filter === 'all' ? experiences : experiences.filter(exp => exp.category === filter);
+            const filtered = filter === 'all' ? experiences : experiences.filter(e => e.category === filter);
             
             grid.innerHTML = filtered.map(exp => `
                 <div class="experience-card">
@@ -722,28 +834,15 @@
             `).join('');
         }
 
-        // Filter Experiences
         function filterExperiences(category) {
             loadExperiences(category);
-            
-            // Update active button
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
         }
 
-        // Scroll to Section
         function scrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            
-            // Update active tab
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
         }
 
@@ -751,7 +850,6 @@
             scrollToSection('rooms');
         }
 
-        // Initialize
         loadExperiences();
     </script>
 </body>
