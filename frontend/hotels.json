@@ -2,68 +2,55 @@
   {
     "id": 1,
     "name": "Sea Breeze Resort",
-    "location": "Bali, Indonesia",
-    "price": 180,
-    "rating": 4.7,
-    "image": "assets/h1.jpg",
-    "description": "A luxury beachside resort with pools and spa."
+    "city": "Bali",
+    "country": "Indonesia",
+    "price": 129,
+    "rating": 4.8,
+    "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop"
   },
   {
     "id": 2,
-    "name": "Mountain Retreat",
-    "location": "Goa, India",
-    "price": 140,
-    "rating": 4.6,
-    "image": "assets/h2.jpg",
-    "description": "A peaceful retreat surrounded by nature."
+    "name": "Mountain Retreat Lodge",
+    "city": "Swiss Alps",
+    "country": "Switzerland",
+    "price": 189,
+    "rating": 4.9,
+    "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop"
   },
   {
     "id": 3,
-    "name": "Urban Stay",
-    "location": "Bengaluru, India",
-    "price": 110,
-    "rating": 4.5,
-    "image": "assets/h3.jpg",
-    "description": "Modern hotel in the heart of the city."
+    "name": "Urban Luxury Hotel",
+    "city": "New York",
+    "country": "USA",
+    "price": 159,
+    "rating": 4.7,
+    "image": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&h=600&fit=crop"
   },
   {
     "id": 4,
-    "name": "Downtown Boutique Hotel",
-    "location": "Union Square, CA",
-    "price": 279,
-    "rating": 4.7,
-    "reviews": 198,
-    "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
-    "images": [
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
-      "https://images.unsplash.com/photo-1501117716987-c8e1ecb21047?w=800",
-      "https://images.unsplash.com/photo-1544168190-79c17527004f?w=800"
-    ],
-    "description": "A stylish boutique hotel located in the center of San Francisco with modern rooms and curated experiences.",
-    "amenities": ["WiFi", "Restaurant", "Bar", "Parking", "Gym", "City View", "Pet Friendly"],
-    "guestReviews": [
-      { "author": "Sophia Miller", "rating": "5/5", "text": "Very stylish and modern! Perfect location." },
-      { "author": "Olivia Taylor", "rating": "4.7/5", "text": "Loved the room decor and friendly staff." },
-      { "author": "Jacob Harris", "rating": "4.8/5", "text": "One of the best boutique hotels in SF." }
-    ]
+    "name": "Desert Oasis Resort",
+    "city": "Dubai",
+    "country": "UAE",
+    "price": 249,
+    "rating": 4.9,
+    "image": "https://images.unsplash.com/photo-1596436889106-be35e843f974?w=800&h=600&fit=crop"
   },
   {
     "id": 5,
-    "name": "Desert Oasis",
-    "location": "Dubai, UAE",
-    "price": 200,
-    "rating": 4.7,
-    "image": "assets/h5.jpg",
-    "description": "A luxurious stay in the desert with all amenities."
+    "name": "Island Paradise Resort",
+    "city": "Maldives",
+    "country": "Maldives",
+    "price": 299,
+    "rating": 5.0,
+    "image": "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&h=600&fit=crop"
   },
   {
     "id": 6,
-    "name": "Countryside Inn",
-    "location": "Tuscany, Italy",
-    "price": 160,
-    "rating": 4.6,
-    "image": "assets/h6.jpg",
-    "description": "Charming inn surrounded by vineyards."
+    "name": "Countryside Villa",
+    "city": "Tuscany",
+    "country": "Italy",
+    "price": 179,
+    "rating": 4.8,
+    "image": "https://images.unsplash.com/photo-1549294413-26f195200c16?w=800&h=600&fit=crop"
   }
 ]

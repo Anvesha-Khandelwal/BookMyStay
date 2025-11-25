@@ -3,294 +3,607 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookMyStay — Experience Luxury Travel</title>
+    <title>Hotel Details - BookMyStay</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* =====================================================
-           HOMEPAGE CUSTOM STYLES
-           ===================================================== */
-
-        .homepage-search-section {
-            position: relative;
-            margin-top: -100px;
-            z-index: 10;
-            padding: 0 2rem 4rem;
+        /* Hotel Detail Page Styles - Matching Your Dark Theme */
+        
+        body {
+            background: var(--primary-dark);
+            color: var(--text-primary);
         }
 
-        .search-card-wrapper {
-            max-width: 1100px;
+        .hotel-detail-container {
+            max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
-            padding: 2.5rem;
+            padding: 2rem 3rem;
         }
 
-        .search-card-form {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1.2rem;
-            align-items: flex-end;
+        /* Search Bar Mini */
+        .search-bar-mini {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            flex-wrap: wrap;
         }
 
-        .search-form-group {
+        .search-bar-mini .search-item {
             display: flex;
             flex-direction: column;
-            gap: 0.7rem;
+            gap: 0.3rem;
         }
 
-        .search-form-label {
-            font-weight: 700;
-            color: var(--text);
-            font-size: 0.85rem;
+        .search-bar-mini .search-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
 
-        .search-form-input,
-        .search-form-select {
-            padding: 1.1rem 1.3rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
+        .search-bar-mini .search-value {
             font-size: 0.95rem;
-            font-family: inherit;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            background: white;
-            color: var(--text);
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
-        .search-form-input::placeholder {
-            color: #9ca3af;
-            font-weight: 500;
-        }
-
-        .search-form-input:focus,
-        .search-form-select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-        }
-
-        .search-form-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%233b82f6' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1.2rem center;
-            padding-right: 2.8rem;
-            cursor: pointer;
-        }
-
-        .search-btn-submit {
-            background: #3b82f6;
-            color: white;
+        .search-btn-mini {
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
             border: none;
-            padding: 1.1rem 1.8rem;
-            border-radius: 10px;
+            padding: 0.9rem 2rem;
+            border-radius: var(--border-radius-sm);
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: auto;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .search-btn-mini:hover {
+            background: #3bbdd1;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Hotel Header */
+        .hotel-header {
+            margin-bottom: 2rem;
+        }
+
+        .hotel-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .hotel-rating {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-input);
+        }
+
+        .hotel-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Gallery and Room Section */
+        .gallery-room-section {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 280px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gallery-item.large {
+            grid-row: span 2;
+            height: 100%;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-badge {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background: rgba(26, 41, 71, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Room Booking Card */
+        .room-booking-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-card);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .room-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .room-capacity {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .room-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .price-section {
+            margin: 1.5rem 0;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .price-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .price-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .price-amount span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .price-tax {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        .book-btn {
+            width: 100%;
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
+            border: none;
+            padding: 1.2rem;
+            border-radius: var(--border-radius-sm);
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 0.6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            height: 52px;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-input);
         }
 
-        .search-btn-submit:hover {
-            background: #2563eb;
+        .book-btn:hover {
+            background: #3bbdd1;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            box-shadow: var(--shadow-hover);
         }
 
-        /* =====================================================
-           HERO SECTION - UPDATED
-           ===================================================== */
+        .more-options-btn {
+            width: 100%;
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 2px solid var(--accent-cyan);
+            padding: 0.9rem;
+            border-radius: var(--border-radius-sm);
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-        .hero-updated {
-            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-dark) 100%);
-            padding: 5rem 2rem 3rem;
-            min-height: 500px;
+        .more-options-btn:hover {
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
+        }
+
+        /* Tabs Navigation */
+        .tabs-navigation {
             display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-container-updated {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: 3rem;
-            align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 3rem;
+            position: sticky;
+            top: 80px;
+            background: var(--primary-dark);
+            z-index: 100;
+            padding: 1rem 0;
         }
 
-        .hero-content-updated {
-            color: white;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .hero-content-updated h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            letter-spacing: -1px;
-        }
-
-        .hero-content-updated p {
-            font-size: 1.1rem;
+        .tab-btn {
+            background: none;
+            border: none;
             color: var(--text-secondary);
-            line-height: 1.7;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0.8rem 0;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-cyan);
+        }
+
+        /* Experiences Section */
+        .experiences-section {
+            margin: 3rem 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 2rem;
         }
 
-        .hero-image-updated {
-            position: relative;
-            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        .section-title-small {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
 
-        .hero-image-updated img {
-            width: 100%;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-card);
-        }
-
-        .hero-badge-updated {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
+        .new-badge {
             background: var(--accent-gold);
             color: var(--primary-dark);
-            padding: 1.2rem 1.8rem;
-            border-radius: var(--border-radius-sm);
-            box-shadow: var(--shadow-card);
-            animation: slideInUp 0.8s ease-out 0.4s backwards;
-        }
-
-        .hero-badge-title {
-            font-size: 0.85rem;
-            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.3rem;
         }
 
-        .hero-badge-value {
-            font-size: 1.6rem;
-            font-weight: 800;
+        .experience-categories {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
         }
 
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .experience-categories::-webkit-scrollbar {
+            height: 6px;
         }
 
-        /* =====================================================
-           RESPONSIVE
-           ===================================================== */
+        .experience-categories::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
 
+        .experience-categories::-webkit-scrollbar-thumb {
+            background: var(--accent-cyan);
+            border-radius: 10px;
+        }
+
+        .category-btn {
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            border: 2px solid transparent;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--card-hover);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .experiences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            background: var(--card-hover);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .experience-image {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .experience-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .experience-card:hover .experience-image img {
+            transform: scale(1.05);
+        }
+
+        .experience-content {
+            padding: 1.5rem;
+        }
+
+        .experience-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .experience-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .experience-price-badge {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .experience-free-badge {
+            background: #4caf50;
+            color: white;
+        }
+
+        .view-details-btn {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            transition: gap 0.3s ease;
+        }
+
+        .view-details-btn:hover {
+            gap: 0.8rem;
+        }
+
+        /* Super Package Banner */
+        .super-package-banner {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #ffed4e 100%);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin: 3rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-card);
+        }
+
+        .super-package-content h3 {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .super-package-content p {
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Rooms Section */
+        .rooms-section {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .rooms-section-info {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
         @media (max-width: 1024px) {
-            .hero-container-updated {
+            .gallery-room-section {
                 grid-template-columns: 1fr;
+            }
+
+            .room-booking-card {
+                position: static;
+            }
+
+            .tabs-navigation {
                 gap: 2rem;
-            }
-
-            .hero-content-updated h1 {
-                font-size: 2.2rem;
-            }
-
-            .search-card-form {
-                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .hero-updated {
-                padding: 3rem 1rem 2rem;
-                min-height: auto;
+            .hotel-detail-container {
+                padding: 1rem;
             }
 
-            .hero-content-updated h1 {
-                font-size: 1.8rem;
+            .search-bar-mini {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+                padding: 1.2rem;
             }
 
-            .search-card-form {
+            .search-btn-mini {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .gallery-grid {
                 grid-template-columns: 1fr;
             }
 
-            .search-card-wrapper {
-                padding: 1.5rem;
+            .gallery-item.large {
+                grid-row: span 1;
+                height: 280px;
             }
 
-            .search-btn-submit {
-                grid-column: 1;
+            .tabs-navigation {
+                overflow-x: auto;
+                gap: 1.5rem;
             }
 
-            .hero-image-updated img {
-                border-radius: var(--border-radius-sm);
+            .experiences-grid {
+                grid-template-columns: 1fr;
             }
 
-            .hero-badge-updated {
-                bottom: 1rem;
-                right: 1rem;
-                padding: 1rem 1.4rem;
+            .hotel-title {
+                font-size: 1.6rem;
             }
 
-            .hero-badge-value {
-                font-size: 1.3rem;
+            .section-title-small {
+                font-size: 1.4rem;
             }
         }
 
         @media (max-width: 480px) {
-            .homepage-search-section {
-                margin-top: -60px;
-                padding: 0 1rem;
+            .hotel-detail-container {
+                padding: 0.8rem;
             }
 
-            .search-card-wrapper {
-                padding: 1.2rem;
+            .search-bar-mini {
+                padding: 1rem;
             }
 
-            .search-form-input,
-            .search-form-select {
-                padding: 0.9rem 1rem;
-                font-size: 0.95rem;
+            .room-booking-card {
+                padding: 1.5rem;
             }
 
-            .search-btn-submit {
-                padding: 0.9rem 1.5rem;
-                font-size: 0.9rem;
+            .hotel-title {
+                font-size: 1.4rem;
             }
+        }
 
-            .hero-content-updated h1 {
-                font-size: 1.5rem;
-            }
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: rgba(77, 208, 225, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
 
-            .hero-content-updated p {
-                font-size: 0.95rem;
-            }
-
-            .hero-badge-updated {
-                padding: 0.8rem 1.2rem;
-                bottom: 0.8rem;
-                right: 0.8rem;
-            }
-
-            .hero-badge-value {
-                font-size: 1.2rem;
-            }
+        .theme-toggle:hover {
+            background: var(--accent-cyan);
+            color: var(--primary-dark);
         }
     </style>
 </head>
@@ -303,10 +616,9 @@
                 BookMyStay
             </a>
             <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#offers">Offers</a></li>
-                <li><a href="#popular">Hotels</a></li>
-                <li><a href="#attractions">Explore</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="listings.html">Hotels</a></li>
+                <li><a href="#contact">Contact</a></li>
                 <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
@@ -316,249 +628,130 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-updated" id="hero">
-        <div class="hero-container-updated">
-            <div class="hero-content-updated">
-                <h1>Experience Something New Every Moment</h1>
-                <p>Escape to a place where you can relax and unwind, rejuvenate, and reconnect with nature. Your perfect getaway awaits with world-class amenities and breathtaking views.</p>
+    <div class="hotel-detail-container">
+        <!-- Search Bar Mini -->
+        <div class="search-bar-mini">
+            <div class="search-item">
+                <div class="search-label"><i class="fas fa-map-marker-alt"></i> Property</div>
+                <div class="search-value" id="hotelName">Hyatt Ronil Goa</div>
             </div>
-            <div class="hero-image-updated">
-                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=600&fit=crop" alt="Luxury Resort Pool">
-                <div class="hero-badge-updated">
-                    <div class="hero-badge-title">Starting From</div>
-                    <div class="hero-badge-value">$99/night</div>
-                </div>
+            <div class="search-item">
+                <div class="search-label"><i class="fas fa-calendar"></i> Check-In</div>
+                <div class="search-value" id="displayCheckin">Mon, 24 Nov 2025</div>
             </div>
+            <div class="search-item">
+                <div class="search-label"><i class="fas fa-calendar"></i> Check-Out</div>
+                <div class="search-value" id="displayCheckout">Tue, 25 Nov 2025</div>
+            </div>
+            <div class="search-item">
+                <div class="search-label"><i class="fas fa-users"></i> Rooms & Guests</div>
+                <div class="search-value" id="displayGuests">1 Room, 2 Adults</div>
+            </div>
+            <button class="search-btn-mini" onclick="window.location.href='listings.html'">
+                <i class="fas fa-search"></i> SEARCH
+            </button>
         </div>
-    </section>
 
-    <!-- Search Section -->
-    <div class="homepage-search-section">
-        <div class="search-card-wrapper">
-            <form class="search-card-form" id="searchForm">
-                <div class="search-form-group">
-                    <label class="search-form-label">
-                        <i class="fas fa-map-marker-alt"></i>
-                        City, Area or Property
-                    </label>
-                    <input type="text" class="search-form-input" id="location" placeholder="e.g., Goa, Bali, Dubai" required>
+        <!-- Hotel Header -->
+        <div class="hotel-header">
+            <h1 class="hotel-title" id="hotelTitle">Hyatt Ronil Goa - a JdV by Hyatt</h1>
+            <div>
+                <span class="hotel-rating">
+                    <i class="fas fa-star"></i> 4.4 Excellent
+                </span>
+            </div>
+            <p class="hotel-subtitle">Vibrant resort with two pools, floating breakfast & close proximity to the beach</p>
+        </div>
+
+        <!-- Gallery and Room Section -->
+        <div class="gallery-room-section">
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop" alt="Hotel Pool">
+                    <div class="gallery-badge">+120 Property Photos</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="Hotel Drink">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=300&fit=crop" alt="Guest Photo">
+                    <div class="gallery-badge">+487 Guest Photos</div>
+                </div>
+            </div>
+
+            <!-- Room Booking Card -->
+            <div class="room-booking-card">
+                <h3 class="room-title">1 KING BED WITH BALCONY</h3>
+                <p class="room-capacity">Fits 2 Adults</p>
+                <div class="room-feature">
+                    <i class="fas fa-times-circle" style="color: #ff6b6b;"></i>
+                    <span>Non-Refundable</span>
+                </div>
+                
+                <div class="price-section">
+                    <div class="price-label">Per Night:</div>
+                    <div class="price-amount">
+                        ₹ 7,000 <span>+ ₹ 350 taxes & fees</span>
+                    </div>
                 </div>
 
-                <div class="search-form-group">
-                    <label class="search-form-label">
-                        <i class="fas fa-calendar"></i>
-                        Check In
-                    </label>
-                    <input type="date" class="search-form-input" id="checkin" required>
-                </div>
-
-                <div class="search-form-group">
-                    <label class="search-form-label">
-                        <i class="fas fa-calendar"></i>
-                        Check Out
-                    </label>
-                    <input type="date" class="search-form-input" id="checkout" required>
-                </div>
-
-                <div class="search-form-group">
-                    <label class="search-form-label">
-                        <i class="fas fa-users"></i>
-                        Rooms & Guests
-                    </label>
-                    <select class="search-form-select" id="guests" required>
-                        <option>1 Room, 1 Guest</option>
-                        <option>1 Room, 2 Guests</option>
-                        <option>1 Room, 3 Guests</option>
-                        <option>1 Room, 4 Guests</option>
-                        <option>2 Rooms, 4 Guests</option>
-                        <option>2 Rooms, 6 Guests</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="search-btn-submit">
-                    <i class="fas fa-search"></i>
-                    Search
+                <button class="book-btn" onclick="alert('Booking feature coming soon!')">
+                    <i class="fas fa-check-circle"></i> BOOK THIS NOW
                 </button>
-            </form>
+                <button class="more-options-btn" onclick="scrollToRooms()">
+                    23 More Options
+                </button>
+            </div>
         </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-navigation">
+            <button class="tab-btn active" onclick="scrollToSection('overview')">OVERVIEW</button>
+            <button class="tab-btn" onclick="scrollToSection('rooms')">ROOMS</button>
+            <button class="tab-btn" onclick="scrollToSection('location')">LOCATION</button>
+            <button class="tab-btn" onclick="scrollToSection('rules')">PROPERTY RULES</button>
+            <button class="tab-btn" onclick="scrollToSection('reviews')">USER REVIEWS</button>
+        </div>
+
+        <!-- Not-To-Miss Experiences Section -->
+        <div class="experiences-section" id="overview">
+            <div class="section-header">
+                <h2 class="section-title-small">
+                    Not-To-Miss Experiences
+                    <span class="new-badge">new</span>
+                </h2>
+            </div>
+
+            <div class="experience-categories">
+                <button class="category-btn active" onclick="filterExperiences('all')">All Experiences</button>
+                <button class="category-btn" onclick="filterExperiences('dining')">Dining Experiences</button>
+                <button class="category-btn" onclick="filterExperiences('wellness')">Wellness & Beyond</button>
+                <button class="category-btn" onclick="filterExperiences('party')">Party & Play</button>
+                <button class="category-btn" onclick="filterExperiences('heritage')">Heritage & Culture</button>
+                <button class="category-btn" onclick="filterExperiences('fun')">Fun Adventures</button>
+            </div>
+
+            <div class="experiences-grid" id="experiencesGrid">
+                <!-- Experiences will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Super Package Banner -->
+        <div class="super-package-banner">
+            <div class="super-package-content">
+                <h3>🎁 Super Package</h3>
+                <p>Enjoy benefits worth ₹ 3500 at just ₹ 1400</p>
+            </div>
+        </div>
+
+        <!-- Rooms Section -->
+        <div class="rooms-section" id="rooms">
+            <h2 class="section-title-small">Available Rooms</h2>
+            <p class="rooms-section-info"><i class="fas fa-clock"></i> Check-in: 3 PM | Check-out: 12 PM</p>
+            <!-- Room listings will go here -->
+        </div>
+
     </div>
-
-    <!-- Offers Section -->
-    <section id="offers" class="section">
-        <div class="container">
-            <div class="section-head">
-                <h2>Best Offers This Month</h2>
-                <p>Exclusive deals and discounts on luxury stays. Book now and save big on your dream vacation!</p>
-            </div>
-
-            <div class="offers-grid">
-                <article class="offer-card">
-                    <div class="offer-badge">50% OFF</div>
-                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop" alt="Beach Resort">
-                    <div class="offer-body">
-                        <h3>Tropical Paradise Escape</h3>
-                        <p>Experience the ultimate beach getaway with pristine waters, golden sands, and world-class service. Limited time offer on all ocean-view suites.</p>
-                        <a class="btn-ghost" href="listings.html">Book Now →</a>
-                    </div>
-                </article>
-
-                <article class="offer-card">
-                    <div class="offer-badge">30% OFF</div>
-                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop" alt="Mountain Resort">
-                    <div class="offer-body">
-                        <h3>Mountain Retreat Package</h3>
-                        <p>Escape to the serene mountains with breathtaking views, cozy fireplaces, and peaceful surroundings. Perfect for a rejuvenating getaway.</p>
-                        <a class="btn-ghost" href="listings.html">Book Now →</a>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Popular Hotels Section -->
-    <section id="popular" class="section">
-        <div class="container">
-            <div class="section-head">
-                <h2>Explore Popular Hotels</h2>
-                <p>Handpicked luxury stays with exceptional reviews and unforgettable experiences</p>
-            </div>
-
-            <div class="cards-grid">
-                <article class="card" onclick="viewHotel(1)">
-                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop" alt="Sea Breeze Resort">
-                    <div class="card-body">
-                        <h3>Sea Breeze Resort</h3>
-                        <p class="muted">📍 Bali, Indonesia · ⭐ 4.8 (324 reviews)</p>
-                        <div class="card-price">
-                            <div class="price-tag">$129</div>
-                            <div class="price-period">per night</div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card" onclick="viewHotel(2)">
-                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop" alt="Mountain Retreat">
-                    <div class="card-body">
-                        <h3>Mountain Retreat Lodge</h3>
-                        <p class="muted">📍 Swiss Alps, Switzerland · ⭐ 4.9 (198 reviews)</p>
-                        <div class="card-price">
-                            <div class="price-tag">$189</div>
-                            <div class="price-period">per night</div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card" onclick="viewHotel(3)">
-                    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&h=600&fit=crop" alt="Urban Stay">
-                    <div class="card-body">
-                        <h3>Urban Luxury Hotel</h3>
-                        <p class="muted">📍 New York, USA · ⭐ 4.7 (512 reviews)</p>
-                        <div class="card-price">
-                            <div class="price-tag">$159</div>
-                            <div class="price-period">per night</div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card" onclick="viewHotel(4)">
-                    <img src="https://images.unsplash.com/photo-1596436889106-be35e843f974?w=800&h=600&fit=crop" alt="Desert Oasis">
-                    <div class="card-body">
-                        <h3>Desert Oasis Resort</h3>
-                        <p class="muted">📍 Dubai, UAE · ⭐ 4.9 (287 reviews)</p>
-                        <div class="card-price">
-                            <div class="price-tag">$249</div>
-                            <div class="price-period">per night</div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card" onclick="viewHotel(5)">
-                    <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&h=600&fit=crop" alt="Island Paradise">
-                    <div class="card-body">
-                        <h3>Island Paradise Resort</h3>
-                        <p class="muted">📍 Maldives · ⭐ 5.0 (421 reviews)</p>
-                        <div class="card-price">
-                            <div class="price-tag">$299</div>
-                            <div class="price-period">per night</div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="card" onclick="viewHotel(6)">
-                    <img src="https://images.unsplash.com/photo-1549294413-26f195200c16?w=800&h=600&fit=crop" alt="Countryside Villa">
-                    <div class="card-body">
-                        <h3>Countryside Villa</h3>
-                        <p class="muted">📍 Tuscany, Italy · ⭐ 4.8 (356 reviews)</p>
-                        <div class="card-price">
-                            <div class="price-tag">$179</div>
-                            <div class="price-period">per night</div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Attractions Section -->
-    <section id="attractions" class="section">
-        <div class="container">
-            <div class="section-head">
-                <h2>Why Choose BookMyStay?</h2>
-                <p>Experience the best in travel and hospitality with our premium services</p>
-            </div>
-
-            <div class="attractions-grid">
-                <article class="attraction-card">
-                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop" alt="Best Prices">
-                    <div class="attraction-overlay">
-                        <h3>💰 Best Prices</h3>
-                        <p>Guaranteed lowest rates on luxury stays worldwide</p>
-                    </div>
-                </article>
-
-                <article class="attraction-card">
-                    <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800&h=600&fit=crop" alt="24/7 Support">
-                    <div class="attraction-overlay">
-                        <h3>🛟 24/7 Support</h3>
-                        <p>Expert assistance available round the clock</p>
-                    </div>
-                </article>
-
-                <article class="attraction-card">
-                    <img src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=800&h=600&fit=crop" alt="Verified Hotels">
-                    <div class="attraction-overlay">
-                        <h3>✅ Verified Hotels</h3>
-                        <p>All accommodations are thoroughly verified and rated</p>
-                    </div>
-                </article>
-
-                <article class="attraction-card">
-                    <img src="https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800&h=600&fit=crop" alt="Easy Booking">
-                    <div class="attraction-overlay">
-                        <h3>⚡ Easy Booking</h3>
-                        <p>Simple and secure booking process in minutes</p>
-                    </div>
-                </article>
-
-                <article class="attraction-card">
-                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=600&fit=crop" alt="Flexible Cancellation">
-                    <div class="attraction-overlay">
-                        <h3>🔄 Free Cancellation</h3>
-                        <p>Cancel your booking with no extra charges</p>
-                    </div>
-                </article>
-
-                <article class="attraction-card">
-                    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&h=600&fit=crop" alt="Secure Payment">
-                    <div class="attraction-overlay">
-                        <h3>🔒 Secure Payments</h3>
-                        <p>Your transactions are 100% safe and encrypted</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer id="contact">
@@ -566,37 +759,19 @@
             <div class="footer-grid">
                 <div>
                     <h4>About BookMyStay</h4>
-                    <p>Your trusted partner in creating memorable travel experiences. We connect you with the world's finest hotels and resorts, ensuring every journey is extraordinary.</p>
+                    <p>Your trusted partner in creating memorable travel experiences.</p>
                 </div>
-
                 <div>
                     <h4>Quick Links</h4>
                     <p><a href="#">About Us</a></p>
                     <p><a href="#">Careers</a></p>
                     <p><a href="#">Privacy Policy</a></p>
-                    <p><a href="#">Terms & Conditions</a></p>
                 </div>
-
                 <div>
                     <h4>Contact Us</h4>
                     <p>📧 bookMyStay09@gmail.com</p>
                     <p>📞 +91 7568937915</p>
-                    <p>📍 Dayananda Sagar College Of Engineering</p>
                 </div>
-
-                <div>
-                    <h4>Follow Us</h4>
-                    <p>Stay connected for exclusive deals and travel inspiration</p>
-                    <p>
-                        <a href="#"><i class="fab fa-facebook"></i> Facebook</a> · 
-                        <a href="#"><i class="fab fa-instagram"></i> Instagram</a> · 
-                        <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
-                    </p>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p>&copy; 2024 BookMyStay. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -605,13 +780,11 @@
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
-
         const currentTheme = localStorage.getItem('theme') || 'light';
         if (currentTheme === 'dark') {
             body.classList.add('dark-mode');
             themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
         }
-
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             if (body.classList.contains('dark-mode')) {
@@ -623,47 +796,109 @@
             }
         });
 
-        // Search Form
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const location = document.getElementById('location').value;
-            const checkin = document.getElementById('checkin').value;
-            const checkout = document.getElementById('checkout').value;
-            const guests = document.getElementById('guests').value;
+        // Experience Data
+        const experiences = [
+            {
+                id: 1,
+                category: 'dining',
+                title: 'Floating Breakfast',
+                description: 'Elegant breakfast spread served on a floating tray in the pool.',
+                price: 'CHARGEABLE',
+                image: 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400&h=300&fit=crop'
+            },
+            {
+                id: 2,
+                category: 'party',
+                title: 'Firepit & S\'mores',
+                description: 'Cosy evening by the fire with s\'mores under starlit skies.',
+                price: 'FREE',
+                image: 'https://images.unsplash.com/photo-1520962922320-2038ff3a3929?w=400&h=300&fit=crop'
+            },
+            {
+                id: 3,
+                category: 'dining',
+                title: 'BBQ Picnic by the Pool',
+                description: 'Garden-side grilling with refreshing slushies and craft beer.',
+                price: 'CHARGEABLE',
+                image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop'
+            },
+            {
+                id: 4,
+                category: 'wellness',
+                title: 'Yoga by the Beach',
+                description: 'Morning yoga sessions with ocean views and fresh sea breeze.',
+                price: 'FREE',
+                image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=300&fit=crop'
+            },
+            {
+                id: 5,
+                category: 'fun',
+                title: 'Water Sports Adventure',
+                description: 'Exciting water activities including jet ski, parasailing and more.',
+                price: 'CHARGEABLE',
+                image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop'
+            },
+            {
+                id: 6,
+                category: 'heritage',
+                title: 'Local Culture Tour',
+                description: 'Explore local heritage sites and traditional Goan architecture.',
+                price: 'CHARGEABLE',
+                image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=300&fit=crop'
+            }
+        ];
 
-            localStorage.setItem('searchCity', location);
-            localStorage.setItem('searchCheckin', checkin);
-            localStorage.setItem('searchCheckout', checkout);
-            localStorage.setItem('searchGuests', guests);
-
-            window.location.href = "listings.html";
-        });
-
-        // View Hotel
-        function viewHotel(hotelId) {
-            localStorage.setItem('selectedHotel', hotelId);
-            window.location.href = "hotel.html";
+        // Load Experiences
+        function loadExperiences(filter = 'all') {
+            const grid = document.getElementById('experiencesGrid');
+            const filtered = filter === 'all' ? experiences : experiences.filter(exp => exp.category === filter);
+            
+            grid.innerHTML = filtered.map(exp => `
+                <div class="experience-card">
+                    <div class="experience-image">
+                        <img src="${exp.image}" alt="${exp.title}">
+                    </div>
+                    <div class="experience-content">
+                        <h3 class="experience-title">${exp.title}</h3>
+                        <p class="experience-description">${exp.description}</p>
+                        <span class="experience-price-badge ${exp.price === 'FREE' ? 'experience-free-badge' : ''}">${exp.price}</span>
+                        <a href="#" class="view-details-btn">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // Set minimum date
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('checkin').setAttribute('min', today);
-        document.getElementById('checkout').setAttribute('min', today);
-
-        document.getElementById('checkin').addEventListener('change', function() {
-            document.getElementById('checkout').setAttribute('min', this.value);
-        });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+        // Filter Experiences
+        function filterExperiences(category) {
+            loadExperiences(category);
+            
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
-        });
+            event.target.classList.add('active');
+        }
+
+        // Scroll to Section
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Update active tab
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function scrollToRooms() {
+            scrollToSection('rooms');
+        }
+
+        // Initialize
+        loadExperiences();
     </script>
 </body>
 </html>
