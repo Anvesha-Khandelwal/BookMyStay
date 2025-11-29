@@ -224,7 +224,7 @@ Have questions or found a bug? Open an [Issue](https://github.com/yourusername/B
 ## 🙏 Acknowledgments
 
 - Designed for travel enthusiasts who value smart booking decisions
-- Built with HTML5, CSS3, and Vanilla JavaScript
+- Built with HTML5, CSS, and  JavaScript
 - Inspired by modern travel platforms
 
 ---
