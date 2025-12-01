@@ -1,730 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Your Booking - BookMyStay</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* =====================================================
-           BOOKING PAGE - CUSTOM STYLES
-           ===================================================== */
-
-        .booking-page {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-navy) 100%);
-            min-height: 100vh;
-        }
-
-        /* =====================================================
-           BREADCRUMB
-           ===================================================== */
-
-        .booking-breadcrumb {
-            background: rgba(26, 41, 71, 0.95);
-            border-bottom: 1px solid rgba(77, 208, 225, 0.2);
-            padding: 1rem 0;
-            position: sticky;
-            top: 60px;
-            z-index: 99;
-        }
-
-        .breadcrumb-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            font-size: 0.95rem;
-        }
-
-        .breadcrumb-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .breadcrumb-item.active {
-            color: var(--accent-cyan);
-            font-weight: 600;
-        }
-
-        .breadcrumb-separator {
-            color: var(--text-muted);
-        }
-
-        /* =====================================================
-           BOOKING SECTION
-           ===================================================== */
-
-        .booking-section {
-            padding: 4rem 2rem 6rem;
-            min-height: calc(100vh - 60px);
-        }
-
-        .booking-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 3rem;
-        }
-
-        /* =====================================================
-           FORM COLUMN
-           ===================================================== */
-
-        .booking-form-wrapper {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .booking-form-header {
-            margin-bottom: 3rem;
-        }
-
-        .booking-form-header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-
-        .booking-form-subtitle {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            font-weight: 400;
-        }
-
-        .booking-form {
-            background: rgba(38, 58, 90, 0.95);
-            padding: 2.5rem;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-card);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.8rem;
-        }
-
-        .booking-form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            animation: fadeIn 0.6s ease-out backwards;
-        }
-
-        .booking-form-group:nth-child(1) { animation-delay: 0.1s; }
-        .booking-form-group:nth-child(2) { animation-delay: 0.2s; }
-        .booking-form-group:nth-child(3) { animation-delay: 0.3s; }
-        .booking-form-group:nth-child(4) { animation-delay: 0.4s; }
-        .booking-form-group:nth-child(5) { animation-delay: 0.5s; }
-        .booking-form-group:nth-child(6) { animation-delay: 0.6s; }
-
-        .booking-form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .booking-form-group.btn-group {
-            grid-column: 1 / -1;
-            flex-direction: row;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .booking-form-label {
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .booking-form-label i {
-            color: var(--accent-cyan);
-            font-size: 1.1rem;
-        }
-
-        .booking-form-input,
-        .booking-form-select {
-            padding: 1.1rem 1.3rem;
-            border: 1.5px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--border-radius-sm);
-            background: rgba(15, 24, 41, 0.6);
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-weight: 500;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .booking-form-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .booking-form-input:focus,
-        .booking-form-select:focus {
-            outline: none;
-            border-color: var(--accent-cyan);
-            background: rgba(15, 24, 41, 0.8);
-            box-shadow: 0 0 0 3px rgba(77, 208, 225, 0.15);
-        }
-
-        .booking-form-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234dd0e1' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            padding-right: 2.8rem;
-            cursor: pointer;
-        }
-
-        .booking-form-select option {
-            background: var(--primary-navy);
-            color: var(--text-primary);
-            padding: 0.8rem;
-        }
-
-        .booking-btn-submit {
-            grid-column: 1 / 2;
-            background: var(--accent-cyan);
-            color: var(--primary-dark);
-            border: none;
-            padding: 1.2rem 2rem;
-            border-radius: var(--border-radius-sm);
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: var(--shadow-input);
-        }
-
-        .booking-btn-submit:hover {
-            background: #3bbdd1;
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .booking-btn-submit:active {
-            transform: translateY(-1px);
-        }
-
-        .booking-btn-cancel {
-            grid-column: 2 / 3;
-            background: transparent;
-            color: var(--text-secondary);
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            padding: 1.2rem 2rem;
-            border-radius: var(--border-radius-sm);
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .booking-btn-cancel:hover {
-            border-color: var(--text-secondary);
-            color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* =====================================================
-           SUMMARY COLUMN
-           ===================================================== */
-
-        .booking-summary {
-            animation: fadeInUp 0.8s ease-out 0.2s backwards;
-        }
-
-        .booking-summary-card {
-            background: rgba(38, 58, 90, 0.95);
-            padding: 2rem;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-card);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            position: sticky;
-            top: 100px;
-        }
-
-        .booking-summary-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .booking-summary-title i {
-            color: var(--accent-cyan);
-        }
-
-        .booking-summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .booking-summary-item:last-child {
-            border-bottom: none;
-        }
-
-        .booking-summary-label {
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 1rem;
-        }
-
-        .booking-summary-value {
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .booking-summary-divider {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(77, 208, 225, 0.3), transparent);
-            margin: 1.5rem 0;
-        }
-
-        .booking-summary-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem;
-            background: rgba(77, 208, 225, 0.1);
-            border: 1.5px solid rgba(77, 208, 225, 0.3);
-            border-radius: var(--border-radius-sm);
-            margin-top: 1.5rem;
-        }
-
-        .booking-summary-total-label {
-            color: var(--text-primary);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .booking-summary-total-value {
-            color: var(--accent-cyan);
-            font-weight: 800;
-            font-size: 1.5rem;
-        }
-
-        .booking-summary-info {
-            background: rgba(77, 208, 225, 0.05);
-            border-left: 4px solid var(--accent-cyan);
-            padding: 1.2rem;
-            border-radius: var(--border-radius-sm);
-            margin-top: 1.5rem;
-        }
-
-        .booking-summary-info-title {
-            color: var(--accent-cyan);
-            font-weight: 700;
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .booking-summary-info-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* =====================================================
-           RESPONSIVE DESIGN
-           ===================================================== */
-
-        @media (max-width: 1024px) {
-            .booking-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .booking-summary-card {
-                position: static;
-            }
-
-            .booking-form {
-                padding: 2rem;
-            }
-
-            .booking-form-header h1 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .booking-section {
-                padding: 2rem 1rem 4rem;
-            }
-
-            .booking-form {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                padding: 1.5rem;
-            }
-
-            .booking-form-group.full-width {
-                grid-column: 1;
-            }
-
-            .booking-form-group.btn-group {
-                grid-column: 1;
-                margin-top: 0.5rem;
-            }
-
-            .booking-btn-submit,
-            .booking-btn-cancel {
-                grid-column: auto;
-                flex: 1;
-            }
-
-            .booking-form-header h1 {
-                font-size: 1.8rem;
-            }
-
-            .booking-summary-card {
-                margin-top: 2rem;
-            }
-
-            .breadcrumb-container {
-                gap: 1rem;
-                padding: 0 1rem;
-                flex-wrap: wrap;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .booking-section {
-                padding: 1.5rem 1rem 3rem;
-            }
-
-            .booking-form {
-                padding: 1.5rem 1rem;
-                gap: 1.2rem;
-            }
-
-            .booking-form-label {
-                font-size: 0.95rem;
-            }
-
-            .booking-form-input,
-            .booking-form-select {
-                padding: 1rem 1rem;
-                font-size: 0.95rem;
-            }
-
-            .booking-form-header h1 {
-                font-size: 1.5rem;
-            }
-
-            .booking-form-header p {
-                font-size: 0.9rem;
-            }
-
-            .booking-summary-total-value {
-                font-size: 1.3rem;
-            }
-
-            .booking-btn-submit,
-            .booking-btn-cancel {
-                padding: 1rem 1.5rem;
-                font-size: 0.9rem;
-            }
-
-            .breadcrumb-container {
-                font-size: 0.85rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Booking - BookMyStay</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body{margin:0;background:#f8f4f0;font-family:Poppins,sans-serif;color:#2b3a2d;}
+
+.booking-section{padding:2rem 1rem;}
+.booking-container{max-width:1080px;margin:auto;display:grid;grid-template-columns:1.3fr 1fr;gap:2rem;}
+
+.card{
+  background:rgba(255,255,255,0.7);backdrop-filter:blur(16px);
+  border-radius:30px;padding:1.6rem;box-shadow:0 6px 26px rgba(0,0,0,0.06);
+  border:1px solid rgba(0,0,0,0.03);
+}
+
+/* Inputs */
+.input-wrap{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
+.input-wrap label{font-size:0.85rem;font-weight:700;color:#3e5c47;}
+.input-wrap input, .input-wrap select{
+  padding:0.95rem 1.2rem;border-radius:18px;border:none;background:#f1ece6;
+  outline:1.8px solid rgba(79,209,229,0.28);font-size:0.92rem;color:#2b3a2d;font-weight:600;
+}
+.input-wrap input:focus, .input-wrap select:focus{outline:2px solid #4dd0e1;background:#fff;}
+
+/* Buttons */
+.btn{width:100%;padding:1rem;border-radius:10px;border:none;background:#4dd0e1;color:#004d40;font-weight:800;cursor:pointer;text-transform:uppercase;font-size:0.85rem;transition:0.3s;box-shadow:0 3px 14px rgba(79,209,229,0.35);}
+.btn:hover{opacity:0.9;transform:translateY(-2px);box-shadow:0 6px 25px rgba(79,209,229,0.55);}
+.cancel{background:#6a6a6a;color:#fff;box-shadow:none;margin-top:0.6rem;}
+.cancel:hover{background:#444;transform:none;}
+
+.room-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.3rem;}
+.room-card{background:white;border-radius:26px;padding:1rem;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,0.05);opacity:0.92;transition:0.25s;border:2px solid transparent;}
+.room-card:hover{opacity:1;transform:translateY(-4px);border-color:#4dd0e1;}
+.room-card.selected{border-color:#4dd0e1;background:#e0fbfc;}
+
+.star{color:#4dd0e1;}
+
+@keyframes pop{from{opacity:0;transform:translateY(20px) scale(0.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(14px);display:flex;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:0.25s;z-index:4000;}
+.modal-overlay.active{opacity:1;pointer-events:all;}
+.modal-card{width:90%;max-width:420px;background:white;border-radius:34px;padding:1.5rem;box-shadow:0 10px 45px rgba(0,0,0,0.12);animation:pop 0.35s ease;}
+.modal-card h2{font-size:1.3rem;font-weight:800;color:#3e5c47;margin-bottom:4px;text-align:center;}
+.modal-card p{text-align:center;font-weight:600;color:#6a6a6a;font-size:0.9rem;}
+.modal-check{font-size:3rem;color:#4dd0e1;display:block;text-align:center;margin-bottom:0.4rem;}
+</style>
 </head>
 <body class="booking-page">
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-building"></i>
-                BookMyStay
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="listings.html"><i class="fas fa-hotel"></i> Hotels</a></li>
-            </ul>
+
+<nav style="background:white;padding:1rem 2rem;box-shadow:0 3px 18px rgba(0,0,0,0.05);border-bottom:1px solid rgba(79,209,229,0.2);position:sticky;top:0;z-index:999;">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:800;font-size:1.2rem;color:#3e5c47;">✦ BookMyStay</div>
+  </div>
+</nav>
+
+<section class="booking-section">
+<div class="booking-container">
+
+  <!-- Left: Form -->
+  <div class="card booking-form-wrapper" style="animation:pop 0.8s ease;">
+    <h1 style="font-size:1.7rem;font-weight:800;margin:0 0 1rem;color:#3e5c47;text-align:center;">
+      Complete Your Booking
+    </h1>
+
+    <form id="bookingForm">
+      <div class="input-wrap">
+        <label><i class="fa fa-user star"></i> Full Name</label>
+        <input type="text" id="bName" placeholder="John Doe" required>
+      </div>
+
+      <div class="input-wrap">
+        <label><i class="fa fa-envelope star"></i> Email</label>
+        <input type="email" id="bEmail" placeholder="john@mail.com" required>
+        <small id="emailErr" class="error-message" style="display:none;">Invalid email</small>
+      </div>
+
+      <div class="input-wrap">
+        <label><i class="fa fa-phone star"></i> Phone</label>
+        <input type="tel" id="bPhone" placeholder="75560XXXXX" required minlength="10" maxlength="10">
+      </div>
+
+      <div class="input-wrap">
+        <label><i class="fa fa-location-dot star"></i> Address</label>
+        <input type="text" id="bAddress" placeholder="123 Street, Bangalore" required>
+      </div>
+
+      <div class="input-wrap">
+        <label><i class="fa fa-calendar-check star"></i> Check-In</label>
+        <input type="date" id="checkIn" required>
+      </div>
+      <div class="input-wrap">
+        <label><i class="fa fa-calendar-times star"></i> Check-Out</label>
+        <input type="date" id="checkOut" required>
+      </div>
+
+      <div class="input-wrap">
+        <label><i class="fa fa-users star"></i> Guests</label>
+        <select id="guestSel" required>
+          <option value="">Select Guests</option>
+          <option value="1">1 Guest</option>
+          <option value="2">2 Guests</option>
+          <option value="3">3 Guests</option>
+          <option value="5">5 Guests</option>
+          <option value="6">6 Guests</option>
+          <option value="7">7 Guests</option>
+          <option value="8">8 Guests</option>
+          <option value="9">9 Guests</option>
+          <option value="10">10 Guests</option>
+
+        
+        </select>
+      </div>
+
+      <div class="input-wrap">
+        <label>Room Type</label>
+        <div class="room-grid" id="roomsGrid">
+          <div class="room-card" data="Standard">Standard<br><b>₹3000</b>/night</div>
+          <div class="room-card" data="Deluxe">Deluxe<br><b>₹3800</b>/night</div>
+          <div class="room-card" data="Suite">Suite<br><b>₹5600</b>/night</div>
+          <div class="room-card" data="Family">Family<br><b>₹7200</b>/night</div>
         </div>
-    </nav>
+        <small id="roomErr" class="error-message" style="display:none;">Select a room</small>
+      </div>
 
-    <!-- Breadcrumb -->
-    <div class="booking-breadcrumb">
-        <div class="breadcrumb-container">
-            <span class="breadcrumb-item"><i class="fas fa-search"></i> Search</span>
-            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-            <span class="breadcrumb-item"><i class="fas fa-info-circle"></i> Details</span>
-            <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-            <span class="breadcrumb-item active"><i class="fas fa-credit-card"></i> Payment</span>
-        </div>
-    </div>
+      <div class="input-wrap full-width">
+        <label><i class="fa fa-note-sticky star"></i> Special Requests</label>
+        <input type="text" id="bNote" placeholder="High floor, late check-in…">
+      </div>
 
-    <!-- Booking Section -->
-    <section class="booking-section">
-        <div class="booking-container">
-            <!-- Form Column -->
-            <div class="booking-form-wrapper">
-                <div class="booking-form-header">
-                    <h1>Complete Your Booking</h1>
-                    <p class="booking-form-subtitle">Fill in your details to finalize your reservation</p>
-                </div>
+      <button class="btn" type="submit">Confirm Booking</button>
+      <button class="btn cancel" type="button" onclick="history.back()">Cancel</button>
+    </form>
+  </div>
 
-                <form class="booking-form" id="bookingForm">
-                    <!-- Full Name -->
-                    <div class="booking-form-group">
-                        <label class="booking-form-label">
-                            <i class="fas fa-user"></i>
-                            Full Name
-                        </label>
-                        <input type="text" class="booking-form-input" placeholder="John Doe" required>
-                    </div>
 
-                    <!-- Email -->
-                    <div class="booking-form-group">
-                        <label class="booking-form-label">
-                            <i class="fas fa-envelope"></i>
-                            Email Address
-                        </label>
-                        <input type="email" class="booking-form-input" placeholder="john@example.com" required>
-                    </div>
+  <!-- Right: Summary -->
+  <div class="card booking-summary" style="animation:pop 1s ease;">
+    <h2 style="font-size:1.2rem;font-weight:800;color:#3e5c47;margin-bottom:1rem;"><i class="fa fa-receipt star"></i> Booking Summary</h2>
+    <p class="muted"><b>Hotel:</b> <span id="hName"></span></p>
+    <p class="muted"><b>Location:</b> <span id="hCity"></span></p>
+    <p class="muted"><b>Dates:</b> <span id="displayCheckIn"></span> → <span id="displayCheckOut"></span></p>
+    <p class="muted"><b>Guests:</b> <span id="summaryGuests"></span></p>
+    <p class="muted"><b>Room:</b> <span id="summaryRoom"></span></p>
 
-                    <!-- Phone -->
-                    <div class="booking-form-group">
-                        <label class="booking-form-label">
-                            <i class="fas fa-phone"></i>
-                            Phone Number
-                        </label>
-                        <input type="tel" class="booking-form-input" placeholder="+1 (555) 123-4567" required>
-                    </div>
+    <div style="height:2px;background:#e8dac8;margin:1rem 0;border-radius:2px;"></div>
 
-                    <!-- Address -->
-                    <div class="booking-form-group">
-                        <label class="booking-form-label">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Address
-                        </label>
-                        <input type="text" class="booking-form-input" placeholder="123 Main Street" required>
-                    </div>
+    <p class="price" style="margin:0;">Total: ₹<span id="summaryTotal"></span></p>
+    <p style="font-size:0.8rem;color:#555;font-weight:600;">Includes approx 5% tax</p>
+  </div>
 
-                    <!-- Check In -->
-                    <div class="booking-form-group">
-                        <label class="booking-form-label">
-                            <i class="fas fa-calendar-check"></i>
-                            Check In Date
-                        </label>
-                        <input type="date" class="booking-form-input" required>
-                    </div>
+</div>
+</section>
 
-                    <!-- Check Out -->
-                    <div class="booking-form-group">
-                        <label class="booking-form-label">
-                            <i class="fas fa-calendar-times"></i>
-                            Check Out Date
-                        </label>
-                        <input type="date" class="booking-form-input" required>
-                    </div>
+<!-- Booking confirmed modal -->
+<div class="modal-overlay" id="bookModal">
+  <div class="modal-card">
+    <i class="fa fa-circle-check modal-check"></i>
+    <h2>Booking Confirmed!</h2>
+    <p>Redirecting…</p>
+  </div>
+</div>
 
-                    <!-- Guests -->
-                    <div class="booking-form-group">
-                        <label class="booking-form-label">
-                            <i class="fas fa-users"></i>
-                            Number of Guests
-                        </label>
-                        <select class="booking-form-select" required>
-                            <option value="">Select number of guests</option>
-                            <option value="1">1 Guest</option>
-                            <option value="2">2 Guests</option>
-                            <option value="3">3 Guests</option>
-                            <option value="4">4 Guests</option>
-                            <option value="5">5 Guests</option>
-                            <option value="6">6 Guests</option>
-                            <option value="7">7 Guests</option>
-                            <option value="8">8+ Guests</option>
-                        </select>
-                    </div>
+<script>
+document.getElementById("hName").textContent = localStorage.getItem("hName") || "Grand Palace";
+document.getElementById("hCity").textContent = localStorage.getItem("hCity") || "Bangalore";
 
-                    <!-- Special Requests -->
-                    <div class="booking-form-group full-width">
-                        <label class="booking-form-label">
-                            <i class="fas fa-sticky-note"></i>
-                            Special Requests (Optional)
-                        </label>
-                        <input type="text" class="booking-form-input" placeholder="High floor, late check-in, etc." style="grid-column: 1 / -1;">
-                    </div>
+let priceMap={Standard:3000,Deluxe:3800,Suite:5600,Family:7200},selectedRoom="";
 
-                    <!-- Buttons -->
-                    <div class="booking-form-group btn-group">
-                        <button type="submit" class="booking-btn-submit">
-                            <i class="fas fa-check-circle"></i>
-                            Confirm Booking
-                        </button>
-                        <button type="button" class="booking-btn-cancel" onclick="window.history.back()">
-                            <i class="fas fa-times-circle"></i>
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
+document.querySelectorAll(".room-card").forEach(c=>{
+  c.onclick=e=>{
+    document.querySelectorAll(".room-card").forEach(x=>x.classList.remove("selected"));
+    c.classList.add("selected");
+    selectedRoom=c.getAttribute("data");
+    summaryRoom.textContent=selectedRoom;
+    roomErr.style.display="none";
+  }
+});
 
-            <!-- Summary Column -->
-            <div class="booking-summary">
-                <div class="booking-summary-card">
-                    <div class="booking-summary-title">
-                        <i class="fas fa-receipt"></i>
-                        Booking Summary
-                    </div>
+bookingForm.onsubmit=e=>{
+  e.preventDefault();
+  if(!selectedRoom){roomErr.style.display="block";return;}
 
-                    <div class="booking-summary-item">
-                        <span class="booking-summary-label">Hotel</span>
-                        <span class="booking-summary-value">Grand Palace</span>
-                    </div>
+  const inD=new Date(checkIn.value),outD=new Date(checkOut.value);
+  const nights=Math.max(1,Math.ceil((outD-inD)/(86400000)));
+  const sub=priceMap[selectedRoom]*nights;
+  summaryGuests.textContent=guestSel.value;
+  summaryRoom.textContent=selectedRoom;
+  summaryTotal.textContent=(sub+(sub*0.05)).toFixed(0);
 
-                    <div class="booking-summary-item">
-                        <span class="booking-summary-label">Check In</span>
-                        <span class="booking-summary-value" id="summaryCheckIn">-</span>
-                    </div>
+  displayCheckIn.textContent=checkIn.value;
+  displayCheckOut.textContent=checkOut.value;
 
-                    <div class="booking-summary-item">
-                        <span class="booking-summary-label">Check Out</span>
-                        <span class="booking-summary-value" id="summaryCheckOut">-</span>
-                    </div>
+  bookModal.classList.add("active");
+  setTimeout(()=>location.href="index.html",1400);
+};
+</script>
 
-                    <div class="booking-summary-item">
-                        <span class="booking-summary-label">Nights</span>
-                        <span class="booking-summary-value" id="summaryNights">1</span>
-                    </div>
-
-                    <div class="booking-summary-item">
-                        <span class="booking-summary-label">Guests</span>
-                        <span class="booking-summary-value" id="summaryGuests">-</span>
-                    </div>
-
-                    <div class="booking-summary-item">
-                        <span class="booking-summary-label">Price per Night</span>
-                        <span class="booking-summary-value">$299</span>
-                    </div>
-
-                    <div class="booking-summary-divider"></div>
-
-                    <div class="booking-summary-item">
-                        <span class="booking-summary-label">Subtotal</span>
-                        <span class="booking-summary-value" id="summarySubtotal">$299</span>
-                    </div>
-
-                    <div class="booking-summary-item">
-                        <span class="booking-summary-label">Taxes & Fees</span>
-                        <span class="booking-summary-value">$47.84</span>
-                    </div>
-
-                    <div class="booking-summary-total">
-                        <span class="booking-summary-total-label">Total Amount</span>
-                        <span class="booking-summary-total-value" id="summaryTotal">$346.84</span>
-                    </div>
-
-                    <div class="booking-summary-info">
-                        <div class="booking-summary-info-title">
-                            <i class="fas fa-info-circle"></i>
-                            Free Cancellation
-                        </div>
-                        <div class="booking-summary-info-text">
-                            Cancel free of charge up to 24 hours before check-in.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // Update summary based on date inputs
-        const form = document.getElementById('bookingForm');
-        const checkInInput = form.querySelector('input[type="date"]:nth-of-type(1)');
-        const checkOutInput = form.querySelector('input[type="date"]:nth-of-type(2)');
-        const guestSelect = form.querySelector('select');
-
-        function updateSummary() {
-            // Update check-in and check-out
-            document.getElementById('summaryCheckIn').textContent = checkInInput.value ? new Date(checkInInput.value).toLocaleDateString() : '-';
-            document.getElementById('summaryCheckOut').textContent = checkOutInput.value ? new Date(checkOutInput.value).toLocaleDateString() : '-';
-
-            // Calculate nights
-            if (checkInInput.value && checkOutInput.value) {
-                const checkIn = new Date(checkInInput.value);
-                const checkOut = new Date(checkOutInput.value);
-                const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
-                document.getElementById('summaryNights').textContent = nights > 0 ? nights : 1;
-                
-                // Update price
-                const pricePerNight = 299;
-                const subtotal = nights * pricePerNight;
-                const taxes = subtotal * 0.16;
-                const total = subtotal + taxes;
-                
-                document.getElementById('summarySubtotal').textContent = '$' + subtotal;
-                document.getElementById('summaryTotal').textContent = '$' + total.toFixed(2);
-            }
-
-            // Update guests
-            document.getElementById('summaryGuests').textContent = guestSelect.value ? guestSelect.value : '-';
-        }
-
-        checkInInput.addEventListener('change', updateSummary);
-        checkOutInput.addEventListener('change', updateSummary);
-        guestSelect.addEventListener('change', updateSummary);
-
-        // Form submission
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Booking confirmed! You will receive a confirmation email shortly.');
-            // Here you would send the form data to your backend
-        });
-    </script>
 </body>
 </html>

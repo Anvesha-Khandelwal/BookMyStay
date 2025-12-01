@@ -1,871 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - BookMyStay</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* =====================================================
-           LOGIN PAGE - CUSTOM STYLES
-           ===================================================== */
-
-        body.login-page {
-            display: flex;
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-navy) 100%);
-        }
-
-        .login-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            width: 100%;
-            min-height: 100vh;
-        }
-
-        /* =====================================================
-           BRAND SECTION - LEFT SIDE
-           ===================================================== */
-
-        .login-brand {
-            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-dark) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 3.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-brand::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%234dd0e1" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-            animation: drift 20s infinite linear;
-        }
-
-        @keyframes drift {
-            0% { transform: translateX(0px); }
-            100% { transform: translateX(60px); }
-        }
-
-        .login-brand-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .login-brand-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            transition: all 0.3s ease;
-        }
-
-        .login-brand-logo:hover {
-            color: var(--accent-cyan);
-            transform: translateX(5px);
-        }
-
-        .login-brand-logo i {
-            font-size: 2rem;
-            color: var(--accent-cyan);
-        }
-
-        .login-brand-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-            line-height: 1.2;
-        }
-
-        .login-brand-subtitle {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-            max-width: 400px;
-        }
-
-        .login-features {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            margin-top: 2.5rem;
-        }
-
-        .login-feature {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 1.2rem;
-            align-items: flex-start;
-            padding: 1.5rem;
-            background: rgba(77, 208, 225, 0.08);
-            border: 1px solid rgba(77, 208, 225, 0.2);
-            border-radius: var(--border-radius-sm);
-            animation: slideInLeft 0.6s ease-out backwards;
-            transition: all 0.3s ease;
-        }
-
-        .login-feature:hover {
-            background: rgba(77, 208, 225, 0.12);
-            border-color: rgba(77, 208, 225, 0.4);
-            transform: translateX(8px);
-        }
-
-        .login-feature:nth-child(1) { animation-delay: 0.1s; }
-        .login-feature:nth-child(2) { animation-delay: 0.2s; }
-        .login-feature:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .login-feature-icon {
-            font-size: 1.8rem;
-            color: var(--accent-cyan);
-            min-width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(77, 208, 225, 0.15);
-            border-radius: var(--border-radius-sm);
-            flex-shrink: 0;
-        }
-
-        .login-feature-text {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .login-feature-title {
-            font-weight: 700;
-            color: var(--text-primary);
-            font-size: 1rem;
-        }
-
-        .login-feature-desc {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        .login-brand-footer {
-            position: relative;
-            z-index: 1;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* =====================================================
-           FORM SECTION - RIGHT SIDE
-           ===================================================== */
-
-        .login-form-section {
-            background: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem 2rem;
-            position: relative;
-        }
-
-        .login-form-container {
-            width: 100%;
-            max-width: 420px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-form-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .login-form-header h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .login-form-header p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-weight: 400;
-        }
-
-        .login-form-group {
-            margin-bottom: 1.5rem;
-            animation: fadeIn 0.6s ease-out backwards;
-        }
-
-        .login-form-group:nth-child(1) { animation-delay: 0.1s; }
-        .login-form-group:nth-child(2) { animation-delay: 0.2s; }
-        .login-form-group:nth-child(3) { animation-delay: 0.3s; }
-        .login-form-group:nth-child(4) { animation-delay: 0.4s; }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .login-form-label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.6rem;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-        }
-
-        .login-input-group {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .login-input-icon {
-            position: absolute;
-            left: 1.2rem;
-            color: var(--accent-cyan);
-            font-size: 1rem;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .login-form-input {
-            width: 100%;
-            padding: 0.95rem 1.2rem 0.95rem 3.2rem;
-            border: 1.5px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--border-radius-sm);
-            background: rgba(15, 24, 41, 0.6);
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .login-form-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .login-form-input:focus {
-            outline: none;
-            border-color: var(--accent-cyan);
-            background: rgba(15, 24, 41, 0.8);
-            box-shadow: 0 0 0 3px rgba(77, 208, 225, 0.15);
-        }
-
-        .login-password-toggle {
-            position: absolute;
-            right: 1.2rem;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            z-index: 3;
-            padding: 0.5rem;
-        }
-
-        .login-password-toggle:hover {
-            color: var(--accent-cyan);
-        }
-
-        .login-form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-        }
-
-        .login-checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .login-checkbox-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: var(--accent-cyan);
-        }
-
-        .login-checkbox-group label {
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--text-secondary);
-            user-select: none;
-        }
-
-        .login-forgot-password {
-            color: var(--accent-cyan);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .login-forgot-password:hover {
-            color: #3bbdd1;
-        }
-
-        .login-submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--accent-cyan);
-            color: var(--primary-dark);
-            border: none;
-            border-radius: var(--border-radius-sm);
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow-input);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .login-submit-btn:hover {
-            background: #3bbdd1;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .login-submit-btn:active {
-            transform: translateY(0);
-        }
-
-        .login-divider {
-            display: flex;
-            align-items: center;
-            margin: 2rem 0;
-            gap: 1rem;
-            color: var(--text-muted);
-        }
-
-        .login-divider::before,
-        .login-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .login-divider span {
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .login-social-buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .login-social-btn {
-            padding: 0.9rem;
-            border: 1.5px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--border-radius-sm);
-            background: rgba(15, 24, 41, 0.6);
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            font-weight: 600;
-        }
-
-        .login-social-btn:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(77, 208, 225, 0.1);
-            color: var(--accent-cyan);
-            transform: translateY(-2px);
-        }
-
-        .login-signup-link {
-            text-align: center;
-            margin-top: 2rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .login-signup-link a {
-            color: var(--accent-cyan);
-            text-decoration: none;
-            font-weight: 700;
-            transition: color 0.3s ease;
-        }
-
-        .login-signup-link a:hover {
-            color: #3bbdd1;
-        }
-
-        .login-theme-toggle {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: var(--accent-cyan);
-            color: var(--primary-dark);
-            border: none;
-            padding: 0.7rem 1.3rem;
-            border-radius: var(--border-radius-sm);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: var(--shadow-input);
-            z-index: 100;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .login-theme-toggle:hover {
-            background: #3bbdd1;
-            transform: translateY(-2px);
-        }
-
-        .login-error-message {
-            color: #ff6b6b;
-            font-size: 0.85rem;
-            margin-top: 0.4rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            animation: slideInDown 0.3s ease;
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-form-input.error {
-            border-color: #ff6b6b;
-        }
-
-        /* =====================================================
-           RESPONSIVE DESIGN
-           ===================================================== */
-
-        @media (max-width: 1024px) {
-            .login-brand {
-                padding: 2.5rem;
-            }
-
-            .login-form-section {
-                padding: 2rem 1.5rem;
-            }
-
-            .login-form-container {
-                max-width: 380px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .login-container {
-                grid-template-columns: 1fr;
-                min-height: auto;
-            }
-
-            .login-brand {
-                padding: 2rem;
-                min-height: 300px;
-                justify-content: center;
-            }
-
-            .login-brand-title {
-                font-size: 2rem;
-            }
-
-            .login-brand-features {
-                display: none;
-            }
-
-            .login-brand-footer {
-                display: none;
-            }
-
-            .login-form-section {
-                padding: 2rem 1.5rem;
-                min-height: auto;
-            }
-
-            .login-form-container {
-                max-width: 100%;
-            }
-
-            .login-form-header h1 {
-                font-size: 1.5rem;
-            }
-
-            .login-social-buttons {
-                grid-template-columns: 1fr;
-            }
-
-            .login-theme-toggle {
-                top: 1rem;
-                right: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .login-brand {
-                padding: 1.5rem;
-            }
-
-            .login-brand-logo {
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
-
-            .login-brand-title {
-                font-size: 1.5rem;
-            }
-
-            .login-brand-subtitle {
-                font-size: 0.9rem;
-            }
-
-            .login-form-section {
-                padding: 1.5rem 1rem;
-            }
-
-            .login-form-header h1 {
-                font-size: 1.3rem;
-            }
-
-            .login-form-input {
-                padding: 0.85rem 1rem 0.85rem 2.8rem;
-                font-size: 0.9rem;
-            }
-
-            .login-submit-btn {
-                padding: 0.85rem;
-                font-size: 0.95rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - BookMyStay</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Your CSS -->
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* ---- Simple Page Centering ---- */
+body {
+  margin: 0;
+  background: #faf7f3;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 1rem;
+}
+
+/* ---- Elegant Translucent Card ---- */
+.login-card {
+  width: 100%;
+  max-width: 350px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 24px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* ---- Title ---- */
+.login-card h2 {
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: #567f63;
+  margin-bottom: 1.6rem;
+}
+
+/* ---- Input Box ---- */
+.input-box {
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+
+.input-box i {
+  position: absolute;
+  left: 12px;
+  top: 15px;
+  color: #567f63;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 0.9rem 0.9rem 0.9rem 2.5rem;
+  border-radius: 14px;
+  border: 1px solid #dfe6e9;
+  outline: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.input-box input:focus {
+  border-color: #567f63;
+  box-shadow: 0 0 0 3px rgba(86,127,99,0.15);
+}
+
+/* ---- Button ---- */
+button {
+  width: 100%;
+  padding: 0.9rem;
+  background: #567f63;
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover { opacity: 0.85; transform: translateY(-2px); }
+
+/* ---- Extra Links ---- */
+.links {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.links a {
+  text-decoration: none;
+  color: #567f63;
+  font-weight: 700;
+}
+
+.links a:hover { opacity: 0.7; }
+
+/* ---- Social Buttons ---- */
+.social {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.social button {
+  background: transparent;
+  border: 2px solid #567f63;
+  color: #567f63;
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 0.7rem;
+}
+
+.social button:hover {
+  background: rgba(86,127,99,0.12);
+  transform: translateY(-2px);
+}
+</style>
 </head>
-<body class="login-page">
-    <!-- Theme Toggle -->
-    <button class="login-theme-toggle" id="themeToggle">
-        <i class="fas fa-moon"></i>
-        <span>Dark</span>
-    </button>
 
-    <!-- Login Container -->
-    <div class="login-container">
-        <!-- Brand Section -->
-        <div class="login-brand">
-            <div class="login-brand-content">
-                <div class="login-brand-logo">
-                    <i class="fas fa-building"></i>
-                    BookMyStay
-                </div>
+<body>
 
-                <h2 class="login-brand-title">Welcome Back</h2>
-                <p class="login-brand-subtitle">Discover luxury hotels and book your perfect getaway with exclusive deals and seamless reservations.</p>
+<div class="login-card">
+  <h2>Login</h2>
 
-                <div class="login-features">
-                    <div class="login-feature">
-                        <div class="login-feature-icon">
-                            <i class="fas fa-gem"></i>
-                        </div>
-                        <div class="login-feature-text">
-                            <span class="login-feature-title">Exclusive Deals</span>
-                            <span class="login-feature-desc">Best prices on premium hotels worldwide.</span>
-                        </div>
-                    </div>
+  <form id="loginForm">
 
-                    <div class="login-feature">
-                        <div class="login-feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="login-feature-text">
-                            <span class="login-feature-title">Secure Booking</span>
-                            <span class="login-feature-desc">Your reservations are fully protected.</span>
-                        </div>
-                    </div>
-
-                    <div class="login-feature">
-                        <div class="login-feature-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <div class="login-feature-text">
-                            <span class="login-feature-title">24/7 Support</span>
-                            <span class="login-feature-desc">Expert assistance whenever you need it.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="login-brand-footer">
-                © 2024 BookMyStay. Your trusted travel partner.
-            </div>
-        </div>
-
-        <!-- Form Section -->
-        <div class="login-form-section">
-            <div class="login-form-container">
-                <div class="login-form-header">
-                    <h1>Sign In</h1>
-                    <p>Welcome back! Login to your account</p>
-                </div>
-
-                <form id="loginForm">
-                    <!-- Email -->
-                    <div class="login-form-group">
-                        <label class="login-form-label">Email Address</label>
-                        <div class="login-input-group">
-                            <i class="fas fa-envelope login-input-icon"></i>
-                            <input 
-                                type="email" 
-                                class="login-form-input" 
-                                id="email"
-                                placeholder="you@example.com"
-                                required
-                            >
-                        </div>
-                        <div class="login-error-message" id="emailError" style="display: none;"></div>
-                    </div>
-
-                    <!-- Password -->
-                    <div class="login-form-group">
-                        <label class="login-form-label">Password</label>
-                        <div class="login-input-group">
-                            <i class="fas fa-lock login-input-icon"></i>
-                            <input 
-                                type="password" 
-                                class="login-form-input" 
-                                id="password"
-                                placeholder="Enter your password"
-                                required
-                            >
-                            <button type="button" class="login-password-toggle" id="passwordToggle">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                        <div class="login-error-message" id="passwordError" style="display: none;"></div>
-                    </div>
-
-                    <!-- Options -->
-                    <div class="login-form-options">
-                        <div class="login-checkbox-group">
-                            <input type="checkbox" id="remember" name="remember">
-                            <label for="remember">Remember me</label>
-                        </div>
-                        <a href="#" class="login-forgot-password">Forgot Password?</a>
-                    </div>
-
-                    <!-- Submit -->
-                    <button type="submit" class="login-submit-btn">
-                        <span>Sign In</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-
-                    <!-- Error Message -->
-                    <div class="login-error-message" id="formError" style="display: none; width: 100%; margin-bottom: 1rem; justify-content: center;"></div>
-
-                    <!-- Divider -->
-                    <div class="login-divider">
-                        <span>Or continue with</span>
-                    </div>
-
-                    <!-- Social Login -->
-                    <div class="login-social-buttons">
-                        <button type="button" class="login-social-btn" id="googleBtn">
-                            <i class="fab fa-google"></i>
-                            Google
-                        </button>
-                        <button type="button" class="login-social-btn" id="facebookBtn">
-                            <i class="fab fa-facebook"></i>
-                            Facebook
-                        </button>
-                    </div>
-
-                    <!-- Sign Up Link -->
-                    <div class="login-signup-link">
-                        Don't have an account? <a href="signup.html">Sign up here</a>
-                    </div>
-                </form>
-            </div>
-        </div>
+    <div class="input-box">
+      <i class="fa fa-envelope"></i>
+      <input type="email" id="email" placeholder="Enter email">
     </div>
 
-    <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const savedTheme = localStorage.getItem('theme') || 'light';
+    <div class="input-box">
+      <i class="fa fa-lock"></i>
+      <input type="password" id="pass" placeholder="Enter password">
+      <i class="fa fa-eye" onclick="togglePass()" style="left:auto; right:12px;"></i>
+    </div>
 
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeToggle.querySelector('i').className = 'fas fa-sun';
-            themeToggle.querySelector('span').textContent = 'Light';
-        }
+    <button type="submit">Sign In</button>
 
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            themeToggle.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-            themeToggle.querySelector('span').textContent = isDark ? 'Light' : 'Dark';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
+    <div class="links">
+      <label><input type="checkbox" id="remember"> Remember</label>
+      <a href="#">Forgot?</a>
+    </div>
 
-        // Password Toggle
-        const passwordInput = document.getElementById('password');
-        const passwordToggle = document.getElementById('passwordToggle');
+    <div class="social">
+      <button type="button" onclick="alert('Google Login Soon')"><i class="fab fa-google"></i> Google</button>
+      <button type="button" onclick="alert('Facebook Login Soon')"><i class="fab fa-facebook"></i> Facebook</button>
+    </div>
 
-        passwordToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            passwordToggle.querySelector('i').className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
-        });
+    <p style="text-align:center;margin-top:1.5rem;font-size:0.8rem;font-weight:600;color:#636e72;">
+      New here? <a href="signup.html" style="color:#567f63;font-weight:800;text-decoration:none;">Create account</a>
+    </p>
 
-        // Form Validation
-        const loginForm = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const passwordInput2 = document.getElementById('password');
-        const emailError = document.getElementById('emailError');
-        const passwordError = document.getElementById('passwordError');
-        const submitBtn = document.querySelector('.login-submit-btn');
+    <p style="display:none;color:red;text-align:center;font-size:0.8rem;" id="errMsg">Invalid login</p>
+  </form>
 
-        function validateEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
+</div>
 
-        emailInput.addEventListener('blur', () => {
-            if (emailInput.value && !validateEmail(emailInput.value)) {
-                emailError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Invalid email format';
-                emailError.style.display = 'flex';
-                emailInput.classList.add('error');
-            } else {
-                emailError.style.display = 'none';
-                emailInput.classList.remove('error');
-            }
-        });
+<script>
+// ---- Password show/hide ----
+function togglePass(){
+  const p = document.getElementById("pass");
+  p.type = p.type === "password" ? "text" : "password";
+}
 
-        passwordInput2.addEventListener('blur', () => {
-            if (passwordInput2.value && passwordInput2.value.length < 6) {
-                passwordError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Min 6 characters';
-                passwordError.style.display = 'flex';
-                passwordInput2.classList.add('error');
-            } else {
-                passwordError.style.display = 'none';
-                passwordInput2.classList.remove('error');
-            }
-        });
+// ---- Login form basic validation ----
+document.getElementById("loginForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+  const pass = document.getElementById("pass").value;
+  const rm = document.getElementById("remember").checked;
 
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            let isValid = true;
+  if(email === "" || pass === ""){
+    document.getElementById("errMsg").style.display = "block";
+    return;
+  }
 
-            if (!emailInput.value || !validateEmail(emailInput.value)) {
-                emailError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email';
-                emailError.style.display = 'flex';
-                emailInput.classList.add('error');
-                isValid = false;
-            }
+  if(rm) localStorage.setItem("savedEmail", email);
 
-            if (!passwordInput2.value || passwordInput2.value.length < 6) {
-                passwordError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password required';
-                passwordError.style.display = 'flex';
-                passwordInput2.classList.add('error');
-                isValid = false;
-            }
+  alert("Login successful!");
+  window.location.href = "index.html";
+});
 
-            if (isValid) {
-                submitBtn.innerHTML = '<div style="width: 16px; height: 16px; border: 3px solid rgba(0,0,0,0.2); border-top: 3px solid #000; border-radius: 50%; animation: spin 1s linear infinite;"></div>';
-                submitBtn.disabled = true;
+// ---- Load remembered email ----
+if(localStorage.getItem("savedEmail")){
+  document.getElementById("email").value = localStorage.getItem("savedEmail");
+  document.getElementById("remember").checked = true;
+}
+</script>
 
-                setTimeout(() => {
-                    const rememberMe = document.getElementById('remember').checked;
-                    if (rememberMe) {
-                        localStorage.setItem('rememberedEmail', emailInput.value);
-                    }
-                    alert('Login successful! Redirecting...');
-                    window.location.href = 'index.html';
-                }, 2000);
-            }
-        });
-
-        // Social Login
-        document.getElementById('googleBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Google login functionality will be connected to backend');
-        });
-
-        document.getElementById('facebookBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Facebook login functionality will be connected to backend');
-        });
-
-        // Remember email
-        const rememberedEmail = localStorage.getItem('rememberedEmail');
-        if (rememberedEmail) {
-            emailInput.value = rememberedEmail;
-            document.getElementById('remember').checked = true;
-        }
-    </script>
 </body>
-</html><script>
-if (sortBy === "price-low") filteredHotels.sort((a,b)=> a.price - b.price);
-    if (sortBy === "price-high") filteredHotels.sort((a,b)=> b.price - a.price);
-    if (sortBy === "rating") filteredHotels.sort((a,b)=> b.rating - a.rating);
-
-    displayHotels();
+</html>
