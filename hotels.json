@@ -1,56 +1,26 @@
 [
   {
     "id": 1,
-    "name": "Sea Breeze Resort",
+    "name": "Ocean Pearl Resort",
     "city": "Bali",
-    "country": "Indonesia",
-    "price": 129,
-    "rating": 4.8,
-    "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop"
+    "location": "Bali, Indonesia",
+    "price": 149,
+    "rating": 4.7,
+    "reviews": 210,
+    "image": "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop",
+    "description": "Beachside resort with infinity pool & spa",
+    "attractions": ["Ubud Forest", "Kuta Beach", "Waterfalls", "Temple Tours"]
   },
   {
     "id": 2,
-    "name": "Mountain Retreat Lodge",
-    "city": "Swiss Alps",
-    "country": "Switzerland",
-    "price": 189,
-    "rating": 4.9,
-    "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop"
-  },
-  {
-    "id": 3,
-    "name": "Urban Luxury Hotel",
-    "city": "New York",
-    "country": "USA",
-    "price": 159,
-    "rating": 4.7,
-    "image": "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&h=600&fit=crop"
-  },
-  {
-    "id": 4,
-    "name": "Desert Oasis Resort",
+    "name": "Desert Mirage Hotel",
     "city": "Dubai",
-    "country": "UAE",
+    "location": "Dubai, UAE",
     "price": 249,
     "rating": 4.9,
-    "image": "https://images.unsplash.com/photo-1596436889106-be35e843f974?w=800&h=600&fit=crop"
-  },
-  {
-    "id": 5,
-    "name": "Island Paradise Resort",
-    "city": "Maldives",
-    "country": "Maldives",
-    "price": 299,
-    "rating": 5.0,
-    "image": "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&h=600&fit=crop"
-  },
-  {
-    "id": 6,
-    "name": "Countryside Villa",
-    "city": "Tuscany",
-    "country": "Italy",
-    "price": 179,
-    "rating": 4.8,
-    "image": "https://images.unsplash.com/photo-1549294413-26f195200c16?w=800&h=600&fit=crop"
+    "reviews": 320,
+    "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop",
+    "description": "Luxury hotel near city center",
+    "attractions": ["Burj Khalifa", "Desert Safari", "Dubai Mall", "Beaches"]
   }
 ]
