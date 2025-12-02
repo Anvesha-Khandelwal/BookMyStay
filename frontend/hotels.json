@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Ocean Pearl Resort",
+    "city": "Bali",
+    "location": "Bali, Indonesia",
+    "price": 149,
+    "rating": 4.7,
+    "reviews": 210,
+    "image": "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop",
+    "description": "Beachside resort with infinity pool & spa",
+    "attractions": ["Ubud Forest", "Kuta Beach", "Waterfalls", "Temple Tours"]
+  },
+  {
+    "id": 2,
+    "name": "Desert Mirage Hotel",
+    "city": "Dubai",
+    "location": "Dubai, UAE",
+    "price": 249,
+    "rating": 4.9,
+    "reviews": 320,
+    "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop",
+    "description": "Luxury hotel near city center",
+    "attractions": ["Burj Khalifa", "Desert Safari", "Dubai Mall", "Beaches"]
+  }
+]
