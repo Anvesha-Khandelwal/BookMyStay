@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> BookMyStay</title>
+    <title>Hotel Details - BookMyStay</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+   
     <style>
-     
-        
         body {
             background: var(--primary-dark);
             color: var(--text-primary);
@@ -620,6 +619,7 @@
                 <li><a href="listings.html">Hotels</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <a href="payment.html" class="btn-primary">Pay Now</a>
                 <button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
                     Dark
@@ -633,7 +633,7 @@
         <div class="search-bar-mini">
             <div class="search-item">
                 <div class="search-label"><i class="fas fa-map-marker-alt"></i> Property</div>
-                <div class="search-value" id="hotelName">Hyatt Ronil Goa</div>
+                <div class="search-value" id="hotelName">Loading...</div>
             </div>
             <div class="search-item">
                 <div class="search-label"><i class="fas fa-calendar"></i> Check-In</div>
@@ -654,23 +654,23 @@
 
         <!-- Hotel Header -->
         <div class="hotel-header">
-            <h1 class="hotel-title" id="hotelTitle">Radison Blu</h1>
+            <h1 class="hotel-title" id="hotelTitle">Loading...</h1>
             <div>
-                <span class="hotel-rating">
-                    <i class="fas fa-star"></i> 4.4 Excellent
+                <span class="hotel-rating" id="hotelRating">
+                    <i class="fas fa-star"></i> Loading...
                 </span>
             </div>
-            <p class="hotel-subtitle">Vibrant resort with two pools, floating breakfast & close proximity to the beach</p>
+            <p class="hotel-subtitle" id="hotelDescription">Loading hotel information...</p>
         </div>
 
         <div class="gallery-room-section">
             <div class="gallery-grid">
                 <div class="gallery-item large">
-                    <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop" alt="Hotel Pool">
+                    <img id="mainImage" src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop" alt="Hotel">
                     <div class="gallery-badge">+120 Property Photos</div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="Hotel Drink">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="Hotel View">
                 </div>
                 <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=300&fit=crop" alt="Guest Photo">
@@ -680,25 +680,25 @@
 
             <!-- Room Booking Card -->
             <div class="room-booking-card">
-                <h3 class="room-title">1 KING BED WITH BALCONY</h3>
+                <h3 class="room-title">DELUXE ROOM WITH BALCONY</h3>
                 <p class="room-capacity">Fits 2 Adults</p>
                 <div class="room-feature">
-                    <i class="fas fa-times-circle" style="color: #ff6b6b;"></i>
-                    <span>Non-Refundable</span>
+                    <i class="fas fa-check-circle" style="color: #4caf50;"></i>
+                    <span>Free Cancellation</span>
                 </div>
                 
                 <div class="price-section">
                     <div class="price-label">Per Night:</div>
                     <div class="price-amount">
-                        ₹ 7,000 <span>+ ₹ 350 taxes & fees</span>
+                        ₹ <span id="hotelPrice">Loading...</span> <span>+ taxes & fees</span>
                     </div>
                 </div>
 
-                <button class="book-btn" onclick="alert('Booking feature coming soon!')">
+                <button class="book-btn" onclick="proceedToPayment()">
                     <i class="fas fa-check-circle"></i> BOOK THIS NOW
                 </button>
                 <button class="more-options-btn" onclick="scrollToRooms()">
-                    23 More Options
+                    View More Options
                 </button>
             </div>
         </div>
@@ -730,15 +730,13 @@
                 <button class="category-btn" onclick="filterExperiences('fun')">Fun Adventures</button>
             </div>
 
-            <div class="experiences-grid" id="experiencesGrid">
-             
-            </div>
+            <div class="experiences-grid" id="experiencesGrid"></div>
         </div>
 
         <!-- Super Package Banner -->
         <div class="super-package-banner">
             <div class="super-package-content">
-                <h3> Super Package</h3>
+                <h3>🌟 Super Package</h3>
                 <p>Enjoy benefits worth ₹ 3500 at just ₹ 1400</p>
             </div>
         </div>
@@ -747,9 +745,7 @@
         <div class="rooms-section" id="rooms">
             <h2 class="section-title-small">Available Rooms</h2>
             <p class="rooms-section-info"><i class="fas fa-clock"></i> Check-in: 3 PM | Check-out: 12 PM</p>
-            <!-- Room listings will go here -->
         </div>
-
     </div>
 
     <!-- Footer -->
@@ -761,12 +757,6 @@
                     <p>Your trusted partner in creating memorable travel experiences.</p>
                 </div>
                 <div>
-                    <h4>Quick Links</h4>
-                    <p><a href="#">About Us</a></p>
-                    <p><a href="#">Careers</a></p>
-                    <p><a href="#">Privacy Policy</a></p>
-                </div>
-                <div>
                     <h4>Contact Us</h4>
                     <p>📧 bookMyStay09@gmail.com</p>
                     <p>📞 +91 7568937915</p>
@@ -776,14 +766,50 @@
     </footer>
 
     <script>
+        // Load hotel details from localStorage
+        function loadHotelDetails() {
+            const hotelData = JSON.parse(localStorage.getItem('selectedHotel'));
+            
+            if (hotelData) {
+                document.getElementById('hotelName').textContent = hotelData.name;
+                document.getElementById('hotelTitle').textContent = hotelData.name;
+                document.getElementById('hotelRating').innerHTML = `<i class="fas fa-star"></i> ${hotelData.rating} Excellent`;
+                document.getElementById('hotelDescription').textContent = hotelData.description;
+                document.getElementById('hotelPrice').textContent = hotelData.price.toLocaleString();
+                document.getElementById('mainImage').src = hotelData.image;
+            }
+        }
+
+        // Proceed to payment page
+        function proceedToPayment() {
+            const hotelData = JSON.parse(localStorage.getItem('selectedHotel'));
+            if (hotelData) {
+                // Store booking details
+                localStorage.setItem('bookingData', JSON.stringify({
+                    hotel: hotelData,
+                    checkIn: document.getElementById('displayCheckin').textContent,
+                    checkOut: document.getElementById('displayCheckout').textContent,
+                    guests: document.getElementById('displayGuests').textContent,
+                    totalPrice: hotelData.price
+                }));
+                
+                // Redirect to booking/payment page
+                window.location.href = 'booking.html';
+            } else {
+                alert('Please select a hotel first!');
+            }
+        }
+
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         const currentTheme = localStorage.getItem('theme') || 'light';
+        
         if (currentTheme === 'dark') {
             body.classList.add('dark-mode');
             themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light';
         }
+        
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             if (body.classList.contains('dark-mode')) {
@@ -837,67 +863,72 @@
                 price: 'CHARGEABLE',
                 image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop'
             },
-            {
-                id: 6,
-                category: 'heritage',
-                title: 'Local Culture Tour',
-                description: 'Explore local heritage sites and traditional Goan architecture.',
-                price: 'CHARGEABLE',
-                image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=300&fit=crop'
-            }
-        ];
-
-        // Load Experiences
-        function loadExperiences(filter = 'all') {
-            const grid = document.getElementById('experiencesGrid');
-            const filtered = filter === 'all' ? experiences : experiences.filter(exp => exp.category === filter);
+                        {
+                            id: 6,
+                            category: 'heritage',
+                            title: 'Local Culture Tour',
+                            description: 'Explore local heritage sites and traditional architecture.',
+                            price: 'CHARGEABLE',
+                            image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=300&fit=crop'
+                        }
+                    ];
             
-            grid.innerHTML = filtered.map(exp => `
-                <div class="experience-card">
-                    <div class="experience-image">
-                        <img src="${exp.image}" alt="${exp.title}">
-                    </div>
-                    <div class="experience-content">
-                        <h3 class="experience-title">${exp.title}</h3>
-                        <p class="experience-description">${exp.description}</p>
-                        <span class="experience-price-badge ${exp.price === 'FREE' ? 'experience-free-badge' : ''}">${exp.price}</span>
-                        <a href="#" class="view-details-btn">View Details <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Filter Experiences
-        function filterExperiences(category) {
-            loadExperiences(category);
+                    // Filter experiences by category
+                    function filterExperiences(category) {
+                        const grid = document.getElementById('experiencesGrid');
+                        grid.innerHTML = '';
+                        
+                        const filtered = category === 'all' ? experiences : experiences.filter(exp => exp.category === category);
+                        
+                        filtered.forEach(exp => {
+                            const card = document.createElement('div');
+                            card.className = 'experience-card';
+                            card.innerHTML = `
+                                <div class="experience-image">
+                                    <img src="${exp.image}" alt="${exp.title}">
+                                </div>
+                                <div class="experience-content">
+                                    <h3 class="experience-title">${exp.title}</h3>
+                                    <p class="experience-description">${exp.description}</p>
+                                    <span class="experience-price-badge ${exp.price === 'FREE' ? 'experience-free-badge' : ''}">
+                                        ${exp.price}
+                                    </span>
+                                    <a href="#" class="view-details-btn">
+                                        View Details <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            `;
+                            grid.appendChild(card);
+                        });
+                        
+                        // Update active category button
+                        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                        event.target.classList.add('active');
+                    }
             
-            // Update active button
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-
-        // Scroll to Section
-        function scrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+                    // Initialize experiences
+                    function initExperiences() {
+                        filterExperiences('all');
+                    }
             
-            // Update active tab
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-
-        function scrollToRooms() {
-            scrollToSection('rooms');
-        }
-
-        // Initialize
-        loadExperiences();
-    </script>
-</body>
-</html>
+                    // Scroll to section
+                    function scrollToSection(sectionId) {
+                        const element = document.getElementById(sectionId);
+                        if (element) {
+                            element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+            
+                    // Scroll to rooms section
+                    function scrollToRooms() {
+                        scrollToSection('rooms');
+                    }
+            
+                    // Load on page load
+                    window.addEventListener('DOMContentLoaded', () => {
+                        loadHotelDetails();
+                        initExperiences();
+                    });
+                </script>
+            </body>
+            </html>

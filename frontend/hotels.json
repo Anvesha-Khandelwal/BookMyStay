@@ -22,5 +22,26 @@
     "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop",
     "description": "Luxury hotel near city center",
     "attractions": ["Burj Khalifa", "Desert Safari", "Dubai Mall", "Beaches"]
-  }
+  },
+  {
+  "id": 3,
+  "name": "Sea Breeze Resort",
+  "city": "Goa",
+  "price": 4500,
+  "rating": 4.7,
+  "image": "beach.jpg",
+  "attractions": ["Baga Beach", "Chapora Fort", "Tito's Lane"]
+},
+{
+  "id": 4,
+  "name": "Seaside Villa",
+  "city": "Goa",
+  "price": 3500,
+  "rating": 4.5,
+  "reviews": 210,
+  "image": "image url",
+  "attractions": ["Baga Beach","Fort Aguada","Night Market"]
+}
+
+
 ]
