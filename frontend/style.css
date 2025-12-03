@@ -233,6 +233,77 @@ nav .logo {
 }
 
 /* -------- Search & Filters (Listings) -------- */
+
+.search-bar-mini {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+.search-item input,
+.search-item select {
+  padding: 0.7rem 1rem;
+  border-radius: 14px;
+  border: 2px solid rgba(13,110,124,0.18);
+  background: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  outline: none;
+  transition: 0.3s;
+}
+
+.search-item input:focus,
+.search-item select:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px rgba(79,209,229,0.22);
+}
+
+.search-btn-mini,
+.book-btn,
+.pay-btn,
+.btn-primary {
+  background: var(--accent-cyan);
+  color: var(--navy);
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: 0.3s;
+}
+
+.search-btn-mini:hover,
+.book-btn:hover,
+.pay-btn:hover,
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--sub);
+  padding: 0.6rem 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom: 3px solid var(--accent-cyan);
+}
+
 .search-wrapper {
   display: flex;
   gap: 1rem;
