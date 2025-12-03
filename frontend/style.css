@@ -13,7 +13,7 @@
 }
 
 body.dark-mode {
-  --bg:#0a2540;
+  --bg:#010a13;
   --card:#0f1722;
   --text:#ffffff;
   --sub:#b2bec3;
@@ -111,7 +111,7 @@ body.dark-mode {
 }
 
 body {
-  margin: 0;
+  margin: 10px;
   background: var(--primary-dark);
   color: var(--text-primary);
   font-family: "Poppins", sans-serif;
