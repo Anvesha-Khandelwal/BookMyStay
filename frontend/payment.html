@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment - BookMyStay</title>
+
+<style>
+/* ========== Aesthetic Payment UI ========== */
+body {
+  font-family: Poppins, sans-serif;
+  background: #F9FAFB;
+  color: #1F2937;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Glass Navbar */
+nav {
+  width: 90%;
+  max-width: 900px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(20px);
+  padding: 15px 25px;
+  border-radius: 14px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.04);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0A6E6E;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Payment Card Container */
+.container {
+  width: 90%;
+  max-width: 900px;
+  background: white;
+  padding: 28px;
+  border-radius: 22px;
+  box-shadow: 0 6px 40px rgba(0,0,0,0.06);
+  animation: fade 0.5s ease;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 22px;
+  color: #111827;
+}
+
+/* Payment Method Buttons */
+.search-bar-mini {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.category-btn {
+  background: white;
+  border: 1.5px solid #E5E7EB;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight:700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: 0.3s ease;
+}
+
+.category-btn:hover {
+  transform: translateY(-3px);
+  border-color: #0A6E6E;
+  box-shadow: 0 6px 16px rgba(10,110,110,0.12);
+}
+
+.category-btn:active {
+  transform: scale(0.96);
+  opacity: 0.8;
+}
+
+/* Coupon Input Glass */
+.search-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  background: #F9FAFB;
+  outline:none;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  margin-bottom: 15px;
+}
+
+.search-input:focus {
+  border-color:#0A6E6E;
+  box-shadow: 0 0 0 4px rgba(10,110,110,0.13);
+}
+
+/* Proceed Button */
+.search-btn {
+  width: 100%;
+  background:#0A6E6E;
+  color:white;
+  padding: 16px;
+  border:none;
+  border-radius: 16px;
+  font-size:1rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:0.3s ease;
+  letter-spacing:0.6px;
+  text-transform:uppercase;
+  box-shadow: 0 4px 20px rgba(10,110,110,0.25);
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:0 8px 30px rgba(10,110,110,0.35);
+}
+
+/* Animation */
+@keyframes fade {
+  from { opacity:0; transform: translateY(15px); }
+  to { opacity:1; transform: translateY(0); }
+}
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+<nav>
+  <a class="logo" href="index.html"><i class="fa fa-globe"></i> BookMyStay</a>
+</nav>
+
+<section class="container">
+  <h2 class="section-title">Secure Payment</h2>
+
+  <div class="search-bar-mini">
+    <button class="category-btn"><i class="fa fa-qrcode"></i> UPI</button>
+    <button class="category-btn"><i class="fa fa-credit-card"></i> Card</button>
+    <button class="category-btn"><i class="fa fa-wallet"></i> Wallet</button>
+    <button class="category-btn"><i class="fa fa-building"></i> Pay at Hotel</button>
+  </div>
+
+  <input class="search-input" id="couponInput" placeholder="Enter Coupon Code">
+
+  <div style="margin: 12px 0;">
+    <label style="font-size:0.85rem; font-weight:600; color:#4B5563;">Select Currency:</label>
+    <select class="category-btn" style="padding:10px; width:auto;">
+      <option>INR (₹)</option>
+      <option>USD ($)</option>
+      <option>EUR (€)</option>
+    </select>
+  </div>
+
+  <di

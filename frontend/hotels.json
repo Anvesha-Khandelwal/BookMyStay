@@ -41,7 +41,17 @@
   "reviews": 210,
   "image": "image url",
   "attractions": ["Baga Beach","Fort Aguada","Night Market"]
-}
+},
 
+{
+  "id":5,
+  "name":"Sea View Resort",
+  "city":"Goa",
+  "price":3200,
+  "rating":4.4,
+  "reviews":240,
+  "image":"beach.jpg",
+  "attractions":["Baga Beach","Anjuna Market","Fort Aguada"]
+}
 
 ]

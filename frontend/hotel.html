@@ -9,41 +9,64 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-body{margin:0;background:#f5efe8;font-family:Poppins,sans-serif;color:#2c3e50;}
-.page{max-width:1200px;margin:auto;padding:2rem 1.4rem;}
+.search-bar-mini {
+  background: rgba(255,255,255,0.07);
+  padding: 1.4rem;
+  border-radius: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 2rem;
+}
 
-/* Cards Grid */
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.8rem;padding:1rem 0;}
+.search-item input {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  outline: none;
+  width: 180px;
+}
 
-/* Hotel Card */
-.card{background:#fff;border: radius 10px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);box-shadow:0 5px 28px rgba(0,0,0,0.06);cursor:pointer;transition:0.3s;}
-.card:hover{transform:translateY(-5px);box-shadow:0 14px 38px rgba(79,209,229,0.18);}
-.card img{width:100%;height:190px;object-fit:cover;}
+.sort-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
 
-/* Info */
-.card-body{padding:1.4rem;}
-.card-body h3{margin:0;font-size:1.2rem;font-weight:800;color:#2b3a2d;}
-.muted{font-size:0.85rem;color:#718096;font-weight:600;margin-top:0.4rem;}
-.price{font-size:1.3rem;font-weight:800;color:#0097a7;margin-top:0.6rem;}
+.sort-wrapper select {
+  width: 200px;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.06);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  outline: none;
+  backdrop-filter: blur(12px);
+}
 
-/* Searching */
-.search-wrapper{display:flex;gap:1rem;margin:2rem auto;max-width:650px;}
-.search-input{flex:1;padding:1rem 1.5rem;border-radius:30px;border:none;background:#fff;outline:2px solid rgba(79,209,229,0.25);font-size:0.95rem;box-shadow:0 3px 14px rgba(0,0,0,0.04);}
-.search-input:focus{outline-color:#4fd1e5;}
-.search-btn{background:#4fd1e5;color:#004d40;font-weight:800;border:none;padding:1rem 1.7rem;border-radius:30px;cursor:pointer;text-transform:uppercase;font-size:0.82rem;box-shadow:0 3px 14px rgba(79,209,229,0.35);}
-.search-btn:hover{opacity:0.9;transform:translateY(-2px);box-shadow:0 8px 30px rgba(79,209,229,0.4);}
+.card {
+  animation: popUp 0.4s ease;
+}
+@keyframes popUp {
+  from{opacity:0;transform:scale(0.92);}
+  to{opacity:1;transform:scale(1);}
+}
 
-/* Modal */
-.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.32);backdrop-filter:blur(14px);display:flex;justify-content:center;align-items:center;z-index:5000;opacity:0;pointer-events:none;transition:0.3s;}
-.popup-overlay.active{opacity:1;pointer-events:all;}
-.popup-card{width:90%;max-width:520px;background:rgba(255,255,255,0.88);padding:1.7rem;border-radius:42px;box-shadow:0 14px 50px rgba(0,0,0,0.12);animation:fadeUp 0.35s;}
-.popup-card img{width:100%;height:240px;object-fit:cover;border-radius:32px;margin-bottom:1rem;}
-.popup-card h2{margin:0;font-size:1.5rem;font-weight:800;text-align:center;color:#2b3a2d;}
-.popup-card p{text-align:center;font-size:0.92rem;font-weight:600;color:#444;margin-top:0.3rem;margin-bottom:1rem;}
-.popup-card button{width:100%;}
-
-/* Anim */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px) scale(0.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+@media (max-width: 600px) {
+  .search-btn-mini { width: 100%; }
+  .search-item input { width: 100%; }
+  .sort-wrapper { flex-direction: column; padding: 1rem; }
+  .sort-wrapper select { width: 100%; }
+}
 </style>
 </head>
 
@@ -57,89 +80,79 @@ body{margin:0;background:#f5efe8;font-family:Poppins,sans-serif;color:#2c3e50;}
 </nav>
 
 <div class="page">
+  <div class="search-bar-mini">
+    <div class="search-item">
+      <label class="search-label">📍 City</label>
+      <input id="searchCity" placeholder="Enter city..." oninput="saveSearchValues()">
+    </div>
 
-  <!-- Search -->
-  <div class="search-wrapper">
-    <input type="text" id="searchCityInput" placeholder="Search by city..." class="search-input">
-    <button onclick="renderHotels()" class="search-btn"><i class="fa fa-search"></i> Search</button>
-  </div>
+    <div class="search-item">
+      <label class="search-label">📅 Check-in</label>
+      <input type="date" id="checkin" oninput="saveSearchValues()">
+    </div>
 
-  <!-- Sort -->
-  <div style="display:flex;justify-content:center;margin-bottom:1.5rem;">
-    <select id="sortBy" class="search-input" style="max-width:220px;">
-      <option value="rating">Rating </option>
-      <option value="low">Price: Low → High ₹</option>
-      <option value="high">Price: High → Low ₹</option>
-    </select>
-    <button onclick="renderHotels()" class="search-btn" style="max-width:140px;">Apply</button>
-  </div>
+    <div class="search-item">
+      <label class="search-label">📅 Check-out</label>
+      <input type="date" id="checkout" oninput="saveSearchValues()">
+    </div>
 
-  <div id="resultsInfo" style="text-align:center;font-weight:700;color:#718096;margin-bottom:2rem;">Found 0 Hotels</div>
-  <div class="cards-grid" id="hotelsList"></div>
-</div>
+    <div class="search-item">
+      <label class="search-label">👥 Rooms & Guests</label>
+      <input id="guests" placeholder="E.g. 1 Room, 2 Adults" oninput="saveSearchValues()">
+    </div>
 
-<!-- Modal -->
-<div class="popup-overlay" id="popup">
-  <div class="popup-card">
-    <img id="popImg" src="">
-    <h2 id="popTitle"></h2>
-    <p id="popSub"></p>
-    <button class="search-btn" onclick="goBooking()">Book Now</button>
-    <button class="search-btn" style="background:#888;color:white;box-shadow:none;" onclick="closePop()">Close</button>
+    <button class="search-btn" onclick="searchHotelsFromHotelPage()">Search</button>
   </div>
 </div>
 
 <script>
-let hotelsData = [
-  {id:1,name:"Seaside Villa",city:"Goa",rating:4.5,reviews:210,price:3500,image:""},
-  {id:2,name:"Royal Palace",city:"Delhi",rating:4.2,reviews:180,price:5000,image:""},
-  {id:3,name:"LakeView Resort",city:"Bangalore",rating:4.6,reviews:260,price:4200,image:""}
-];
+document.addEventListener("DOMContentLoaded", () => {
+  // Auto-fill stored search values
+  document.getElementById("searchCity").value = localStorage.getItem("lastCity") || "";
+  document.getElementById("checkin").value = localStorage.getItem("checkin") || "";
+  document.getElementById("checkout").value = localStorage.getItem("checkout") || "";
+  document.getElementById("guests").value = localStorage.getItem("guests") || "";
+});
 
-// Assign placeholder images
-hotelsData[0].image = "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&fit=crop";
-hotelsData[1].image = "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&fit=crop";
-hotelsData[2].image = "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&fit=crop";
+function saveSearchValues() {
+  // Save inputs to localStorage
+  const city = document.getElementById("searchCity").value;
+  const ci = document.getElementById("checkin").value;
+  const co = document.getElementById("checkout").value;
+  const g = document.getElementById("guests").value;
 
-function renderHotels(){
-  const key = document.getElementById("searchCityInput").value.toLowerCase();
-  const sort = document.getElementById("sortBy").value;
-  let f = hotelsData.filter(h=>h.city.toLowerCase().includes(key));
-
-  if(sort==="low")  f.sort((a,b)=>a.price-b.price);
-  if(sort==="high") f.sort((a,b)=>b.price-a.price);
-  if(sort==="rating") f.sort((a,b)=>b.rating-a.rating);
-
-  resultsInfo.textContent = `Found ${f.length} Hotels`;
-
-  document.getElementById("hotelsList").innerHTML = f.map(h=>`
-    <div class="card" onclick="openPop(${h.id})">
-      <img src="${h.image}">
-      <div class="card-body">
-        <h3>${h.name}</h3>
-        <p class="muted">📍 ${h.city} · ⭐ ${h.rating} (${h.reviews} Reviews)</p>
-        <div class="price">₹${h.price}/night</div>
-        <button class="round-btn" onclick="fav(event,${h.id})"><i class="fa fa-heart"></i></button>
-      </div>
-    </div>`).join("");
+  localStorage.setItem("lastCity", city);
+  localStorage.setItem("lastCity", city);
+  localStorage.setItem("checkin", ci);
+  localStorage.setItem("checkout", co);
+  localStorage.setItem("guests", g);
 }
 
-function openPop(id){
-  const h=hotelsData.find(x=>x.id==id);
-  if(!h) return;
-  popImg.src=h.image;
-  popTitle.textContent=h.name;
-  popSub.textContent=`📍 ${h.city} · ⭐ ${h.rating} (${h.reviews} Reviews) · ₹${h.price}/night`;
-  document.getElementById("popup").classList.add("active");
+function searchHotelsFromHotelPage() {
+  saveSearchValues(); 
+  window.location.href = "listings.html"; // Redirect for real search result
+}
+function loadHotelDetails() {
+  const selectedId = localStorage.getItem("selectedHotel");
+  const hotel = hotelsData.find(h => h.id == selectedId);
+  if(!hotel) return;
 
-  localStorage.setItem("selectedHotel",h.id);
+  document.getElementById("hotelName").textContent = hotel.name;
+  document.getElementById("displayCheckin").textContent = localStorage.getItem("checkin") || "Select date";
+  document.getElementById("displayCheckout").textContent = localStorage.getItem("checkout") || "Select date";
+  document.getElementById("displayGuests").textContent = localStorage.getItem("guests") || "Add guests";
+  document.getElementById("hotelPrice").textContent = "₹" + hotel.price.toLocaleString();
+  document.getElementById("mainImage").src = hotel.image;
+  document.getElementById("hotelTitle").textContent = hotel.name;
+  document.getElementById("hotelDescription").textContent = hotel.description;
+  document.getElementById("hotelRating").innerHTML = `<i class="fas fa-star"></i> ${hotel.rating}`;
 }
 
-function closePop(){document.getElementById("popup").classList.remove("active");}
-function fav(e,id){e.stopPropagation();e.target.closest("button").classList.toggle("active");}
-function goBooking(){location.href="booking.html";}
+let hotelsData = [];
+fetch("hotels.json")
+  .then(r => r.json())
+  .then(d => { hotelsData = d; loadHotelDetails(); });
 
-window.onload=renderHotels;
 </script>
 
 </body>

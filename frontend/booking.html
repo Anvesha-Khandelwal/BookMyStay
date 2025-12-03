@@ -1,204 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Complete Booking - BookMyStay</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Complete Your Booking - BookMyStay</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="style.css" />
 
 <style>
-body{margin:0;background:#f8f4f0;font-family:Poppins,sans-serif;color:#2b3a2d;}
-
-.booking-section{padding:2rem 1rem;}
-.booking-container{max-width:1080px;margin:auto;display:grid;grid-template-columns:1.3fr 1fr;gap:2rem;}
-
-.card{
-  background:rgba(255,255,255,0.7);backdrop-filter:blur(16px);
-  border-radius:30px;padding:1.6rem;box-shadow:0 6px 26px rgba(0,0,0,0.06);
-  border:1px solid rgba(0,0,0,0.03);
+:root {
+  --accent:#4fd1e5;
+  --accent-soft:rgba(79,209,229,0.25);
+  --card-light:rgba(255,255,255,0.78);
+  --bg-page:#fdf8f2;
+  --text-dark:#2b3a2d;
+  --text-sub:#4a5568;
+  --text-muted:#718096;
+  --radius:32px;
 }
+
+body.booking-page {
+  margin:0;font-family:Poppins,sans-serif;
+  background:var(--bg-page);color:var(--text-dark);
+}
+
+/* Layout */
+.booking-section{padding:2rem 1.2rem 3rem;}
+.booking-container {
+  max-width:1020px;margin:auto;
+  display:grid;grid-template-columns:1.3fr 1fr;gap:2rem;
+}
+@media(max-width:900px){.booking-container{grid-template-columns:1fr;}}
+
+/* Summary card */
+.booking-summary-card {
+  background:#fff;padding:1.6rem;
+  border-radius:var(--radius);box-shadow:0 12px 42px rgba(0,0,0,0.06);
+  border:1.8px solid #edf2f7;position:sticky;top:86px;
+  backdrop-filter:blur(14px);transition:0.3s;
+}
+.booking-summary-card:hover{box-shadow:0 18px 56px rgba(0,0,0,0.1);}
+
+/* Bill items */
+.booking-summary-title{font-size:1.45rem;font-weight:800;color:#567f63;margin-bottom:1rem;}
+.booking-summary-item {
+  display:flex;justify-content:space-between;
+  padding:0.8rem 0;border-bottom:1.5px dashed var(--accent-soft);
+  font-size:0.92rem;font-weight:700;color:var(--text-dark);
+}
+.booking-summary-total{
+  margin-top:1rem;padding:1rem 0.7rem;border-radius:16px;
+  background:var(--bg-secondary);border:2px solid var(--accent-soft);
+  display:flex;justify-content:space-between;font-weight:800;
+  align-items:center;
+}
+#bTotal{color:#567f63;font-size:1.45rem;}
+
+/* Payment Card */
+.payment-card{
+  background:#fff;padding:1.6rem;border-radius:var(--radius);
+  box-shadow:0 12px 42px rgba(0,0,0,0.06);
+  border:1.8px solid #edf2f7;margin-top:2rem;
+  animation:fadeUp 0.6s ease-out;
+}
+.payment-title{color:#567f63;font-size:1.35rem;font-weight:800;margin:0 0 1rem;}
 
 /* Inputs */
-.input-wrap{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;}
-.input-wrap label{font-size:0.85rem;font-weight:700;color:#3e5c47;}
-.input-wrap input, .input-wrap select{
-  padding:0.95rem 1.2rem;border-radius:18px;border:none;background:#f1ece6;
-  outline:1.8px solid rgba(79,209,229,0.28);font-size:0.92rem;color:#2b3a2d;font-weight:600;
+input,select{
+  width:100%;
+  padding:1rem 1.2rem;border-radius:16px;
+  border:2px solid rgba(0,0,0,0.06);
+  font-size:0.92rem;font-weight:700;
+  font-family:inherit;color:var(--text-dark);
+  outline:none;transition:0.25s;margin-bottom:0.9rem;
+  box-shadow:0 4px 16px rgba(0,0,0,0.015);
 }
-.input-wrap input:focus, .input-wrap select:focus{outline:2px solid #4dd0e1;background:#fff;}
+input:focus,select:focus{
+  border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);
+}
 
-/* Buttons */
-.btn{width:100%;padding:1rem;border-radius:10px;border:none;background:#4dd0e1;color:#004d40;font-weight:800;cursor:pointer;text-transform:uppercase;font-size:0.85rem;transition:0.3s;box-shadow:0 3px 14px rgba(79,209,229,0.35);}
-.btn:hover{opacity:0.9;transform:translateY(-2px);box-shadow:0 6px 25px rgba(79,209,229,0.55);}
-.cancel{background:#6a6a6a;color:#fff;box-shadow:none;margin-top:0.6rem;}
-.cancel:hover{background:#444;transform:none;}
+/* Payment Options */
+.pay-options{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1.4rem 0 1.8rem;}
+.pay-btn{
+  display:flex;align-items:center;gap:0.5rem;justify-content:center;
+  background:var(--bg-secondary);padding:0.8rem;border-radius:14px;
+  border:2px solid rgba(0,0,0,0.05);
+  font-weight:800;font-size:0.8rem;cursor:pointer;transition:0.3s;
+  text-transform:uppercase;color:var(--text-dark);
+}
+.pay-btn:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 28px var(--accent-soft);}
+.pay-btn.selected{border-color:var(--accent-soft);background:var(--accent);color:#fff;}
 
-.room-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.3rem;}
-.room-card{background:white;border-radius:26px;padding:1rem;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,0.05);opacity:0.92;transition:0.25s;border:2px solid transparent;}
-.room-card:hover{opacity:1;transform:translateY(-4px);border-color:#4dd0e1;}
-.room-card.selected{border-color:#4dd0e1;background:#e0fbfc;}
+.booking-btn-submit{
+  width:100%;
+  background:var(--accent);color:#fff;border:none;padding:1rem;
+  border-radius:16px;font-weight:800;cursor:pointer;
+  box-shadow:0 6px 18px var(--accent-soft);transition:0.3s;
+  text-transform:uppercase;letter-spacing:0.6px;
+}
+.booking-btn-submit:hover{opacity:0.88;transform:translateY(-3px);box-shadow:0 12px 32px var(--accent-soft);}
 
-.star{color:#4dd0e1;}
+/* Popup */
+.popup-overlay{
+  position:fixed;inset:0;background:rgba(255,255,255,0.45);
+  backdrop-filter:blur(24px);display:flex;justify-content:center;
+  align-items:center;opacity:0;pointer-events:none;
+  transition:0.3s;z-index:5000;padding:1rem;
+}
+.popup-overlay.active{opacity:1;pointer-events:all;}
+.popup-card{
+  width:92%;max-width:380px;background:#fff;border-radius:var(--radius);
+  box-shadow:0 14px 56px rgba(0,0,0,0.08);
+  padding:1.6rem;text-align:center;animation:pop 0.4s;
+}
+.popup-card h2{color:#567f63;font-weight:800;margin:0 0 0.5rem;font-size:1.5rem;}
+.popup-card p{font-weight:700;color:var(--text-sub);margin-bottom:1.2rem;}
 
-@keyframes pop{from{opacity:0;transform:translateY(20px) scale(0.96);}to{opacity:1;transform:translateY(0) scale(1);}}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(14px);display:flex;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:0.25s;z-index:4000;}
-.modal-overlay.active{opacity:1;pointer-events:all;}
-.modal-card{width:90%;max-width:420px;background:white;border-radius:34px;padding:1.5rem;box-shadow:0 10px 45px rgba(0,0,0,0.12);animation:pop 0.35s ease;}
-.modal-card h2{font-size:1.3rem;font-weight:800;color:#3e5c47;margin-bottom:4px;text-align:center;}
-.modal-card p{text-align:center;font-weight:600;color:#6a6a6a;font-size:0.9rem;}
-.modal-check{font-size:3rem;color:#4dd0e1;display:block;text-align:center;margin-bottom:0.4rem;}
+@keyframes pop{
+  from{transform:scale(0.9);opacity:0;}to{transform:none;opacity:1;}
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}
+}
 </style>
 </head>
-<body class="booking-page">
 
-<nav style="background:white;padding:1rem 2rem;box-shadow:0 3px 18px rgba(0,0,0,0.05);border-bottom:1px solid rgba(79,209,229,0.2);position:sticky;top:0;z-index:999;">
-  <div style="display:flex;justify-content:space-between;align-items:center;">
-    <div style="font-weight:800;font-size:1.2rem;color:#3e5c47;">✦ BookMyStay</div>
-  </div>
+<body class="booking-page">
+<nav>
+ <div class="logo">✦ BookMyStay</div>
+ <ul class="nav-links"><li><a href="index.html">Home</a></li></ul>
 </nav>
 
 <section class="booking-section">
 <div class="booking-container">
 
-  <!-- Left: Form -->
-  <div class="card booking-form-wrapper" style="animation:pop 0.8s ease;">
-    <h1 style="font-size:1.7rem;font-weight:800;margin:0 0 1rem;color:#3e5c47;text-align:center;">
-      Complete Your Booking
-    </h1>
+  <!-- FORM -->
+  <div class="booking-form-wrapper">
+    <h1>Finalize Booking</h1>
+    <form id="bookingForm" onsubmit="submitBook(event)">
+      <label><i class="fa fa-user"></i> Name</label>
+      <input type="text" id="fName" required />
 
-    <form id="bookingForm">
-      <div class="input-wrap">
-        <label><i class="fa fa-user star"></i> Full Name</label>
-        <input type="text" id="bName" placeholder="John Doe" required>
+      <label><i class="fa fa-envelope"></i> Email</label>
+      <input type="email" id="fEmail" required />
+
+      <label><i class="fa fa-phone"></i> Phone</label>
+      <input type="tel" id="fPhone" required />
+
+      <label><i class="fa fa-map-marker-alt"></i> Address</label>
+      <input type="text" id="fAddr" required />
+
+      <label><i class="fa fa-calendar-check"></i> Check In</label>
+      <input type="date" id="cin" required />
+
+      <label><i class="fa fa-calendar-times"></i> Check Out</label>
+      <input type="date" id="cout" required />
+
+      <label><i class="fa fa-users"></i> Guests</label>
+      <select id="gst" required>
+        <option value="">Select</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+
+      <label>Special Request</label>
+      <input type="text" id="req" placeholder="Optional…" />
+
+      <div class="booking-form-group btn-group full-width">
+        <button type="submit" class="booking-btn-submit">Book Now</button>
       </div>
-
-      <div class="input-wrap">
-        <label><i class="fa fa-envelope star"></i> Email</label>
-        <input type="email" id="bEmail" placeholder="john@mail.com" required>
-        <small id="emailErr" class="error-message" style="display:none;">Invalid email</small>
-      </div>
-
-      <div class="input-wrap">
-        <label><i class="fa fa-phone star"></i> Phone</label>
-        <input type="tel" id="bPhone" placeholder="75560XXXXX" required minlength="10" maxlength="10">
-      </div>
-
-      <div class="input-wrap">
-        <label><i class="fa fa-location-dot star"></i> Address</label>
-        <input type="text" id="bAddress" placeholder="123 Street, Bangalore" required>
-      </div>
-
-      <div class="input-wrap">
-        <label><i class="fa fa-calendar-check star"></i> Check-In</label>
-        <input type="date" id="checkIn" required>
-      </div>
-      <div class="input-wrap">
-        <label><i class="fa fa-calendar-times star"></i> Check-Out</label>
-        <input type="date" id="checkOut" required>
-      </div>
-
-      <div class="input-wrap">
-        <label><i class="fa fa-users star"></i> Guests</label>
-        <select id="guestSel" required>
-          <option value="">Select Guests</option>
-          <option value="1">1 Guest</option>
-          <option value="2">2 Guests</option>
-          <option value="3">3 Guests</option>
-          <option value="5">5 Guests</option>
-          <option value="6">6 Guests</option>
-          <option value="7">7 Guests</option>
-          <option value="8">8 Guests</option>
-          <option value="9">9 Guests</option>
-          <option value="10">10 Guests</option>
-
-        
-        </select>
-      </div>
-
-      <div class="input-wrap">
-        <label>Room Type</label>
-        <div class="room-grid" id="roomsGrid">
-          <div class="room-card" data="Standard">Standard<br><b>₹3000</b>/night</div>
-          <div class="room-card" data="Deluxe">Deluxe<br><b>₹3800</b>/night</div>
-          <div class="room-card" data="Suite">Suite<br><b>₹5600</b>/night</div>
-          <div class="room-card" data="Family">Family<br><b>₹7200</b>/night</div>
-        </div>
-        <small id="roomErr" class="error-message" style="display:none;">Select a room</small>
-      </div>
-
-      <div class="input-wrap full-width">
-        <label><i class="fa fa-note-sticky star"></i> Special Requests</label>
-        <input type="text" id="bNote" placeholder="High floor, late check-in…">
-      </div>
-
-      <button class="btn" type="submit">Confirm Booking</button>
-      <button class="btn cancel" type="button" onclick="history.back()">Cancel</button>
     </form>
+
+    <!-- PAYMENT -->
+    <div class="payment-card" id="paymentSection">
+      <div class="payment-title">Payment</div>
+
+      <div class="pay-options">
+        <div class="pay-btn" onclick="selectPay(this,'upi')"><i class="fa fa-qrcode"></i> UPI</div>
+        <div class="pay-btn" onclick="selectPay(this,'card')"><i class="fa fa-credit-card"></i> Card</div>
+        <div class="pay-btn" onclick="selectPay(this,'wallet')"><i class="fa fa-wallet"></i> Wallet</div>
+        <div class="pay-btn" onclick="selectPay(this,'cod')"><i class="fa fa-truck-fast"></i> Pay at Hotel</div>
+      </div>
+
+      <input type="text" id="promo" placeholder="Coupon Code" />
+      <button class="booking-btn-submit" onclick="payNow()">Proceed</button>
+    </div>
   </div>
 
+  <!-- SUMMARY / BILL -->
+  <div>
+    <div class="booking-summary-card">
+      <div class="booking-summary-title">Booking Bill</div>
 
-  <!-- Right: Summary -->
-  <div class="card booking-summary" style="animation:pop 1s ease;">
-    <h2 style="font-size:1.2rem;font-weight:800;color:#3e5c47;margin-bottom:1rem;"><i class="fa fa-receipt star"></i> Booking Summary</h2>
-    <p class="muted"><b>Hotel:</b> <span id="hName"></span></p>
-    <p class="muted"><b>Location:</b> <span id="hCity"></span></p>
-    <p class="muted"><b>Dates:</b> <span id="displayCheckIn"></span> → <span id="displayCheckOut"></span></p>
-    <p class="muted"><b>Guests:</b> <span id="summaryGuests"></span></p>
-    <p class="muted"><b>Room:</b> <span id="summaryRoom"></span></p>
+      <div class="booking-summary-item"><span>Hotel</span><span id="bName">-</span></div>
+      <div class="booking-summary-item"><span>In</span><span id="bIn">-</span></div>
+      <div class="booking-summary-item"><span>Out</span><span id="bOut">-</span></div>
+      <div class="booking-summary-item"><span>Nights</span><span id="bN">1</span></div>
+      <div class="booking-summary-item"><span>Guests</span><span id="bG">-</span></div>
+      <div class="booking-summary-item"><span>Fare/Night</span><span id="bFare">₹0</span></div>
+      <div class="booking-summary-item"><span>Tax (12%)</span><span id="bTax">₹0</span></div>
 
-    <div style="height:2px;background:#e8dac8;margin:1rem 0;border-radius:2px;"></div>
+      <div class="booking-summary-total"><span>Total Payable</span><span id="bTotal">₹0</span></div>
 
-    <p class="price" style="margin:0;">Total: ₹<span id="summaryTotal"></span></p>
-    <p style="font-size:0.8rem;color:#555;font-weight:600;">Includes approx 5% tax</p>
+      <div class="booking-summary-info">Coupon, tax, GST included (UI only)</div>
+    </div>
   </div>
 
 </div>
 </section>
 
-<!-- Booking confirmed modal -->
-<div class="modal-overlay" id="bookModal">
-  <div class="modal-card">
-    <i class="fa fa-circle-check modal-check"></i>
-    <h2>Booking Confirmed!</h2>
-    <p>Redirecting…</p>
-  </div>
+<!-- POPUP -->
+<div class="popup-overlay" id="pop">
+ <div class="popup-card">
+  <h2>✅ Confirmed!</h2>
+  <p id="modalSubtitle">Your stay is booked.</p>
+  <button class="booking-btn-submit" onclick="closePop()">OK</button>
+ </div>
 </div>
 
 <script>
-document.getElementById("hName").textContent = localStorage.getItem("hName") || "Grand Palace";
-document.getElementById("hCity").textContent = localStorage.getItem("hCity") || "Bangalore";
+let pMode="";
+function calc(){
+  const h = JSON.parse(localStorage.getItem("hotel")||"{}");
+  const r = JSON.parse(localStorage.getItem("room")||"{}");
+  const fare = r.p || h.price || 0;
 
-let priceMap={Standard:3000,Deluxe:3800,Suite:5600,Family:7200},selectedRoom="";
+  document.getElementById("bName").textContent = h.name || "-";
+  document.getElementById("bIn").textContent = cin.value || "-";
+  document.getElementById("bOut").textContent = cout.value || "-";
+  document.getElementById("bFare").textContent = "₹" + fare;
 
-document.querySelectorAll(".room-card").forEach(c=>{
-  c.onclick=e=>{
-    document.querySelectorAll(".room-card").forEach(x=>x.classList.remove("selected"));
-    c.classList.add("selected");
-    selectedRoom=c.getAttribute("data");
-    summaryRoom.textContent=selectedRoom;
-    roomErr.style.display="none";
+  if(cin.value && cout.value){
+    const n = Math.max(1,Math.ceil((new Date(cout.value)-new Date(cin.value))/(86400000)));
+    document.getElementById("bN").textContent = n;
+    document.getElementById("bG").textContent = gst.value || "-";
+
+    const subtotal = n * fare;
+    const tax = subtotal * 0.12;
+    const total = subtotal + tax;
+    document.getElementById("bTotal").textContent = "₹" + total;
+    document.getElementById("bTax").textContent = "₹" + Math.round(tax);
   }
-});
+}
+cin.onchange=calc;
+cout.onchange=calc;
+gst.onchange=calc;
 
-bookingForm.onsubmit=e=>{
-  e.preventDefault();
-  if(!selectedRoom){roomErr.style.display="block";return;}
-
-  const inD=new Date(checkIn.value),outD=new Date(checkOut.value);
-  const nights=Math.max(1,Math.ceil((outD-inD)/(86400000)));
-  const sub=priceMap[selectedRoom]*nights;
-  summaryGuests.textContent=guestSel.value;
-  summaryRoom.textContent=selectedRoom;
-  summaryTotal.textContent=(sub+(sub*0.05)).toFixed(0);
-
-  displayCheckIn.textContent=checkIn.value;
-  displayCheckOut.textContent=checkOut.value;
-
-  bookModal.classList.add("active");
-  setTimeout(()=>location.href="index.html",1400);
-};
+function submitBook(e){e.preventDefault();calc();}
+function closePop(){pop.classList.remove("active");}
+function selectPay(btn,m){document.querySelectorAll('.pay-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');pMode=m;}
+function payNow(){document.getElementById("pop").classList.add("active");}
+function closePop(){document.getElementById("pop").classList.remove("active");}
+function submitBook(e){e.preventDefault();calc();document.getElementById("pop").classList.add("active");}
+window.onload=calc;
 </script>
 
 </body>

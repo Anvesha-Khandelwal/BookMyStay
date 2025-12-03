@@ -268,16 +268,17 @@
         }
 
         /* Tabs Navigation */
+        ..tabs-navigation {
+  position: static; /* stops sticking while scrolling */
+  z-index: 1;
+  background: transparent;
+  padding: 1rem 0;
+}
         .tabs-navigation {
             display: flex;
             gap: 3rem;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 3rem;
-            position: sticky;
-            top: 80px;
-            background: var(--primary-dark);
-            z-index: 100;
-            padding: 1rem 0;
         }
 
         .tab-btn {
@@ -929,6 +930,16 @@
                         loadHotelDetails();
                         initExperiences();
                     });
+                    let lastScroll = 0;
+const tabs = document.querySelector(".tabs-navigation");
+
+window.addEventListener("scroll",()=>{
+  const curr = window.scrollY;
+  if(curr > lastScroll && curr > 120) tabs.classList.add("hide");
+  else tabs.classList.remove("hide");
+  lastScroll = curr;
+})
+
                 </script>
             </body>
             </html>
