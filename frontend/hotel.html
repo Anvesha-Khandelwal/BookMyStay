@@ -145,6 +145,17 @@ document.getElementById("attractionList").innerHTML =
   (h.attractions || []).map(a => `
     <div class="attraction"><i class="fas fa-map-pin"></i> ${a}</div>`).join("");
 
+    function loadHotelDetails(){
+  const h = JSON.parse(localStorage.getItem("selectedHotel"));
+  if(!h) return;
+
+  document.getElementById("hotelTitle").textContent = h.name;
+  document.getElementById("hotelDescription").textContent = h.location;
+  document.getElementById("hotelRating").textContent = "⭐ " + h.rating;
+  document.getElementById("hotelPrice").textContent = h.price;
+}
+document.addEventListener("DOMContentLoaded", loadHotelDetails);
+
 </script>
 
 </body>

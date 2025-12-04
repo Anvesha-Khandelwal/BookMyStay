@@ -183,22 +183,7 @@ input:focus,select:focus{
 <button onclick="applyOffer('flat', 500)">₹500 OFF</button>
     </div>
 
-    <!-- PAYMENT -->
-    <div class="payment-card" id="paymentSection">
-      <div class="payment-title">Payment</div>
-
-      <div class="pay-options">
-        <div class="pay-btn" onclick="selectPay(this,'upi')"><i class="fa fa-qrcode"></i> UPI</div>
-        <div class="pay-btn" onclick="selectPay(this,'card')"><i class="fa fa-credit-card"></i> Card</div>
-        <div class="pay-btn" onclick="selectPay(this,'wallet')"><i class="fa fa-wallet"></i> Wallet</div>
-        <div class="pay-btn" onclick="selectPay(this,'cod')"><i class="fa fa-truck-fast"></i> Pay at Hotel</div>
-      </div>
-
-      <input type="text" id="promo" placeholder="Coupon Code" />
-      <button class="booking-btn-submit" onclick="payNow()">Proceed</button>
-    </div>
-  </div>
-
+  
   <!-- SUMMARY / BILL -->
   <div>
     <div class="booking-summary-card">
@@ -214,11 +199,25 @@ input:focus,select:focus{
 
       <div class="booking-summary-total"><span>Total Payable</span><span id="bTotal">₹0</span></div>
 
-      <div class="booking-summary-info">Coupon, tax, GST included (UI only)</div>
-    </div>
   </div>
 
 </div>
+  <!-- PAYMENT -->
+    <div class="payment-card" id="paymentSection">
+      <div class="payment-title">Payment</div>
+
+      <div class="pay-options">
+        <div class="pay-btn" onclick="selectPay(this,'upi')"><i class="fa fa-qrcode"></i> UPI</div>
+        <div class="pay-btn" onclick="selectPay(this,'card')"><i class="fa fa-credit-card"></i> Card</div>
+        <div class="pay-btn" onclick="selectPay(this,'wallet')"><i class="fa fa-wallet"></i> Wallet</div>
+        <div class="pay-btn" onclick="selectPay(this,'cod')"><i class="fa fa-truck-fast"></i> Pay at Hotel</div>
+      </div>
+
+      <input type="text" id="promo" placeholder="Coupon Code" />
+      <button class="booking-btn-submit" onclick="payNow()">Proceed</button>
+    </div>
+  </div>
+
 </section>
 
 <!-- POPUP -->
@@ -231,22 +230,26 @@ input:focus,select:focus{
 </div>
 
 <script>
-  function loadBill(){
-  const data = JSON.parse(localStorage.getItem("selectedHotel"));
-  const search = JSON.parse(localStorage.getItem("bookingSearch"));
-  if(!data || !search) return;
 
-  const nights  = Math.round((new Date(search.checkout) - new Date(search.checkin))/(1000*60*60*24));
-  const rooms   = parseInt(search.rooms);
-  const base    = data.price * nights * rooms;
-  const tax     = base * 0.12;
-  const total   = base + tax;
+function loadBill(){
+  const h = JSON.parse(localStorage.getItem("selectedHotel"));
+  const s = JSON.parse(localStorage.getItem("bookingSearch"));
+  if(!h || !s) return;
 
-  document.getElementById("hotelTitle").textContent = data.name;
-  document.getElementById("checkinInput").value = search.checkin;
-  document.getElementById("checkoutInput").value = search.checkout;
-  document.getElementById("hotelPrice").textContent = total.toLocaleString();
-  document.getElementById("hotelRating").innerHTML = `⭐ ${data.rating}`;
+  const nights = Math.round((new Date(s.checkout)-new Date(s.checkin))/(1000*60*60*24));
+  const rooms  = parseInt(s.rooms);
+  const base   = h.price * nights * rooms;
+  const tax    = base * 0.12;
+  const total  = base + tax;
+
+  document.getElementById("billHotel").textContent = h.name;
+  document.getElementById("billIn").textContent = s.checkin;
+  document.getElementById("billOut").textContent = s.checkout;
+  document.getElementById("billNights").textContent = nights;
+  document.getElementById("billRooms").textContent = rooms;
+  document.getElementById("billBase").textContent = base;
+  document.getElementById("billTax").textContent = tax;
+  document.getElementById("billTotal").textContent = total;
 }
 document.addEventListener("DOMContentLoaded", loadBill);
 

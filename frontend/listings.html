@@ -309,8 +309,8 @@ function openHotelDetails(h){
 }
 
 function filterByCity(c){
-  currentHotels = c==="All"?[...hotels]:hotels.filter(h=>h.city.toLowerCase().includes(c.toLowerCase()));
-  displayHotels();
+ currentHotels = hotels.filter(h=>h.city.toLowerCase().includes(city.toLowerCase()));
+
 }
 
 function filterByPrice(m){ currentHotels=hotels.filter(h=>h.price<=m); displayHotels(); }
