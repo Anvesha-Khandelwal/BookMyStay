@@ -35,6 +35,7 @@
       color:var(--text);
     }
 
+
     /* ---------- Search Bar ---------- */
     .search-wrapper{
       display:flex;
@@ -81,6 +82,37 @@
       transform:translateY(-2px);
       box-shadow:var(--shadow-hover);
     }
+    .card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  animation: popUp 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+@keyframes popUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  #hotelCards {
+    grid-template-columns: 1fr !important;
+    padding: 1rem !important;
+  }
+}
 
     /* ---------- Quick city buttons ---------- */
     .quick-filters{
@@ -240,6 +272,30 @@
     <input type="text" id="searchCityInput" placeholder="Search city..." class="search-input">
     <button onclick="applyFilters()" class="search-btn">Search</button>
   </div>
+  <div class="sort-wrapper">
+  <select onchange="filterByCity(this.value)">
+    <option value="All">All Cities</option>
+    <option value="Bali">Bali</option>
+    <option value="Dubai">Dubai</option>
+    <option value="Maldives">Maldives</option>
+    <option value="Goa">Goa</option>
+  </select>
+  
+  <select onchange="sortHotels(this.value)">
+    <option value="">Sort By</option>
+    <option value="price-low">Price: Low to High</option>
+    <option value="price-high">Price: High to Low</option>
+    <option value="rating">Top Rated</option>
+  </select>
+  
+  <input type="range" min="0" max="500" value="500" oninput="document.getElementById('priceLabel').textContent = '₹' + this.value; filterByPrice(this.value)">
+  <span id="priceLabel">₹500 max</span>
+</div>
+
+<!-- Hotel Cards Container -->
+<div id="hotelCards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:2rem;padding:2rem;max-width:1400px;margin:0 auto;">
+  <!-- Hotels will be displayed here by JavaScript -->
+</div>
 
   <!-- Quick Cities -->
   <div class="quick-filters">
@@ -280,100 +336,302 @@
 
   <div class="cards-grid" id="hotelsList"></div>
 
-  <script>
-    let hotelsData = [];
+<script>
+// Sample hotel data
+const hotels = [
+  {
+    id: 1,
+    name: "Sea Breeze Resort",
+    city: "Bali",
+    location: "Bali, Indonesia",
+    price: 129,
+    rating: 4.8,
+    reviews: 324,
+    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop",
+    description: "Luxury beachside stay with pool, spa, and ocean view.",
+    amenities: [
+      "Free WiFi", "Swimming Pool", "Spa & Wellness Center", "Ocean View Rooms",
+      "24/7 Room Service", "Airport Shuttle", "Fitness Center", "Restaurant & Bar",
+      "Beachfront Access", "Free Parking"
+    ],
+    attractions: [
+      "Ubud Monkey Forest - 15 min",
+      "Tanah Lot Temple - 20 min",
+      "Mount Batur - 45 min",
+      "Tegalalang Rice Terrace - 25 min",
+      "Seminyak Beach - 10 min"
+    ]
+  },
+  {
+    id: 2,
+    name: "Ocean Pearl Resort",
+    city: "Bali",
+    location: "Bali, Indonesia",
+    price: 149,
+    rating: 4.7,
+    reviews: 256,
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
+    description: "Tropical paradise with infinity pool and private beach access.",
+    amenities: [
+      "Infinity Pool", "Private Beach", "Free Breakfast", "Spa Services",
+      "Kids Club", "Water Sports", "Free WiFi", "Conference Rooms",
+      "Garden View", "Laundry Service"
+    ],
+    attractions: [
+      "Waterbom Bali - 10 min",
+      "Uluwatu Temple - 30 min",
+      "Nusa Dua Beach - 15 min",
+      "Bali Safari Park - 35 min"
+    ]
+  },
+  {
+    id: 3,
+    name: "Royal Heritage Hotel",
+    city: "Dubai",
+    location: "Dubai, UAE",
+    price: 299,
+    rating: 4.9,
+    reviews: 512,
+    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop",
+    description: "Luxurious 5-star hotel in the heart of Dubai with stunning city views.",
+    amenities: [
+      "Rooftop Pool", "Fine Dining", "Valet Parking", "Concierge Service",
+      "Business Center", "Luxury Spa", "Shopping Mall Access", "Limousine Service",
+      "Butler Service", "Multiple Restaurants"
+    ],
+    attractions: [
+      "Burj Khalifa - 5 min",
+      "Dubai Mall - 5 min",
+      "Dubai Fountain - 7 min",
+      "Gold Souk - 15 min",
+      "Palm Jumeirah - 20 min"
+    ]
+  },
+  {
+    id: 4,
+    name: "Desert Oasis Resort",
+    city: "Dubai",
+    location: "Dubai, UAE",
+    price: 199,
+    rating: 4.6,
+    reviews: 389,
+    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop",
+    description: "Experience authentic Arabian hospitality with modern luxury amenities.",
+    amenities: [
+      "Desert Safari Tours", "Camel Rides", "Traditional Restaurant", "Outdoor Pool",
+      "Free WiFi", "Cultural Shows", "Hammam & Spa", "Kids Activities",
+      "BBQ Facilities", "Free Parking"
+    ],
+    attractions: [
+      "Dubai Desert Conservation - 10 min",
+      "Al Marmoom Camel Race Track - 15 min",
+      "Dubai Miracle Garden - 25 min",
+      "Global Village - 20 min"
+    ]
+  },
+  {
+    id: 5,
+    name: "Paradise Island Resort",
+    city: "Maldives",
+    location: "Maldives",
+    price: 450,
+    rating: 5.0,
+    reviews: 287,
+    image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&h=600&fit=crop",
+    description: "Overwater villas with crystal clear lagoon views and world-class diving.",
+    amenities: [
+      "Overwater Bungalows", "Private Pool Villas", "Diving Center", "Snorkeling",
+      "All-Inclusive Packages", "Sunset Cruises", "Underwater Restaurant", "Couples Spa",
+      "Water Sports Center", "Marine Excursions"
+    ],
+    attractions: [
+      "Coral Reef Diving - 5 min",
+      "Dolphin Watching - 15 min",
+      "Sandbank Picnic - 10 min",
+      "Night Fishing - 20 min",
+      "Island Hopping Tours"
+    ]
+  },
+  {
+    id: 6,
+    name: "Mountain View Lodge",
+    city: "Goa",
+    location: "Goa, India",
+    price: 89,
+    rating: 4.5,
+    reviews: 412,
+    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop",
+    description: "Peaceful retreat surrounded by lush greenery with authentic Goan cuisine.",
+    amenities: [
+      "Garden View Rooms", "Outdoor Pool", "Goan Restaurant", "Free Breakfast",
+      "Bicycle Tours", "Yoga Classes", "Cooking Classes", "Free WiFi",
+      "Parking", "Airport Transfer"
+    ],
+    attractions: [
+      "Dudhsagar Falls - 30 min",
+      "Spice Plantations - 15 min",
+      "Anjuna Beach - 20 min",
+      "Old Goa Churches - 25 min",
+      "Saturday Night Market - 18 min"
+    ]
+  }
+];
 
-    async function loadHotels() {
-      try {
-        const res = await fetch("hotels.json");
-        hotelsData = await res.json();
-        applyFilters();
-      } catch (err) {
-        document.getElementById("resultsInfo").textContent = "Error loading hotels.";
-      }
-    }
+let currentHotels = [...hotels];
 
-    function updateMaxPriceLabel() {
-      const slider = document.getElementById("maxPrice");
-      const label = document.getElementById("maxPriceLabel");
-      label.textContent = "₹" + slider.value + " max";
-    }
-
-    function applyFilters() {
-      const searchInput = document.getElementById("searchCityInput").value.toLowerCase().trim();
-      const maxPrice = Number(document.getElementById("maxPrice").value);
-      const minRating = Number(document.getElementById("minRating").value);
-      const sortBy = document.getElementById("sortBy").value;
-      const hotelsList = document.getElementById("hotelsList");
-      const resultsInfo = document.getElementById("resultsInfo");
-
-      let filtered = hotelsData.filter(h =>
-        h.city.toLowerCase().includes(searchInput) &&
-        h.price <= maxPrice &&
-        h.rating >= minRating
-      );
-
-      if (sortBy === "price-low") filtered.sort((a, b) => a.price - b.price);
-      if (sortBy === "price-high") filtered.sort((a, b) => b.price - a.price);
-      if (sortBy === "rating") filtered.sort((a, b) => b.rating - a.rating);
-
-      const cityText = searchInput ? ` in "${searchInput}"` : "";
-      resultsInfo.textContent = filtered.length
-        ? `Found ${filtered.length} hotel(s)${cityText}`
-        : `No hotels found${cityText}`;
-
-      hotelsList.innerHTML = filtered.map(h => `
-        <div class="card" onclick="openHotel(${h.id})">
-          <img src="${h.image}" alt="${h.name}">
-          <div class="card-body">
-            <div class="badge">⭐ ${h.rating}</div>
-            <h3>${h.name}</h3>
-            <p class="muted">📍 ${h.city}</p>
-            <div class="price">₹${h.price}/night</div>
+// Display hotels
+function displayHotels() {
+  const container = document.getElementById('hotelCards');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  
+  if (currentHotels.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center;padding:3rem;color:#888;">
+        <i class="fas fa-search" style="font-size:3rem;margin-bottom:1rem;"></i>
+        <h3>No hotels found</h3>
+        <p>Try adjusting your filters</p>
+      </div>
+    `;
+    return;
+  }
+  
+  currentHotels.forEach(hotel => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.cursor = 'pointer';
+    
+    // Make entire card clickable
+    card.onclick = () => openHotelDetails(hotel);
+    
+    card.innerHTML = `
+      <img src="${hotel.image}" alt="${hotel.name}" style="width:100%;height:220px;object-fit:cover;border-radius:12px 12px 0 0;">
+      <div style="padding:1.2rem;">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:0.8rem;">
+          <h3 style="font-size:1.3rem;font-weight:700;color:#1a1a1a;margin:0;">${hotel.name}</h3>
+          <div style="background:#FFD700;padding:0.3rem 0.7rem;border-radius:20px;font-weight:700;font-size:0.85rem;color:#1a1a1a;">
+            ⭐ ${hotel.rating}
           </div>
         </div>
-      `).join("");
+        <p style="color:#666;font-size:0.9rem;margin-bottom:0.5rem;">
+          <i class="fas fa-map-marker-alt" style="color:#4dd0e1;"></i> ${hotel.location}
+        </p>
+        <p style="color:#555;font-size:0.9rem;margin-bottom:1rem;line-height:1.5;">${hotel.description}</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <span style="color:#888;font-size:0.8rem;">Starting from</span>
+            <div style="font-size:1.5rem;font-weight:800;color:#1a1a1a;">₹${hotel.price.toLocaleString()}<span style="font-size:0.9rem;font-weight:500;color:#666;">/night</span></div>
+          </div>
+          <button onclick="event.stopPropagation(); openHotelDetails(${JSON.stringify(hotel).replace(/"/g, '&quot;')})" style="background:#4dd0e1;color:#fff;border:none;padding:0.7rem 1.5rem;border-radius:25px;font-weight:700;cursor:pointer;transition:0.3s;">
+            View Details →
+          </button>
+        </div>
+      </div>
+    `;
+    
+    container.appendChild(card);
+  });
+}
+
+// Open hotel details page
+function openHotelDetails(hotel) {
+  // Save hotel data to localStorage
+  localStorage.setItem('selectedHotel', JSON.stringify(hotel));
+  
+  // Save search dates if available
+  const checkin = document.getElementById('checkin')?.value;
+  const checkout = document.getElementById('checkout')?.value;
+  
+  if (checkin) localStorage.setItem('checkInDate', checkin);
+  if (checkout) localStorage.setItem('checkOutDate', checkout);
+  
+  // Redirect to hotel details page
+  window.location.href = 'hotel.html';
+}
+
+// Filter by city
+function filterByCity(city) {
+  if (!city || city === 'All') {
+    currentHotels = [...hotels];
+  } else {
+    currentHotels = hotels.filter(h => h.city.toLowerCase().includes(city.toLowerCase()));
+  }
+  displayHotels();
+}
+
+// Filter by price
+function filterByPrice(maxPrice) {
+  currentHotels = hotels.filter(h => h.price <= maxPrice);
+  displayHotels();
+}
+
+// Sort hotels
+function sortHotels(sortBy) {
+  if (sortBy === 'price-low') {
+    currentHotels.sort((a, b) => a.price - b.price);
+  } else if (sortBy === 'price-high') {
+    currentHotels.sort((a, b) => b.price - a.price);
+  } else if (sortBy === 'rating') {
+    currentHotels.sort((a, b) => b.rating - a.rating);
+  }
+  displayHotels();
+}
+
+// Save search values
+function saveSearchValues() {
+  const city = document.getElementById('searchCity')?.value;
+  const checkin = document.getElementById('checkin')?.value;
+  const checkout = document.getElementById('checkout')?.value;
+  const guests = document.getElementById('guests')?.value;
+  
+  if (city) localStorage.setItem('searchCity', city);
+  if (checkin) localStorage.setItem('checkInDate', checkin);
+  if (checkout) localStorage.setItem('checkOutDate', checkout);
+  if (guests) localStorage.setItem('guests', guests);
+}
+
+// Search hotels
+function searchHotelsFromHotelPage() {
+  const city = document.getElementById('searchCity')?.value;
+  if (city) {
+    filterByCity(city);
+  }
+}
+
+// Load saved search on page load
+window.addEventListener('DOMContentLoaded', function() {
+  const savedCity = localStorage.getItem('searchCity');
+  const savedCheckin = localStorage.getItem('checkInDate');
+  const savedCheckout = localStorage.getItem('checkOutDate');
+  const savedGuests = localStorage.getItem('guests');
+  
+  if (savedCity) {
+    const cityInput = document.getElementById('searchCity');
+    if (cityInput) {
+      cityInput.value = savedCity;
+      filterByCity(savedCity);
     }
-
-    function openHotel(id) {
-      localStorage.setItem("selectedHotel", id);
-      window.location.href = "hotel.html";
-    }
-
-    // Event listeners
-    document.addEventListener("DOMContentLoaded", () => {
-      loadHotels();
-      updateMaxPriceLabel();
-
-      document.getElementById("maxPrice").addEventListener("input", () => {
-        updateMaxPriceLabel();
-        applyFilters();
-      });
-
-      document.getElementById("minRating").addEventListener("change", applyFilters);
-      document.getElementById("sortBy").addEventListener("change", applyFilters);
-      document.getElementById("searchCityInput").addEventListener("keyup", (e) => {
-        if (e.key === "Enter") applyFilters();
-      });
-
-      document.getElementById("clearBtn").addEventListener("click", () => {
-        document.getElementById("searchCityInput").value = "";
-        document.getElementById("maxPrice").value = 500;
-        document.getElementById("minRating").value = "0";
-        document.getElementById("sortBy").value = "price-low";
-        updateMaxPriceLabel();
-        applyFilters();
-      });
-
-      
-      document.querySelectorAll(".chip").forEach(chip => {
-        chip.addEventListener("click", () => {
-          const city = chip.getAttribute("data-city");
-          document.getElementById("searchCityInput").value = city;
-          applyFilters();
-        });
-      });
-    });
-  </script>
+  }
+  
+  if (savedCheckin) {
+    const checkinInput = document.getElementById('checkin');
+    if (checkinInput) checkinInput.value = savedCheckin;
+  }
+  
+  if (savedCheckout) {
+    const checkoutInput = document.getElementById('checkout');
+    if (checkoutInput) checkoutInput.value = savedCheckout;
+  }
+  
+  if (savedGuests) {
+    const guestsInput = document.getElementById('guests');
+    if (guestsInput) guestsInput.value = savedGuests;
+  }
+  
+  // Initial display
+  displayHotels();
+});
+</script>
 </body>
 </html>

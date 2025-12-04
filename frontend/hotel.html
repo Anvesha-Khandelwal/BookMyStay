@@ -1,159 +1,228 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotel Listings — BookMyStay</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="style.css">
-
+<!-- ADD THIS CSS TO THE <style> SECTION IN <head> OF hotel.html -->
 <style>
-.search-bar-mini {
-  background: rgba(255,255,255,0.07);
-  padding: 1.4rem;
-  border-radius: 18px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: center;
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,0.1);
-  margin-bottom: 2rem;
+.amenities-section,
+.attractions-section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.search-item input {
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.05);
-  color: white;
-  font-weight: 600;
-  font-size: 0.9rem;
-  outline: none;
-  width: 180px;
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
 }
 
-.sort-wrapper {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin: 1rem 0 2rem;
+.amenity-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem;
+    background: var(--primary-dark);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
 }
 
-.sort-wrapper select {
-  width: 200px;
-  padding: 0.8rem 1rem;
-  border-radius: 12px;
-  font-weight: 700;
-  background: rgba(255,255,255,0.06);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.1);
-  outline: none;
-  backdrop-filter: blur(12px);
+.amenity-item:hover {
+    background: var(--card-hover);
+    transform: translateX(5px);
 }
 
-.card {
-  animation: popUp 0.4s ease;
-}
-@keyframes popUp {
-  from{opacity:0;transform:scale(0.92);}
-  to{opacity:1;transform:scale(1);}
+.amenity-item i {
+    color: var(--accent-cyan);
+    font-size: 1.2rem;
 }
 
-@media (max-width: 600px) {
-  .search-btn-mini { width: 100%; }
-  .search-item input { width: 100%; }
-  .sort-wrapper { flex-direction: column; padding: 1rem; }
-  .sort-wrapper select { width: 100%; }
+.amenity-item span {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.attractions-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.attraction-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: var(--primary-dark);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.attraction-item:hover {
+    background: var(--card-hover);
+    border-color: var(--accent-cyan);
+}
+
+.attraction-item i {
+    color: var(--accent-gold);
+    font-size: 1.3rem;
+}
+
+.attraction-item span {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .amenities-grid,
+    .attractions-list {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
-</head>
 
-<body>
-
-<nav style="background:#fff;padding:1rem 2rem;border-bottom:1px solid rgba(0,0,0,0.06);box-shadow:0 3px 14px rgba(0,0,0,0.03);position:sticky;top:0;z-index:999;">
-  <div style="display:flex;justify-content:space-between;align-items:center;">
-    <div style="font-weight:800;font-size:1.3rem;color:#2b3a2d;pointer-events:none;">✦ BookMyStay</div>
-    <a href="login.html" style="text-decoration:none;font-weight:700;color:#004d40;background:rgba(79,209,229,0.15);padding:0.6rem 1.2rem;border-radius:20px;">Login</a>
-  </div>
-</nav>
-
-<div class="page">
-  <div class="search-bar-mini">
-    <div class="search-item">
-      <label class="search-label">📍 City</label>
-      <input id="searchCity" placeholder="Enter city..." oninput="saveSearchValues()">
-    </div>
-
-    <div class="search-item">
-      <label class="search-label">📅 Check-in</label>
-      <input type="date" id="checkin" oninput="saveSearchValues()">
-    </div>
-
-    <div class="search-item">
-      <label class="search-label">📅 Check-out</label>
-      <input type="date" id="checkout" oninput="saveSearchValues()">
-    </div>
-
-    <div class="search-item">
-      <label class="search-label">👥 Rooms & Guests</label>
-      <input id="guests" placeholder="E.g. 1 Room, 2 Adults" oninput="saveSearchValues()">
-    </div>
-
-    <button class="search-btn" onclick="searchHotelsFromHotelPage()">Search</button>
-  </div>
-</div>
-
+<!-- ADD THIS SCRIPT BEFORE CLOSING </body> TAG IN hotel.html -->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Auto-fill stored search values
-  document.getElementById("searchCity").value = localStorage.getItem("lastCity") || "";
-  document.getElementById("checkin").value = localStorage.getItem("checkin") || "";
-  document.getElementById("checkout").value = localStorage.getItem("checkout") || "";
-  document.getElementById("guests").value = localStorage.getItem("guests") || "";
-});
-
-function saveSearchValues() {
-  // Save inputs to localStorage
-  const city = document.getElementById("searchCity").value;
-  const ci = document.getElementById("checkin").value;
-  const co = document.getElementById("checkout").value;
-  const g = document.getElementById("guests").value;
-
-  localStorage.setItem("lastCity", city);
-  localStorage.setItem("lastCity", city);
-  localStorage.setItem("checkin", ci);
-  localStorage.setItem("checkout", co);
-  localStorage.setItem("guests", g);
-}
-
-function searchHotelsFromHotelPage() {
-  saveSearchValues(); 
-  window.location.href = "listings.html"; // Redirect for real search result
-}
+// Load hotel details from localStorage
 function loadHotelDetails() {
-  const selectedId = localStorage.getItem("selectedHotel");
-  const hotel = hotelsData.find(h => h.id == selectedId);
-  if(!hotel) return;
-
-  document.getElementById("hotelName").textContent = hotel.name;
-  document.getElementById("displayCheckin").textContent = localStorage.getItem("checkin") || "Select date";
-  document.getElementById("displayCheckout").textContent = localStorage.getItem("checkout") || "Select date";
-  document.getElementById("displayGuests").textContent = localStorage.getItem("guests") || "Add guests";
-  document.getElementById("hotelPrice").textContent = "₹" + hotel.price.toLocaleString();
-  document.getElementById("mainImage").src = hotel.image;
-  document.getElementById("hotelTitle").textContent = hotel.name;
-  document.getElementById("hotelDescription").textContent = hotel.description;
-  document.getElementById("hotelRating").innerHTML = `<i class="fas fa-star"></i> ${hotel.rating}`;
+    const hotelData = JSON.parse(localStorage.getItem('selectedHotel'));
+    
+    if (!hotelData) {
+        alert('Please select a hotel first!');
+        window.location.href = 'listings.html';
+        return;
+    }
+    
+    // Update page title
+    document.title = `${hotelData.name} - BookMyStay`;
+    
+    // Update hotel header section
+    const hotelNameEl = document.getElementById('hotelName');
+    const hotelTitleEl = document.getElementById('hotelTitle');
+    const hotelRatingEl = document.getElementById('hotelRating');
+    const hotelDescEl = document.getElementById('hotelDescription');
+    const hotelPriceEl = document.getElementById('hotelPrice');
+    const mainImageEl = document.getElementById('mainImage');
+    const locationInputEl = document.getElementById('locationInput');
+    
+    if (hotelNameEl) hotelNameEl.textContent = hotelData.name;
+    if (hotelTitleEl) hotelTitleEl.textContent = hotelData.name;
+    if (hotelRatingEl) {
+        hotelRatingEl.innerHTML = `<i class="fas fa-star"></i> ${hotelData.rating} Excellent (${hotelData.reviews || 324} reviews)`;
+    }
+    if (hotelDescEl) hotelDescEl.textContent = hotelData.description;
+    if (hotelPriceEl) hotelPriceEl.textContent = hotelData.price.toLocaleString();
+    if (mainImageEl) mainImageEl.src = hotelData.image;
+    if (locationInputEl) locationInputEl.value = hotelData.city;
+    
+    // Display amenities if available
+    if (hotelData.amenities && hotelData.amenities.length > 0) {
+        displayAmenities(hotelData.amenities);
+    }
+    
+    // Display nearby attractions
+    if (hotelData.attractions && hotelData.attractions.length > 0) {
+        displayNearbyAttractions(hotelData.attractions);
+    }
+    
+    // Load check-in/check-out dates
+    loadBookingDates();
 }
 
-let hotelsData = [];
-fetch("hotels.json")
-  .then(r => r.json())
-  .then(d => { hotelsData = d; loadHotelDetails(); });
+// Display amenities section
+function displayAmenities(amenities) {
+    let amenitiesSection = document.getElementById('amenitiesSection');
+    
+    if (!amenitiesSection) {
+        amenitiesSection = document.createElement('div');
+        amenitiesSection.id = 'amenitiesSection';
+        amenitiesSection.className = 'amenities-section';
+        
+        const experiencesSection = document.querySelector('.experiences-section');
+        if (experiencesSection) {
+            experiencesSection.parentNode.insertBefore(amenitiesSection, experiencesSection);
+        }
+    }
+    
+    const amenitiesHTML = amenities.map(amenity => `
+        <div class="amenity-item">
+            <i class="fas fa-check-circle"></i>
+            <span>${amenity}</span>
+        </div>
+    `).join('');
+    
+    amenitiesSection.innerHTML = `
+        <h2 class="section-title-small">Amenities & Services</h2>
+        <div class="amenities-grid">
+            ${amenitiesHTML}
+        </div>
+    `;
+}
 
+// Display nearby attractions
+function displayNearbyAttractions(attractions) {
+    let attractionsSection = document.getElementById('attractionsSection');
+    
+    if (!attractionsSection) {
+        attractionsSection = document.createElement('div');
+        attractionsSection.id = 'attractionsSection';
+        attractionsSection.className = 'attractions-section';
+        
+        const experiencesSection = document.querySelector('.experiences-section');
+        if (experiencesSection) {
+            experiencesSection.parentNode.insertBefore(attractionsSection, experiencesSection.nextSibling);
+        }
+    }
+    
+    const attractionsHTML = attractions.map(attraction => `
+        <div class="attraction-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>${attraction}</span>
+        </div>
+    `).join('');
+    
+    attractionsSection.innerHTML = `
+        <h2 class="section-title-small">Nearby Attractions</h2>
+        <div class="attractions-list">
+            ${attractionsHTML}
+        </div>
+    `;
+}
+
+// Load booking dates
+function loadBookingDates() {
+    const checkin = localStorage.getItem('checkInDate');
+    const checkout = localStorage.getItem('checkOutDate');
+    
+    const displayCheckinEl = document.getElementById('displayCheckin');
+    const displayCheckoutEl = document.getElementById('displayCheckout');
+    const checkinDateEl = document.getElementById('checkinDate');
+    const checkoutDateEl = document.getElementById('checkoutDate');
+    
+    if (checkin) {
+        if (displayCheckinEl) displayCheckinEl.textContent = formatDate(checkin);
+        if (checkinDateEl) checkinDateEl.value = checkin;
+    }
+    
+    if (checkout) {
+        if (displayCheckoutEl) displayCheckoutEl.textContent = formatDate(checkout);
+        if (checkoutDateEl) checkoutDateEl.value = checkout;
+    }
+}
+
+// Format date for display
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadHotelDetails();
+});
 </script>
-
-</body>
-</html>

@@ -1,0 +1,19 @@
+<script>
+window.onload = () => {
+  const h = JSON.parse(localStorage.getItem("selectedHotel"));
+  if (!h) return alert("No hotel selected!");
+
+  hotelTitle.textContent = h.name;
+  hotelRating.innerHTML = `<i class="fas fa-star"></i> ${h.rating} Excellent`;
+  hotelPrice.textContent = h.price.toLocaleString();
+  mainImage.src = h.image;
+
+  // ✅ Show attractions
+  document.getElementById("attractionBox").innerHTML = h.attractions
+      .map(a => `<span class="attraction-tag">${a}</span>`).join(" ");
+
+  // ✅ Show amenities
+  document.getElementById("amenitiesBox").innerHTML = h.amenities
+      .map(a => `<span class="amenity-tag">✔ ${a}</span>`).join(" ");
+};
+</script>
