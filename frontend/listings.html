@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,6 +88,7 @@ body{background:var(--bg);font-family:"Poppins",sans-serif;color:var(--text);}
 
 #resultsInfo{text-align:center;font-size:0.9rem;font-weight:600;color:var(--sub);margin:0.4rem 0;}
 </style>
+
 </head>
 <body>
 
@@ -111,9 +113,9 @@ body{background:var(--bg);font-family:"Poppins",sans-serif;color:var(--text);}
     <option value="rating">Top Rated</option>
   </select>
 
-  <input type="range" min="0" max="500" value="500"
-    oninput="document.getElementById('maxPriceLabel').textContent = '₹' + this.value + ' max'; filterByPrice(this.value)">
-  <div id="maxPriceLabel">₹500 max</div>
+  <input type="range" min="0" max="12000" value="12000"
+    oninput="document.getElementById('priceLabel').textContent = '₹' + this.value + ' max'; filterByPrice(this.value)">
+  <div id="maxPriceLabel"><span id="priceLabel">₹12000 max</span></div>
 
   <button class="clear-btn" onclick="clearFilters()">Clear Filters</button>
 </div>
@@ -121,110 +123,45 @@ body{background:var(--bg);font-family:"Poppins",sans-serif;color:var(--text);}
 <div id="hotelCards" class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(350px,1fr));"></div>
 
 <div class="quick-filters">
-  <button class="chip" data-city="All" onclick="filterByCity('All')">All</button>
-  <button class="chip" data-city="Goa" onclick="filterByCity('Goa')">Goa</button>
-  <button class="chip" data-city="Delhi" onclick="filterByCity('Delhi')">Delhi</button>
-  <button class="chip" data-city="Mumbai" onclick="filterByCity('Mumbai')">Mumbai</button>
-  <button class="chip" data-city="Bangalore" onclick="filterByCity('Bangalore')">Bangalore</button>
+  <button class="chip" onclick="filterByCity('All')">All</button>
+  <button class="chip" onclick="filterByCity('Goa')">Goa</button>
+  <button class="chip" onclick="filterByCity('Delhi')">Delhi</button>
+  <button class="chip" onclick="filterByCity('Mumbai')">Mumbai</button>
+  <button class="chip" onclick="filterByCity('Bangalore')">Bangalore</button>
 </div>
 
 <div id="resultsInfo">Found hotels</div>
+
 <script>
-// FIXED HOTEL ARRAY (not nested anymore)
+
+// FIXED HOTEL DATA with different galleries
 const hotels = [
-  {id:1,name:"Sea Breeze Resort",city:"Bali",location:"Bali, Indonesia",price:3500,rating:4.8,reviews:324,image:"https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop",description:"Luxury beachside",amenities:["WiFi","Pool","Spa","Shuttle","Parking"],attractions:["Monkey Forest - 15 min","Temple - 20 min","Beach - 10 min"],gallery: [
-  "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1598928635833-5e8c7854b5a4?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072385914-3e3354a9a973?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072391397-838e1f5e5fbe?w=800&h=600&fit=crop"
-]
-},
-  {id:2,name:"Ocean Pearl Resort",city:"Bali",location:"Bali, Indonesia",price:4200,rating:4.7,reviews:256,image:"https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",description:"Beach access",amenities:["Infinity Pool","Breakfast","Sports","WiFi"],attractions:["Waterbom - 10 min","Nusa Dua - 15 min"],gallery: [
-  "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1598928635833-5e8c7854b5a4?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072385914-3e3354a9a973?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072391397-838e1f5e5fbe?w=800&h=600&fit=crop"
-]
-},
-  {id:3,name:"Royal Heritage Hotel",city:"Dubai",location:"Dubai, UAE",price:8000,rating:4.9,reviews:512,image:"https://images.unsplash.com/photo-1542314831-heritage?w=800&h=600&fit=crop",description:"5 star luxury",amenities:["Pool","Dining","WiFi","Valet"],attractions:["Burj Khalifa - 5 min","Mall - 5 min"],gallery: [
-  "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1598928635833-5e8c7854b5a4?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072385914-3e3354a9a973?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072391397-838e1f5e5fbe?w=800&h=600&fit=crop"
-]
-},
-  {id:4,name:"Desert Oasis Resort",city:"Dubai",location:"Dubai, UAE",price:6500,rating:4.6,reviews:389,image:"https://images.unsplash.com/photo-1520250497591-oasis?w=800&h=600&fit=crop",description:"Desert view",amenities:["Safari","Spa","WiFi"],attractions:["Garden - 25 min","Village - 20 min"]},
-  {id:5,name:"Paradise Island Resort",city:"Maldives",location:"Maldives",price:12000,rating:5.0,reviews:287,image:"https://images.unsplash.com/photo-1514282401047-lagoon?w=800&h=600&fit=crop",description:"Water villa",amenities:["Beach","Snorkeling","WiFi"],attractions:["Coral Reef - 5 min"]},
-  {id:6,name:"Mountain Lodge",city:"Manali",location:"Manali, India",price:4900,rating:4.7,reviews:412,image:"https://images.unsplash.com/photo-1542314831-manali?w=800&h=600&fit=crop",description:"Snow view",amenities:["WiFi","Heater"],attractions:["Valley - 12 min"]},
-  {id:7,name:"Budget Stay Inn",city:"Delhi",location:"Delhi, India",price:2100,rating:3.5,reviews:87,image:"https://images.unsplash.com/photo-1559599076-budget?w=800&h=600&fit=crop",description:"Affordable",amenities:["WiFi"],attractions:["Metro - 1 min"]},
-  {id:8,name:"Tech Park Hotel",city:"Bangalore",location:"Bangalore, India",price:4300,rating:4.5,reviews:201,image:"https://images.unsplash.com/photo-1582719508461-tech?w=800&h=600&fit=crop",description:"IT hub nearby",amenities:["WiFi","Lobby","UPI Pay"],attractions:["Park - 8 min"]},
-  {id:9,name:"Hill View Hotel",city:"Coorg",location:"Coorg, India",price:3300,rating:4.2,reviews:76,image:"https://images.unsplash.com/photo-1571896349842-hill?w=800&h=600&fit=crop",description:"Nature stay",amenities:["WiFi","Breakfast"],attractions:["Trekking - 5 min"],gallery: [
-  "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1598928635833-5e8c7854b5a4?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072385914-3e3354a9a973?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072391397-838e1f5e5fbe?w=800&h=600&fit=crop"
-]
-},
-  {id:10,name:"Taj View Hotel",city:"Agra",location:"Agra, India",price:7700,rating:4.9,reviews:813,image:"https://images.unsplash.com/photo-1564501049412-taj?w=800&h=600&fit=crop",description:"Taj view rooms",amenities:["WiFi","Fine Dining"],attractions:["Taj Mahal - 5 min"],gallery: [
-  "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1598928635833-5e8c7854b5a4?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072385914-3e3354a9a973?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072391397-838e1f5e5fbe?w=800&h=600&fit=crop"
-]
-},
-  {id:11,name:"Golden Sand Retreat",city:"Goa",location:"Baga, Goa, India",price:3600,rating:4.3,reviews:221,image:"https://images.unsplash.com/photo-1559599076-goldensand?w=800&h=600&fit=crop",description:"Near Beach",amenities:["WiFi","Parking"],attractions:["Baga Beach - 4 min"],gallery: [
-  "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1598928635833-5e8c7854b5a4?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072385914-3e3354a9a973?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072391397-838e1f5e5fbe?w=800&h=600&fit=crop"
-]
-},
-  {id:12,name:"Lakewood Resort",city:"Udaipur",location:"Udaipur, India",price:7200,rating:4.6,reviews:420,image:"https://images.unsplash.com/photo-1501114676298-lake?w=800&h=600&fit=crop",description:"Lake view palace style",amenities:["WiFi","Pool","Boating"],attractions:["Lake Pichola - 2 min"]}gallery: [
-  "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1598928635833-5e8c7854b5a4?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072385914-3e3354a9a973?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1603072391397-838e1f5e5fbe?w=800&h=600&fit=crop"
-]
-,
-  {id:13,name:"Jungle Base Camp",city:"Wayanad",location:"Kerala, India",price:5900,rating:4.2,reviews:189,image:"https://images.unsplash.com/photo-1514282401047-jungle?w=800&h=600&fit=crop",description:"Adventure stay",amenities:["WiFi","Campfire","Meals"],attractions:["Trekking - 5 min"]},
-  {id:14,name:"Zostel Rooftop",city:"Jaipur",location:"Jaipur, India",price:1400,rating:4.1,reviews:210,image:"https://images.unsplash.com/photo-1514282401047-rooftop?w=800&h=600&fit=crop",description:"Backpacker friendly",amenities:["WiFi","Rooftop","UPI"],attractions:["Hawa Mahal - 10 min"]},
-  {id:15,name:"Misty Hills Resort",city:"Munnar",location:"Munnar, Kerala, India",price:6100,rating:4.7,reviews:322,image:"https://images.unsplash.com/photo-1571896349842-misty?w=800&h=600&fit=crop",description:"Tea garden view",amenities:["WiFi","Breakfast","Garden"],attractions:["Tea Gardens - 1 min"]},
-  {id:16,name:"Sky View Capsule",city:"Tokyo",location:"Tokyo, Japan",price:5000,rating:4.0,reviews:100,image:"https://images.unsplash.com/photo-1542314831-capsule?w=800&h=600&fit=crop",description:"Capsule stay",amenities:["WiFi"],attractions:["Shibuya - 15 min"]},
-  {id:17,name:"Alpine Resort",city:"Shimla",location:"Shimla, India",price:6700,rating:4.6,reviews:154,image:"https://images.unsplash.com/photo-1582719508461-alpine?w=800&h=600&fit=crop",description:"Cold mountain retreat",amenities:["WiFi","Heater","Breakfast"],attractions:["Mall Road - 9 min"]},
-  {id:18,name:"Eco Bamboo Stay",city:"Meghalaya",location:"Meghalaya, India",price:4800,rating:4.3,reviews:90,image:"https://images.unsplash.com/photo-1571896349842-bamboo?w=800&h=600&fit=crop",description:"Eco themed huts",amenities:["WiFi","Meals"],attractions:["Living Root Bridge - 20 min"]},
-  {id:19,name:"Peace Cottage",city:"Coorg",location:"Coorg, Karnataka, India",price:3200,rating:4.2,reviews:180,image:"https://images.unsplash.com/photo-1571896349842-peace?w=800&h=600&fit=crop",description:"Cozy cottages",amenities:["WiFi"],attractions:["Abbey Falls - 15 min"]},
-  {id:20,name:"Rann of Kutch Tent City",city:"Kutch",location:"Gujarat, India",price:9100,rating:4.8,reviews:410,image:"https://images.unsplash.com/photo-1514282401047-tent?w=800&h=600&fit=crop",description:"Festival stay",amenities:["UPI","Meals","Culture Shows","WiFi"],attractions:["Rann Utsav - 2 min"]}
+  {id:1,name:"Sea Breeze Resort",city:"Bali",location:"Bali, Indonesia",price:3500,rating:4.8,reviews:324,image:"https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop",description:"Luxury beachside",
+  gallery:["https://images.unsplash.com/photo-1566073771259-bali1?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1584132967334-bali2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1542314831-bali3?w=800&h=600&fit=crop"]},
+
+  {id:2,name:"Ocean Pearl Resort",city:"Bali",location:"Bali, Indonesia",price:4200,rating:4.7,reviews:256,image:"https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",description:"Beach access",
+  gallery:["https://images.unsplash.com/photo-1598928635833-bali4?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1602002418082-bali5?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1578683010236-bali6?w=800&h=600&fit=crop"]},
+
+  {id:3,name:"Royal Heritage Hotel",city:"Dubai",location:"Dubai, UAE",price:8000,rating:4.9,reviews:512,image:"https://images.unsplash.com/photo-1542314831-dubai1?w=800&h=600&fit=crop",description:"5 star luxury",
+  gallery:["https://images.unsplash.com/photo-1582719508461-dubai2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1590490360182-dubai3?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1520250497591-dubai4?w=800&h=600&fit=crop"]},
+
+  {id:4,name:"Desert Oasis Resort",city:"Dubai",location:"Dubai, UAE",price:6500,rating:4.6,reviews:389,image:"https://images.unsplash.com/photo-1542314831-dubai5?w=800&h=600&fit=crop",description:"Arabian hospitality",
+  gallery:["https://images.unsplash.com/photo-1564501049412-dubai6?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1571896349842-dubai7?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1582719478250-dubai8?w=800&h=600&fit=crop"]},
+
+  {id:5,name:"Paradise Island Resort",city:"Maldives",location:"Maldives",price:12000,rating:5.0,reviews:287,image:"https://images.unsplash.com/photo-1514282401047-maldives1?w=800&h=600&fit=crop",description:"Water villa",
+  gallery:["https://images.unsplash.com/photo-1603072385914-maldives2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1514282401047-maldives3?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1584132967334-maldives4?w=800&h=600&fit=crop"]},
+
+  {id:6,name:"Hilltop Cottage",city:"Coorg",location:"Coorg, Karnataka, India",price:3200,rating:4.2,reviews:180,image:"https://images.unsplash.com/photo-1571896349842-coorg1?w=800&h=600&fit=crop",description:"Cozy cottages",
+  gallery:["https://images.unsplash.com/photo-1582719508461-coorg2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1598928635833-coorg3?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1578683010236-coorg4?w=800&h=600&fit=crop"]},
+
+  {id:7,name:"Tech Park Hotel",city:"Bangalore",location:"Bangalore, Karnataka, India",price:4300,rating:4.5,reviews:201,image:"https://images.unsplash.com/photo-1582719508461-bangalore1?w=800&h=600&fit=crop",description:"Near IT hub",
+  gallery:["https://images.unsplash.com/photo-1520250497591-bangalore2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1542314831-bangalore3?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1602002418082-bangalore4?w=800&h=600&fit=crop"]},
+
+  {id:8,name:"Rann of Kutch Tent City",city:"Kutch",location:"Gujarat, India",price:9100,rating:4.8,reviews:410,image:"https://images.unsplash.com/photo-1514282401047-kutch1?w=800&h=600&fit=crop",description:"Festival stay",
+  gallery:["https://images.unsplash.com/photo-1603072391397-kutch2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1564501049412-kutch3?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1582719478250-kutch4?w=800&h=600&fit=crop"]}
 ];
 
-
+// SINGLE SOURCE OF TRUTH
 let currentHotels = [...hotels];
 
 function displayHotels(){
@@ -233,7 +170,7 @@ function displayHotels(){
   currentHotels.forEach(h=>{
     const c=document.createElement("div");
     c.className="card";
-    c.onclick=()=>openHotelDetails(h);
+    c.onclick=()=>openDetails(h);
     c.innerHTML=`
       <img src="${h.image}" alt="${h.name}">
       <div class="card-body">
@@ -248,15 +185,32 @@ function displayHotels(){
   document.getElementById("resultsInfo").textContent=`Found ${currentHotels.length} hotels`;
 }
 
-function openHotelDetails(h){
+function openDetails(h){
   localStorage.setItem("selectedHotel",JSON.stringify(h));
   window.location.href="hotel.html";
 }
 
-function filterByCity(c){ currentHotels = c==="All"?[...hotels]:hotels.filter(h=>h.city.toLowerCase().includes(c.toLowerCase())); displayHotels(); }
-function filterByPrice(m){ currentHotels=hotels.filter(h=>h.price<=m); displayHotels(); }
-function sortHotels(t){ if(!t)return; currentHotels.sort((a,b)=> t==="price-low"?a.price-b.price:t==="price-high"?b.price-a.price:b.rating-a.rating); displayHotels(); }
-function clearFilters(){ document.getElementById("searchCityInput").value="";currentHotels=[...hotels];displayHotels(); }
+function filterByCity(c){ 
+  currentHotels = c==="All"?[...hotels]:hotels.filter(h=>h.city.toLowerCase().includes(c.toLowerCase())); 
+  displayHotels();
+}
+
+function filterByPrice(m){ 
+  currentHotels=hotels.filter(h=>h.price<=m); 
+  displayHotels();
+}
+
+function sortHotels(t){ 
+  if(!t)return; 
+  currentHotels.sort((a,b)=> t==="price-low"?a.price-b.price:t==="price-high"?b.price-a.price:b.rating-a.rating); 
+  displayHotels();
+}
+
+function clearFilters(){ 
+  document.getElementById("searchCityInput").value=""; 
+  currentHotels=[...hotels]; 
+  displayHotels(); 
+}
 
 document.addEventListener("DOMContentLoaded",displayHotels);
 </script>
