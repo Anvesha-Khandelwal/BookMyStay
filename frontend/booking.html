@@ -157,12 +157,17 @@ input:focus,select:focus{
       <label><i class="fa fa-calendar-times"></i> Check Out</label>
       <input type="date" id="cout" required />
 
-      <label><i class="fa fa-users"></i> Guests</label>
+      <label><i class="fa fa-users"></i> Rooms</label>
       <select id="gst" required>
         <option value="">Select</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
+        <option value="3">4</option>
+        <option value="3">5</option>
+        <option value="3">6</option>
+        <option value="3">7</option>
+        <option value="3">8</option>
       </select>
 
       <label>Special Request</label>
@@ -172,6 +177,11 @@ input:focus,select:focus{
         <button type="submit" class="booking-btn-submit">Book Now</button>
       </div>
     </form>
+    <div style="margin:1.2rem 0; font-size:0.85rem; color:var(--text-sub);">
+      Have a special offer? Apply below:>
+<button onclick="applyOffer('percent', 20)">20% OFF</button>
+<button onclick="applyOffer('flat', 500)">₹500 OFF</button>
+    </div>
 
     <!-- PAYMENT -->
     <div class="payment-card" id="paymentSection">
@@ -198,7 +208,7 @@ input:focus,select:focus{
       <div class="booking-summary-item"><span>In</span><span id="bIn">-</span></div>
       <div class="booking-summary-item"><span>Out</span><span id="bOut">-</span></div>
       <div class="booking-summary-item"><span>Nights</span><span id="bN">1</span></div>
-      <div class="booking-summary-item"><span>Guests</span><span id="bG">-</span></div>
+      <div class="booking-summary-item"><span>Rooms</span><span id="bG">-</span></div>
       <div class="booking-summary-item"><span>Fare/Night</span><span id="bFare">₹0</span></div>
       <div class="booking-summary-item"><span>Tax (12%)</span><span id="bTax">₹0</span></div>
 
@@ -221,6 +231,25 @@ input:focus,select:focus{
 </div>
 
 <script>
+  function loadBill(){
+  const data = JSON.parse(localStorage.getItem("selectedHotel"));
+  const search = JSON.parse(localStorage.getItem("bookingSearch"));
+  if(!data || !search) return;
+
+  const nights  = Math.round((new Date(search.checkout) - new Date(search.checkin))/(1000*60*60*24));
+  const rooms   = parseInt(search.rooms);
+  const base    = data.price * nights * rooms;
+  const tax     = base * 0.12;
+  const total   = base + tax;
+
+  document.getElementById("hotelTitle").textContent = data.name;
+  document.getElementById("checkinInput").value = search.checkin;
+  document.getElementById("checkoutInput").value = search.checkout;
+  document.getElementById("hotelPrice").textContent = total.toLocaleString();
+  document.getElementById("hotelRating").innerHTML = `⭐ ${data.rating}`;
+}
+document.addEventListener("DOMContentLoaded", loadBill);
+
 let pMode="";
 function calc(){
   const h = JSON.parse(localStorage.getItem("hotel")||"{}");
@@ -255,6 +284,23 @@ function payNow(){document.getElementById("pop").classList.add("active");}
 function closePop(){document.getElementById("pop").classList.remove("active");}
 function submitBook(e){e.preventDefault();calc();document.getElementById("pop").classList.add("active");}
 window.onload=calc;
+function applyOffer(type, value){
+  const data = JSON.parse(localStorage.getItem("selectedHotel"));
+  const search = JSON.parse(localStorage.getItem("bookingSearch"));
+  const nights = Math.round((new Date(search.checkout)-new Date(search.checkin))/(1000*60*60*24));
+  const rooms  = parseInt(search.rooms);
+  const base   = data.price * nights * rooms;
+
+  let discount = 0;
+  if(type==="percent") discount = base * (value/100);
+  if(type==="flat") discount = value;
+
+  const tax  = (base-discount)*0.12;
+  const total = base - discount + tax;
+
+  document.getElementById("hotelPrice").textContent = total.toLocaleString();
+}
+
 </script>
 
 </body>
