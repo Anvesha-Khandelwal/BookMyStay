@@ -1,228 +1,139 @@
-<!-- ADD THIS CSS TO THE <style> SECTION IN <head> OF hotel.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Details - BookMyStay</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
 <style>
-.amenities-section,
-.attractions-section {
-    margin: 3rem 0;
-    padding: 2rem;
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+:root {
+  --gold:#d4af37;
+  --navy:#0a192f;
+  --bg2:#f8f4ef;
 }
+body { background:var(--bg2); font-family:"Poppins",sans-serif; }
+
+.hero img {
+  width:100%; height:300px; object-fit:cover; border-radius:0 0 var(--radius) var(--radius);
+}
+
+.detail-box { max-width:1100px; margin:auto; padding:1.2rem; }
+
+.hotel-name { font-size:2rem; font-weight:800; color:var(--navy); margin-top:1rem; }
+
+.rating-chip {
+  background:var(--gold); padding:0.3rem 0.8rem; border-radius:18px; font-weight:700; font-size:0.85rem; color:var(--navy);
+}
+
+.info-row { display:flex; justify-content:space-between; flex-wrap:wrap; }
+
+.sub { color:#555; font-weight:600; font-size:0.95rem; }
+
+.section-card {
+  background:white; border-radius:var(--radius-sm); box-shadow:var(--shadow); padding:1.4rem; margin:2rem 0;
+}
+
+.section-card h2 { font-size:1.25rem; font-weight:800; color:var(--navy); border-left:4px solid var(--gold); padding-left:0.6rem; }
+
+.gallery-scroll { display:flex; gap:0.7rem; overflow-x:auto; padding-bottom:0.4rem; }
+
+.gallery-scroll img { height:150px; border-radius:var(--radius-sm); flex-shrink:0; object-fit:cover; }
 
 .amenities-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:1rem; margin-top:1rem;
 }
 
-.amenity-item {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 1rem;
-    background: var(--primary-dark);
-    border-radius: var(--border-radius-sm);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-}
+.amenity { background:var(--navy); color:white; padding:0.8rem; border-radius:10px; text-align:center; font-size:0.85rem; font-weight:700; }
+.amenity i { color:var(--gold); font-size:1.2rem; margin-bottom:0.3rem; }
 
-.amenity-item:hover {
-    background: var(--card-hover);
-    transform: translateX(5px);
-}
+.attraction { display:flex; align-items:center; gap:0.6rem; font-weight:700; margin:0.4rem 0; font-size:0.95rem; }
+.attraction i { color:var(--gold); }
 
-.amenity-item i {
-    color: var(--accent-cyan);
-    font-size: 1.2rem;
+.book-btn {
+  width:100%; padding:1rem; background:var(--gold); color:var(--navy); font-weight:800; border:none; border-radius:10px; font-size:0.9rem; cursor:pointer;
 }
-
-.amenity-item span {
-    color: var(--text-primary);
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-
-.attractions-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.attraction-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.2rem;
-    background: var(--primary-dark);
-    border-radius: var(--border-radius-sm);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-}
-
-.attraction-item:hover {
-    background: var(--card-hover);
-    border-color: var(--accent-cyan);
-}
-
-.attraction-item i {
-    color: var(--accent-gold);
-    font-size: 1.3rem;
-}
-
-.attraction-item span {
-    color: var(--text-primary);
-    font-weight: 500;
-    font-size: 1rem;
-}
-
-@media (max-width: 768px) {
-    .amenities-grid,
-    .attractions-list {
-        grid-template-columns: 1fr;
-    }
-}
+.book-btn:hover { opacity:0.9; }
+@media (max-width:768px){ .hero img{height:220px;} .info-row{gap:1rem;} }
 </style>
+</head>
+<body>
 
-<!-- ADD THIS SCRIPT BEFORE CLOSING </body> TAG IN hotel.html -->
+<nav>
+  <div class="nav-container">
+    <a class="logo" href="index.html"><i class="fas fa-hotel"></i> BookMyStay</a>
+  </div>
+</nav>
+
+<section class="container">
+  <div class="detail-box">
+
+    <!-- HERO -->
+    <div class="hero"><img id="mainImage"></div>
+
+    <!-- HEADER -->
+    <div class="info-row">
+      <h1 class="hotel-name" id="hotelName"></h1>
+      <div class="rating-chip"><i class="fas fa-star"></i> <span id="hotelRating"></span></div>
+    </div>
+    <p class="sub"><i class="fas fa-map-marker-alt"></i> <span id="hotelLocation"></span> · <span id="hotelReviews"></span> reviews</p>
+    <div class="big-price">₹<span id="hotelPrice"></span>/night</div>
+
+    <!-- PHOTOS -->
+    <div class="section-card">
+      <h2><i class="fas fa-images"></i> Gallery</h2>
+      <div class="gallery-scroll" id="photoGallery"></div>
+    </div>
+
+    <!-- AMENITIES -->
+    <div class="section-card">
+      <h2><i class="fas fa-concierge-bell"></i> Amenities</h2>
+      <div class="amenities-grid" id="amenitiesList"></div>
+    </div>
+
+    <!-- ATTRACTIONS -->
+    <div class="section-card">
+      <h2><i class="fas fa-location-arrow"></i> Nearby</h2>
+      <div id="attractionList"></div>
+    </div>
+
+    <!-- BOOK -->
+    <button class="book-btn" onclick="window.location.href='payment.html'"><i class="fas fa-lock"></i> BOOK & PAY</button>
+
+  </div>
+</section>
+
 <script>
-// Load hotel details from localStorage
-function loadHotelDetails() {
-    const hotelData = JSON.parse(localStorage.getItem('selectedHotel'));
-    
-    if (!hotelData) {
-        alert('Please select a hotel first!');
-        window.location.href = 'listings.html';
-        return;
-    }
-    
-    // Update page title
-    document.title = `${hotelData.name} - BookMyStay`;
-    
-    // Update hotel header section
-    const hotelNameEl = document.getElementById('hotelName');
-    const hotelTitleEl = document.getElementById('hotelTitle');
-    const hotelRatingEl = document.getElementById('hotelRating');
-    const hotelDescEl = document.getElementById('hotelDescription');
-    const hotelPriceEl = document.getElementById('hotelPrice');
-    const mainImageEl = document.getElementById('mainImage');
-    const locationInputEl = document.getElementById('locationInput');
-    
-    if (hotelNameEl) hotelNameEl.textContent = hotelData.name;
-    if (hotelTitleEl) hotelTitleEl.textContent = hotelData.name;
-    if (hotelRatingEl) {
-        hotelRatingEl.innerHTML = `<i class="fas fa-star"></i> ${hotelData.rating} Excellent (${hotelData.reviews || 324} reviews)`;
-    }
-    if (hotelDescEl) hotelDescEl.textContent = hotelData.description;
-    if (hotelPriceEl) hotelPriceEl.textContent = hotelData.price.toLocaleString();
-    if (mainImageEl) mainImageEl.src = hotelData.image;
-    if (locationInputEl) locationInputEl.value = hotelData.city;
-    
-    // Display amenities if available
-    if (hotelData.amenities && hotelData.amenities.length > 0) {
-        displayAmenities(hotelData.amenities);
-    }
-    
-    // Display nearby attractions
-    if (hotelData.attractions && hotelData.attractions.length > 0) {
-        displayNearbyAttractions(hotelData.attractions);
-    }
-    
-    // Load check-in/check-out dates
-    loadBookingDates();
-}
+const h = JSON.parse(localStorage.getItem("selectedHotel"));
+if(!h){ alert("No hotel selected!"); window.location.href="listings.html"; }
 
-// Display amenities section
-function displayAmenities(amenities) {
-    let amenitiesSection = document.getElementById('amenitiesSection');
-    
-    if (!amenitiesSection) {
-        amenitiesSection = document.createElement('div');
-        amenitiesSection.id = 'amenitiesSection';
-        amenitiesSection.className = 'amenities-section';
-        
-        const experiencesSection = document.querySelector('.experiences-section');
-        if (experiencesSection) {
-            experiencesSection.parentNode.insertBefore(amenitiesSection, experiencesSection);
-        }
-    }
-    
-    const amenitiesHTML = amenities.map(amenity => `
-        <div class="amenity-item">
-            <i class="fas fa-check-circle"></i>
-            <span>${amenity}</span>
-        </div>
-    `).join('');
-    
-    amenitiesSection.innerHTML = `
-        <h2 class="section-title-small">Amenities & Services</h2>
-        <div class="amenities-grid">
-            ${amenitiesHTML}
-        </div>
-    `;
-}
+// Fill main
+document.getElementById("hotelName").textContent = h.name;
+document.getElementById("hotelLocation").textContent = h.location;
+document.getElementById("hotelRating").textContent = h.rating;
+document.getElementById("hotelReviews").textContent = h.reviews;
+document.getElementById("hotelPrice").textContent = h.price.toLocaleString();
+document.getElementById("mainImage").src = h.image;
 
-// Display nearby attractions
-function displayNearbyAttractions(attractions) {
-    let attractionsSection = document.getElementById('attractionsSection');
-    
-    if (!attractionsSection) {
-        attractionsSection = document.createElement('div');
-        attractionsSection.id = 'attractionsSection';
-        attractionsSection.className = 'attractions-section';
-        
-        const experiencesSection = document.querySelector('.experiences-section');
-        if (experiencesSection) {
-            experiencesSection.parentNode.insertBefore(attractionsSection, experiencesSection.nextSibling);
-        }
-    }
-    
-    const attractionsHTML = attractions.map(attraction => `
-        <div class="attraction-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>${attraction}</span>
-        </div>
-    `).join('');
-    
-    attractionsSection.innerHTML = `
-        <h2 class="section-title-small">Nearby Attractions</h2>
-        <div class="attractions-list">
-            ${attractionsHTML}
-        </div>
-    `;
-}
+// Gallery (main + extras)
+document.getElementById("photoGallery").innerHTML =
+  `<img src="${h.image}">` +
+  (h.gallery || []).map(p=>`<img src="${p}">`).join("");
 
-// Load booking dates
-function loadBookingDates() {
-    const checkin = localStorage.getItem('checkInDate');
-    const checkout = localStorage.getItem('checkOutDate');
-    
-    const displayCheckinEl = document.getElementById('displayCheckin');
-    const displayCheckoutEl = document.getElementById('displayCheckout');
-    const checkinDateEl = document.getElementById('checkinDate');
-    const checkoutDateEl = document.getElementById('checkoutDate');
-    
-    if (checkin) {
-        if (displayCheckinEl) displayCheckinEl.textContent = formatDate(checkin);
-        if (checkinDateEl) checkinDateEl.value = checkin;
-    }
-    
-    if (checkout) {
-        if (displayCheckoutEl) displayCheckoutEl.textContent = formatDate(checkout);
-        if (checkoutDateEl) checkoutDateEl.value = checkout;
-    }
-}
+// Amenities
+document.getElementById("amenitiesList").innerHTML =
+  (h.amenities || []).map(a => `
+    <div class="amenity">
+      <i class="fas fa-check-circle"></i><br>${a}
+    </div>`).join("");
 
-// Format date for display
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
-}
-
-// Initialize when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    loadHotelDetails();
-});
+// Attractions
+document.getElementById("attractionList").innerHTML =
+  (h.attractions || []).map(a => `
+    <div class="attraction"><i class="fas fa-map-pin"></i> ${a}</div>`).join("");
 </script>
+
+</body>
+</html>
