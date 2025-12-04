@@ -653,6 +653,19 @@ document.addEventListener('DOMContentLoaded', function() {
   loadHotelDetails();
   renderDestinations();
 });
+
+document.getElementById("saveBookingBtn").addEventListener("click", () => {
+  const checkin  = document.getElementById("checkinInput").value;
+  const checkout = document.getElementById("checkoutInput").value;
+  const rooms    = document.getElementById("roomInput").value;   // e.g. "1 Room"
+  const guests   = document.getElementById("guestInput").value;  // e.g. "2 Adults"
+
+  const data = { checkin, checkout, rooms, guests };
+  localStorage.setItem("bookingSearch", JSON.stringify(data));
+  alert("Search preferences saved ✅");
+});
+
+
 </script>
 
 </body>

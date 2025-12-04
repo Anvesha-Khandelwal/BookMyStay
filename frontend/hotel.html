@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Listings - BookMyStay</title>
-
+<title>Hotel Details - BookMyStay</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 
 <style>
-/* (Your CSS kept exactly same) */:root {
+:root {
   --gold:#d4af37;
   --navy:#0a192f;
   --bg2:#f8f4ef;
@@ -62,127 +61,90 @@ body { background:var(--bg2); font-family:"Poppins",sans-serif; }
 </head>
 <body>
 
-<div class="search-wrapper">
-  <input type="text" id="searchCityInput" placeholder="Search city..." class="search-input">
-  <button onclick="applyFilters()" class="search-btn">Search</button>
-</div>
+<nav>
+  <div class="nav-container">
+    <a class="logo" href="index.html"><i class="fas fa-hotel"></i> BookMyStay</a>
+  </div>
+</nav>
 
-<div class="sort-wrapper" style="display:flex;justify-content:center;gap:1rem;padding:1rem;">
-  <select onchange="filterByCity(this.value)">
-    <option value="All">All Cities</option>
-    <option value="Bali">Bali</option>
-    <option value="Dubai">Dubai</option>
-    <option value="Maldives">Maldives</option>
-    <option value="Goa">Goa</option>
-  </select>
+<section class="container">
+  <div class="detail-box">
 
-  <select onchange="sortHotels(this.value)">
-    <option value="">Sort By</option>
-    <option value="price-low">Price: Low to High</option>
-    <option value="price-high">Price: High to Low</option>
-    <option value="rating">Top Rated</option>
-  </select>
+    <!-- HERO -->
+    <div class="hero"><img id="mainImage"></div>
 
-  <input type="range" min="0" max="12000" value="12000"
-    oninput="document.getElementById('priceLabel').textContent = '₹' + this.value + ' max'; filterByPrice(this.value)">
-  <div id="maxPriceLabel"><span id="priceLabel">₹12000 max</span></div>
+    <!-- HEADER -->
+    <div class="info-row">
+      <h1 class="hotel-name" id="hotelName"></h1>
+      <div class="rating-chip"><i class="fas fa-star"></i> <span id="hotelRating"></span></div>
+    </div>
+    <p class="sub"><i class="fas fa-map-marker-alt"></i> <span id="hotelLocation"></span> · <span id="hotelReviews"></span> reviews</p>
+    <div class="big-price">₹<span id="hotelPrice"></span>/night</div>
 
-  <button class="clear-btn" onclick="clearFilters()">Clear Filters</button>
-</div>
+    <!-- PHOTOS -->
+    <div class="section-card">
+      <h2><i class="fas fa-images"></i> Gallery</h2>
+      <div class="gallery-scroll" id="photoGallery"></div>
+    </div>
 
-<div id="hotelCards" class="cards-grid" style="grid-template-columns: repeat(auto-fill, minmax(350px,1fr));"></div>
+    <!-- AMENITIES -->
+    <div class="section-card">
+      <h2><i class="fas fa-concierge-bell"></i> Amenities</h2>
+      <div class="amenities-grid" id="amenitiesList"></div>
+    </div>
 
-<div class="quick-filters">
-  <button class="chip" onclick="filterByCity('All')">All</button>
-  <button class="chip" onclick="filterByCity('Goa')">Goa</button>
-  <button class="chip" onclick="filterByCity('Delhi')">Delhi</button>
-  <button class="chip" onclick="filterByCity('Mumbai')">Mumbai</button>
-  <button class="chip" onclick="filterByCity('Bangalore')">Bangalore</button>
-</div>
+    <!-- ATTRACTIONS -->
+    <div class="section-card">
+      <h2><i class="fas fa-location-arrow"></i> Nearby</h2>
+      <div id="attractionList"></div>
+    </div>
 
-<div id="resultsInfo">Found hotels</div>
+    <!-- BOOK -->
+    <button class="book-btn" onclick="window.location.href='payment.html'"><i class="fas fa-lock"></i> BOOK & PAY</button>
+
+  </div>
+</section>
 
 <script>
-
-// FIXED HOTEL DATA with different galleries
-const hotels = [
-  {id:1,name:"Sea Breeze Resort",city:"Bali",location:"Bali, Indonesia",price:3500,rating:4.8,reviews:324,image:"https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop",description:"Luxury beachside",
-  gallery:["https://images.unsplash.com/photo-1566073771259-bali1?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1584132967334-bali2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1542314831-bali3?w=800&h=600&fit=crop"]},
-
-  {id:2,name:"Ocean Pearl Resort",city:"Bali",location:"Bali, Indonesia",price:4200,rating:4.7,reviews:256,image:"https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",description:"Beach access",
-  gallery:["https://images.unsplash.com/photo-1598928635833-bali4?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1602002418082-bali5?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1578683010236-bali6?w=800&h=600&fit=crop"]},
-
-  {id:3,name:"Royal Heritage Hotel",city:"Dubai",location:"Dubai, UAE",price:8000,rating:4.9,reviews:512,image:"https://images.unsplash.com/photo-1542314831-dubai1?w=800&h=600&fit=crop",description:"5 star luxury",
-  gallery:["https://images.unsplash.com/photo-1582719508461-dubai2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1590490360182-dubai3?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1520250497591-dubai4?w=800&h=600&fit=crop"]},
-
-  {id:4,name:"Desert Oasis Resort",city:"Dubai",location:"Dubai, UAE",price:6500,rating:4.6,reviews:389,image:"https://images.unsplash.com/photo-1542314831-dubai5?w=800&h=600&fit=crop",description:"Arabian hospitality",
-  gallery:["https://images.unsplash.com/photo-1564501049412-dubai6?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1571896349842-dubai7?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1582719478250-dubai8?w=800&h=600&fit=crop"]},
-
-  {id:5,name:"Paradise Island Resort",city:"Maldives",location:"Maldives",price:12000,rating:5.0,reviews:287,image:"https://images.unsplash.com/photo-1514282401047-maldives1?w=800&h=600&fit=crop",description:"Water villa",
-  gallery:["https://images.unsplash.com/photo-1603072385914-maldives2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1514282401047-maldives3?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1584132967334-maldives4?w=800&h=600&fit=crop"]},
-
-  {id:6,name:"Hilltop Cottage",city:"Coorg",location:"Coorg, Karnataka, India",price:3200,rating:4.2,reviews:180,image:"https://images.unsplash.com/photo-1571896349842-coorg1?w=800&h=600&fit=crop",description:"Cozy cottages",
-  gallery:["https://images.unsplash.com/photo-1582719508461-coorg2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1598928635833-coorg3?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1578683010236-coorg4?w=800&h=600&fit=crop"]},
-
-  {id:7,name:"Tech Park Hotel",city:"Bangalore",location:"Bangalore, Karnataka, India",price:4300,rating:4.5,reviews:201,image:"https://images.unsplash.com/photo-1582719508461-bangalore1?w=800&h=600&fit=crop",description:"Near IT hub",
-  gallery:["https://images.unsplash.com/photo-1520250497591-bangalore2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1542314831-bangalore3?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1602002418082-bangalore4?w=800&h=600&fit=crop"]},
-
-  {id:8,name:"Rann of Kutch Tent City",city:"Kutch",location:"Gujarat, India",price:9100,rating:4.8,reviews:410,image:"https://images.unsplash.com/photo-1514282401047-kutch1?w=800&h=600&fit=crop",description:"Festival stay",
-  gallery:["https://images.unsplash.com/photo-1603072391397-kutch2?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1564501049412-kutch3?w=800&h=600&fit=crop","https://images.unsplash.com/photo-1582719478250-kutch4?w=800&h=600&fit=crop"]}
-];
-
-// SINGLE SOURCE OF TRUTH
-let currentHotels = [...hotels];
-
-function displayHotels(){
-  const box=document.getElementById("hotelCards");
-  box.innerHTML="";
-  currentHotels.forEach(h=>{
-    const c=document.createElement("div");
-    c.className="card";
-    c.onclick=()=>openDetails(h);
-    c.innerHTML=`
-      <img src="${h.image}" alt="${h.name}">
-      <div class="card-body">
-        <h3>${h.name}</h3>
-        <p class="muted"><i class="fas fa-map-marker-alt"></i> ${h.location}</p>
-        <div><span class="badge">${h.city}</span></div>
-        <div><i class="fas fa-comments"></i> ${h.reviews} reviews</div>
-        <div class="price">₹${h.price.toLocaleString()}/night</div>
-      </div>`;
-    box.appendChild(c);
-  });
-  document.getElementById("resultsInfo").textContent=`Found ${currentHotels.length} hotels`;
+  function proceedToPayment() {
+  const hotelData = JSON.parse(localStorage.getItem('selectedHotel'));
+  if (hotelData) {
+    localStorage.setItem('bookingData', JSON.stringify({hotel: hotelData}));
+    window.location.href = 'booking.html';
+  } else {
+    alert('Please select a hotel first!');
+    window.location.href = 'listings.html';
+  }
 }
 
-function openDetails(h){
-  localStorage.setItem("selectedHotel",JSON.stringify(h));
-  window.location.href="hotel.html";
-}
+const h = JSON.parse(localStorage.getItem("selectedHotel"));
+if(!h){ alert("No hotel selected!"); window.location.href="listings.html"; }
 
-function filterByCity(c){ 
-  currentHotels = c==="All"?[...hotels]:hotels.filter(h=>h.city.toLowerCase().includes(c.toLowerCase())); 
-  displayHotels();
-}
+// Fill main
+document.getElementById("hotelName").textContent = h.name;
+document.getElementById("hotelLocation").textContent = h.location;
+document.getElementById("hotelRating").textContent = h.rating;
+document.getElementById("hotelReviews").textContent = h.reviews;
+document.getElementById("hotelPrice").textContent = h.price.toLocaleString();
+document.getElementById("mainImage").src = h.image;
 
-function filterByPrice(m){ 
-  currentHotels=hotels.filter(h=>h.price<=m); 
-  displayHotels();
-}
+// Gallery (main + extras)
+document.getElementById("photoGallery").innerHTML =
+  `<img src="${h.image}">` +
+  (h.gallery || []).map(p=>`<img src="${p}">`).join("");
 
-function sortHotels(t){ 
-  if(!t)return; 
-  currentHotels.sort((a,b)=> t==="price-low"?a.price-b.price:t==="price-high"?b.price-a.price:b.rating-a.rating); 
-  displayHotels();
-}
+// Amenities
+document.getElementById("amenitiesList").innerHTML =
+  (h.amenities || []).map(a => `
+    <div class="amenity">
+      <i class="fas fa-check-circle"></i><br>${a}
+    </div>`).join("");
 
-function clearFilters(){ 
-  document.getElementById("searchCityInput").value=""; 
-  currentHotels=[...hotels]; 
-  displayHotels(); 
-}
+// Attractions
+document.getElementById("attractionList").innerHTML =
+  (h.attractions || []).map(a => `
+    <div class="attraction"><i class="fas fa-map-pin"></i> ${a}</div>`).join("");
 
-document.addEventListener("DOMContentLoaded",displayHotels);
 </script>
 
 </body>
