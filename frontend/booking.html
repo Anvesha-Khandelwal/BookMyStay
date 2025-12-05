@@ -287,21 +287,23 @@ function payNow(){document.getElementById("pop").classList.add("active");}
 function closePop(){document.getElementById("pop").classList.remove("active");}
 function submitBook(e){e.preventDefault();calc();document.getElementById("pop").classList.add("active");}
 window.onload=calc;
-function applyOffer(type, value){
-  const data = JSON.parse(localStorage.getItem("selectedHotel"));
-  const search = JSON.parse(localStorage.getItem("bookingSearch"));
-  const nights = Math.round((new Date(search.checkout)-new Date(search.checkin))/(1000*60*60*24));
-  const rooms  = parseInt(search.rooms);
-  const base   = data.price * nights * rooms;
-
-  let discount = 0;
-  if(type==="percent") discount = base * (value/100);
-  if(type==="flat") discount = value;
-
-  const tax  = (base-discount)*0.12;
-  const total = base - discount + tax;
-
-  document.getElementById("hotelPrice").textContent = total.toLocaleString();
+async function applyOffer() {
+  const offerCode = document.getElementById('offerCodeInput').value;
+  const basePrice = 7000; // Get from your booking data
+  
+  try {
+    const result = await api.validateOffer(offerCode, basePrice);
+    
+    if (result.valid) {
+      document.getElementById('discountAmount').textContent = `₹${result.discount}`;
+      document.getElementById('totalPrice').textContent = `₹${basePrice - result.discount}`;
+      alert(`✅ Offer applied! You saved ₹${result.discount}`);
+    } else {
+      alert('❌ Invalid or expired offer code');
+    }
+  } catch (error) {
+    console.error('Error applying offer:', error);
+  }
 }
 
 </script>
