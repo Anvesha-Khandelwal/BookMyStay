@@ -120,7 +120,7 @@ body { background:var(--bg2); font-family:"Poppins",sans-serif; }
 const h = JSON.parse(localStorage.getItem("selectedHotel"));
 if(!h){ alert("No hotel selected!"); window.location.href="listings.html"; }
 
-// Fill main
+
 document.getElementById("hotelName").textContent = h.name;
 document.getElementById("hotelLocation").textContent = h.location;
 document.getElementById("hotelRating").textContent = h.rating;
@@ -128,19 +128,18 @@ document.getElementById("hotelReviews").textContent = h.reviews;
 document.getElementById("hotelPrice").textContent = h.price.toLocaleString();
 document.getElementById("mainImage").src = h.image;
 
-// Gallery (main + extras)
 document.getElementById("photoGallery").innerHTML =
   `<img src="${h.image}">` +
   (h.gallery || []).map(p=>`<img src="${p}">`).join("");
 
-// Amenities
+
 document.getElementById("amenitiesList").innerHTML =
   (h.amenities || []).map(a => `
     <div class="amenity">
       <i class="fas fa-check-circle"></i><br>${a}
     </div>`).join("");
 
-// Attractions
+
 document.getElementById("attractionList").innerHTML =
   (h.attractions || []).map(a => `
     <div class="attraction"><i class="fas fa-map-pin"></i> ${a}</div>`).join("");
