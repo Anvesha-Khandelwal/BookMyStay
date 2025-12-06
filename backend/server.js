@@ -1,27 +1,28 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+require("dotenv").config();
 
-const hotelRoutes = require('./routes/hotelroutes');
-const bookingRoutes = require('./routes/bookingroutes');
+const express = require("express");
+const mongoose = require("mongoose");
 
-const app = express();
+const authRoutes = require("./routes/auth");
 
-// Middleware
-app.use(cors()); // allow your frontend
+const app = express();   // ✅ app MUST be before app.use()
+
+// middleware
 app.use(express.json());
 
-// Routes
-app.use('/api/hotels', hotelRoutes);
-app.use('/api/bookings', bookingRoutes);
+// routes
+app.use("/api/auth", authRoutes);
 
-// Connect DB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log('MongoDB connected');
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => console.log(`Server running on ${PORT}`));
-  })
-  .catch((err) => console.error('DB connection error:', err));
+// DB connection
+mongoose.connect(process.env.MONGO_URI, {
+  tls: true,
+  tlsAllowInvalidCertificates: true,
+})
+.then(() => console.log("✅ MongoDB Connected"))
+.catch(err => console.error("❌ DB connection error:", err));
+
+// server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
