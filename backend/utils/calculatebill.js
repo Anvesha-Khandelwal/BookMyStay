@@ -1,4 +1,4 @@
-const Offer = require('../models/Offer');
+const Offer = require('../models/offers');
 
 async function calculateBill(bookingData, offerCode = null) {
   const { hotelPrice, numberOfNights, numberOfRooms } = bookingData;

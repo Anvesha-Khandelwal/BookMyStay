@@ -24,6 +24,12 @@ const bookingSchema = new mongoose.Schema(
 
     couponCode: String,
     paymentStatus: { type: String, default: 'PENDING' },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    bookingId: String
   },
   { timestamps: true }
 );

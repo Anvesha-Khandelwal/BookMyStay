@@ -1,21 +1,32 @@
-# 🌍 BookMyStay
+# 🌍 BookMyStay - Premium Hotel Booking Platform
 
-A lightweight, responsive hotel and resort booking website that helps travelers discover and compare stays with ease.
+A modern, full-stack hotel booking website built with React, Node.js, Express, and MongoDB. Features a beautiful UI, secure authentication, real-time booking system, and comprehensive hotel management.
 
-**BookMyStay** allows users to search accommodations by city, filter by price and rating, sort by preferences, and explore nearby attractions to make informed travel decisions.
+![BookMyStay](https://img.shields.io/badge/BookMyStay-Hotel%20Booking-blue)
+![React](https://img.shields.io/badge/React-18.2.0-61DAFB)
+![Node.js](https://img.shields.io/badge/Node.js-Express-green)
+![MongoDB](https://img.shields.io/badge/MongoDB-9.0.1-47A248)
 
 ---
 
 ## ✨ Features
 
-- 🏙️ **City Search** — Find hotels and resorts across multiple destinations
-- 💰 **Price Filter** — Set your budget with a dynamic price range slider
-- ⭐ **Rating Filter** — Filter stays by minimum star rating
-- 🔀 **Smart Sorting** — Sort by lowest price, highest price, or top-rated
-- ❤️ **Save Favorites** — Bookmark stays using browser localStorage
-- 🧭 **Nearby Attractions** — Discover things to do before booking
-- 🌙 **Dark/Light Mode** — Toggle between themes for comfortable browsing
-- 📱 **Fully Responsive** — Optimized for desktop, tablet, and mobile devices
+### Frontend
+- 🎨 **Modern React UI** - Beautiful, responsive design with smooth animations
+- 🔍 **Advanced Search** - Search hotels by city, filter by price and rating
+- 📱 **Fully Responsive** - Works perfectly on desktop, tablet, and mobile
+- 🔐 **User Authentication** - Secure login and registration with JWT
+- 💳 **Booking System** - Complete booking flow with offer codes
+- 📊 **User Dashboard** - View and manage all bookings
+- ⚡ **Fast Performance** - Built with Vite for lightning-fast development
+
+### Backend
+- 🚀 **RESTful API** - Clean, well-structured API endpoints
+- 🔒 **JWT Authentication** - Secure token-based authentication
+- 💾 **MongoDB Database** - Scalable NoSQL database
+- 🎫 **Offer System** - Discount codes and promotional offers
+- 📝 **Booking Management** - Complete booking lifecycle
+- 🧮 **Bill Calculation** - Automatic tax and discount calculations
 
 ---
 
@@ -23,188 +34,232 @@ A lightweight, responsive hotel and resort booking website that helps travelers 
 
 ```
 BookMyStay/
-│
 ├── frontend/
-│   ├── index.html          # Homepage with city search
-│   ├── listings.html       # Search results & filters
-│   ├── hotel.html          # Hotel details page
-│   ├── booking.html        # Booking confirmation page
-│   ├── style.css           # Styling & responsive design
-│   └── script.js           # JavaScript logic
+│   ├── src/
+│   │   ├── components/      # Reusable React components
+│   │   ├── pages/           # Page components
+│   │   ├── utils/           # API utilities
+│   │   ├── App.jsx          # Main app component
+│   │   └── main.jsx         # Entry point
+│   ├── package.json
+│   └── vite.config.js
 │
-├── hotels.json             # Hotel database
-├── assets/                 # Images and media
-└── README.md               # This file
+├── backend/
+│   ├── models/              # MongoDB models
+│   ├── routes/              # API routes
+│   ├── controllers/         # Business logic
+│   ├── middleware/          # Auth middleware
+│   ├── utils/               # Utility functions
+│   ├── server.js            # Express server
+│   ├── seedData.js          # Database seeding
+│   └── package.json
+│
+└── README.md
 ```
-
----
-
-## 📄 Data Format
-
-Hotel data is stored in `hotels.json` with the following structure:
-
-```json
-{
-  "id": 1,
-  "name": "Sea Breeze Resort",
-  "city": "Bali",
-  "location": "Bali, Indonesia",
-  "price": 129,
-  "rating": 4.8,
-  "reviews": 324,
-  "image": "assets/h1.jpg",
-  "description": "Luxury beachside stay with pool, spa, and ocean view.",
-  "attractions": [
-    "Ubud Monkey Forest",
-    "Tanah Lot Temple",
-    "Mount Batur"
-  ]
-}
-```
-
-| Field | Description |
-|-------|-------------|
-| `id` | Unique hotel identifier |
-| `name` | Hotel or resort name |
-| `city` | City for search functionality |
-| `location` | Full location text |
-| `price` | Nightly rate (in USD) |
-| `rating` | Guest rating (1-5 stars) |
-| `reviews` | Number of guest reviews |
-| `image` | Path to hotel image |
-| `description` | Brief hotel description |
-| `attractions` | Array of nearby attractions |
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- A modern web browser (Chrome, Firefox, Safari, Edge)
-- No backend server or database required
+
+- Node.js (v16 or higher)
+- MongoDB (local or Atlas)
+- npm or yarn
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/BookMyStay.git
-   cd BookMyStay
-   ```
+#### 1. Clone the Repository
 
-2. **Ensure proper file placement**
-   - Keep `hotels.json` in the project root or `frontend/public/` folder
-   - Keep the `assets/` folder with all hotel images
+```bash
+git clone https://github.com/yourusername/BookMyStay.git
+cd BookMyStay
+```
 
-3. **Open in browser**
-   - Double-click `frontend/index.html` to open locally
-   - **Recommended:** Use [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension for smooth loading
+#### 2. Backend Setup
 
-4. **Start exploring!**
-   - Enter a city name to search
-   - Apply filters and sort options
-   - Click on a hotel to see details and nearby attractions
-   - Add hotels to favorites
+```bash
+cd backend
+npm install
 
----
+# Create .env file
+cp .env.example .env
 
-## 💻 How It Works
+# Edit .env and add your MongoDB connection string
+# MONGO_URI=mongodb://localhost:27017/bookmystay
+# Or use MongoDB Atlas: mongodb+srv://username:password@cluster.mongodb.net/bookmystay
 
-### Homepage Flow
-1. User enters a city name on the homepage (`index.html`)
-2. City is saved to browser localStorage
-3. Redirects to listings page
+# Seed the database with sample data
+npm run seed
 
-### Listings Page
-1. Fetches all hotels from `hotels.json`
-2. Filters by:
-   - **City matching** — Shows only hotels in the searched city
-   - **Price range** — Excludes hotels outside the selected budget
-   - **Minimum rating** — Filters by star rating threshold
-3. Applies sorting (price low-to-high, price high-to-low, top-rated)
-4. Displays filtered results in a responsive grid
+# Start the backend server
+npm run dev
+```
 
-### Hotel Details
-- Click any hotel card to view full details
-- See nearby attractions
-- Add to favorites (stored in localStorage)
-- Proceed to booking
+The backend will run on `http://localhost:5000`
 
-### Booking Page
-- Displays booking summary
-- Confirms reservation details
-- Ready for payment integration
+#### 3. Frontend Setup
+
+```bash
+cd frontend
+npm install
+
+# Start the development server
+npm run dev
+```
+
+The frontend will run on `http://localhost:3000`
 
 ---
 
-## 🎨 Design Features
+## 📡 API Endpoints
 
-- **Modern, Clean UI** — Professional travel website aesthetic
-- **Premium Cards** — Rounded corners, shadows, and hover effects
-- **Responsive Grid** — Adapts from 1 column (mobile) to 4 columns (desktop)
-- **Smooth Interactions** — Subtle animations and transitions
-- **Accessibility** — Semantic HTML and readable color contrast
-- **Light & Dark Modes** — User preference-based theme switching
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user
+
+### Hotels
+- `GET /api/hotels` - Get all hotels
+- `GET /api/hotels/:id` - Get hotel by ID
+- `GET /api/hotels/search?q=city` - Search hotels
+
+### Bookings
+- `POST /api/bookings` - Create booking (requires auth)
+- `GET /api/bookings` - Get user bookings (requires auth)
+- `GET /api/bookings/:id` - Get booking by ID (requires auth)
+
+### Offers
+- `POST /api/offers/validate` - Validate offer code
+
+---
+
+## 🎨 Key Features Explained
+
+### 1. Hotel Search & Filtering
+- Search by city name
+- Filter by price range (slider)
+- Filter by minimum rating
+- Sort by price (low to high, high to low) or rating
+
+### 2. Booking System
+- Select check-in and check-out dates
+- Choose number of guests and rooms
+- Apply offer codes for discounts
+- Automatic bill calculation with taxes
+- Secure booking confirmation
+
+### 3. User Dashboard
+- View all bookings
+- See booking status (Pending/Confirmed)
+- Track booking details and amounts
+
+### 4. Offer Codes
+- Apply discount codes during booking
+- Percentage or fixed amount discounts
+- Automatic validation and application
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose |
-|-----------|---------|
-| **HTML5** | Semantic page structure |
-| **CSS3** | Responsive styling & animations |
-| **JavaScript (Vanilla)** | Dynamic filtering, sorting, storage |
-| **localStorage API** | Client-side data persistence |
-| **JSON** | Static hotel data storage |
+### Frontend
+- **React 18** - UI library
+- **React Router** - Navigation
+- **Vite** - Build tool
+- **Axios** - HTTP client
+- **CSS3** - Styling with custom properties
+
+### Backend
+- **Node.js** - Runtime environment
+- **Express** - Web framework
+- **MongoDB** - Database
+- **Mongoose** - ODM
+- **JWT** - Authentication
+- **bcryptjs** - Password hashing
 
 ---
 
-## 📱 Browser Support
+## 📝 Environment Variables
 
-- ✅ Chrome (latest)
-- ✅ Firefox (latest)
-- ✅ Safari (latest)
-- ✅ Edge (latest)
-- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+Create a `.env` file in the `backend` directory:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your-secret-key
+PORT=5000
+TAX_PERCENTAGE=18
+SERVICE_FEE_PERCENTAGE=5
+```
+
+---
+
+## 🎯 Usage Examples
+
+### Register a New User
+```javascript
+POST /api/auth/register
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+### Create a Booking
+```javascript
+POST /api/bookings
+Headers: { Authorization: "Bearer <token>" }
+{
+  "hotelId": "hotel_id_here",
+  "checkInDate": "2024-01-15",
+  "checkOutDate": "2024-01-18",
+  "numberOfRooms": 1,
+  "numberOfGuests": 2,
+  "guestDetails": {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "1234567890"
+  },
+  "offerCode": "WELCOME20"
+}
+```
+
+---
+
+## 🎨 UI/UX Highlights
+
+- **Modern Design** - Clean, professional interface
+- **Smooth Animations** - Fade-in, slide-up effects
+- **Responsive Layout** - Mobile-first approach
+- **Intuitive Navigation** - Easy-to-use interface
+- **Loading States** - Spinner animations
+- **Toast Notifications** - User feedback
+- **Color Scheme** - Professional cyan and gold accents
 
 ---
 
 ## 🔮 Future Enhancements
 
-- 🗺️ Interactive maps integration (Google Maps API)
-- 💬 User reviews and ratings system
-- 💳 Payment gateway integration (Stripe, PayPal)
-- 🖼️ Image carousel galleries
-- 📧 Booking confirmation emails
-- 🔐 User authentication & profiles
-- 📊 Admin dashboard for hotel management
-- 🌐 Multi-language support
-
----
-
-## 📝 Usage Tips
-
-### Adding More Hotels
-Edit `hotels.json` and add new hotel objects following the same structure.
-
-### Customizing Styles
-Modify `frontend/style.css` to change colors, fonts, or spacing.
-
-### Deploying Online
-- Upload to GitHub Pages
-- Deploy on Netlify or Vercel
-- Use GitHub Actions for continuous deployment
+- [ ] Payment gateway integration (Stripe/PayPal)
+- [ ] Email notifications
+- [ ] Hotel reviews and ratings
+- [ ] Image galleries
+- [ ] Map integration
+- [ ] Admin dashboard
+- [ ] Multi-language support
+- [ ] Real-time availability
+- [ ] Wishlist functionality
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! To contribute:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
 ---
@@ -215,20 +270,24 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-## 💬 Support
+## 👨‍💻 Author
 
-Have questions or found a bug? Open an [Issue](https://github.com/yourusername/BookMyStay/issues) on GitHub.
+Built with ❤️ for travelers around the world
 
 ---
 
 ## 🙏 Acknowledgments
 
-- Designed for travel enthusiasts who value smart booking decisions
-- Built with HTML5, CSS, and  JavaScript
-- Inspired by modern travel platforms
+- React team for the amazing framework
+- MongoDB for the database solution
+- All the open-source contributors
+
+---
+
+## ⭐ Show Your Support
+
+If you find this project useful, please give it a star! ⭐
 
 ---
 
 **Made with ❤️ for travelers around the world**
-
-⭐ If you find this useful, please star the repository!

@@ -1,17 +1,32 @@
 require("dotenv").config();
 
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const authRoutes = require("./routes/auth");
+const hotelRoutes = require("./routes/hotelroutes");
+const bookingRoutes = require("./routes/bookingroutes");
+const offerRoutes = require("./routes/offerroutes");
 
-const app = express();   // ✅ app MUST be before app.use()
+const app = express();
 
-// middleware
+// Middleware
+app.use(cors());
 app.use(express.json());
 
-// routes
+// Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/hotels", hotelRoutes);
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/offers", offerRoutes);
+
+// Health check
+app.get("/api/health", (req, res) => {
+  res.json({ success: true, message: "Server is running" });
+});
 
 // DB connection
 mongoose.connect(process.env.MONGO_URI, {
