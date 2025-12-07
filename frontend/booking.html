@@ -90,7 +90,7 @@ input:focus,select:focus{
   text-transform:uppercase;color:var(--text-dark);
 }
 .pay-btn:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 28px var(--accent-soft);}
-.pay-btn.selected{border-color:var(--accent-soft);background:var(--accent);color:#fff;}
+.pay-btn.selected{border-color:var(--accent);background:var(--accent);color:#fff;}
 
 .booking-btn-submit{
   width:100%;
@@ -100,6 +100,17 @@ input:focus,select:focus{
   text-transform:uppercase;letter-spacing:0.6px;
 }
 .booking-btn-submit:hover{opacity:0.88;transform:translateY(-3px);box-shadow:0 12px 32px var(--accent-soft);}
+
+.offer-buttons {
+  display:flex;gap:0.5rem;margin:1rem 0;flex-wrap:wrap;
+}
+.offer-btn {
+  padding:0.6rem 1rem;background:#fff3cd;color:#856404;border:2px solid #ffc107;
+  border-radius:12px;font-weight:700;cursor:pointer;transition:0.3s;font-size:0.85rem;
+}
+.offer-btn:hover {
+  background:#ffc107;color:#fff;transform:translateY(-2px);
+}
 
 /* Popup */
 .popup-overlay{
@@ -139,17 +150,17 @@ input:focus,select:focus{
   <div class="booking-form-wrapper">
     <h1>Finalize Booking</h1>
     <form id="bookingForm" onsubmit="submitBook(event)">
-      <label><i class="fa fa-user"></i> Name</label>
-      <input type="text" id="fName" required />
+      <label><i class="fa fa-user"></i> Full Name</label>
+      <input type="text" id="fName" placeholder="Enter your name" required />
 
       <label><i class="fa fa-envelope"></i> Email</label>
-      <input type="email" id="fEmail" required />
+      <input type="email" id="fEmail" placeholder="your@email.com" required />
 
       <label><i class="fa fa-phone"></i> Phone</label>
-      <input type="tel" id="fPhone" required />
+      <input type="tel" id="fPhone" placeholder="+91 1234567890" required />
 
       <label><i class="fa fa-map-marker-alt"></i> Address</label>
-      <input type="text" id="fAddr" required />
+      <input type="text" id="fAddr" placeholder="Your address" required />
 
       <label><i class="fa fa-calendar-check"></i> Check In</label>
       <input type="date" id="cin" required />
@@ -157,106 +168,92 @@ input:focus,select:focus{
       <label><i class="fa fa-calendar-times"></i> Check Out</label>
       <input type="date" id="cout" required />
 
-      <label><i class="fa fa-users"></i> Rooms</label>
+      <label><i class="fa fa-users"></i> Number of Rooms</label>
       <select id="gst" required>
-        <option value="">Select</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="3">4</option>
-        <option value="3">5</option>
-        <option value="3">6</option>
-        <option value="3">7</option>
-        <option value="3">8</option>
+        <option value="">Select rooms</option>
+        <option value="1">1 Room</option>
+        <option value="2">2 Rooms</option>
+        <option value="3">3 Rooms</option>
+        <option value="4">4 Rooms</option>
+        <option value="5">5 Rooms</option>
       </select>
 
-      <label>Special Request</label>
-      <input type="text" id="req" placeholder="Optional…" />
+      <label>Special Request (Optional)</label>
+      <input type="text" id="req" placeholder="Any special requirements..." />
 
-      <div class="booking-form-group btn-group full-width">
-        <button type="submit" class="booking-btn-submit">Book Now</button>
+      <div style="margin:1.5rem 0;">
+        <h3 style="margin-bottom:0.8rem;">🎁 Apply Special Offers</h3>
+        <div class="offer-buttons">
+          <button type="button" class="offer-btn" onclick="applyOffer('percent', 20)">20% OFF</button>
+          <button type="button" class="offer-btn" onclick="applyOffer('flat', 500)">₹500 OFF</button>
+          <button type="button" class="offer-btn" onclick="applyOffer('percent', 30)">30% OFF</button>
+        </div>
       </div>
     </form>
-    <div style="margin:1.2rem 0; font-size:0.85rem; color:var(--text-sub);">
-      Have a special offer? Apply below:>
-<button onclick="applyOffer('percent', 20)">20% OFF</button>
-<button onclick="applyOffer('flat', 500)">₹500 OFF</button>
-    </div>
+  </div>
 
-  
   <!-- SUMMARY / BILL -->
   <div>
     <div class="booking-summary-card">
-      <div class="booking-summary-title">Booking Bill</div>
+      <div class="booking-summary-title">Booking Summary</div>
 
       <div class="booking-summary-item"><span>Hotel</span><span id="bName">-</span></div>
-      <div class="booking-summary-item"><span>In</span><span id="bIn">-</span></div>
-      <div class="booking-summary-item"><span>Out</span><span id="bOut">-</span></div>
+      <div class="booking-summary-item"><span>Check-In</span><span id="bIn">-</span></div>
+      <div class="booking-summary-item"><span>Check-Out</span><span id="bOut">-</span></div>
       <div class="booking-summary-item"><span>Nights</span><span id="bN">1</span></div>
       <div class="booking-summary-item"><span>Rooms</span><span id="bG">-</span></div>
-      <div class="booking-summary-item"><span>Fare/Night</span><span id="bFare">₹0</span></div>
+      <div class="booking-summary-item"><span>Price/Night</span><span id="bFare">₹0</span></div>
+      <div class="booking-summary-item"><span>Subtotal</span><span id="bSubtotal">₹0</span></div>
+      <div class="booking-summary-item" id="discountRow" style="display:none;color:#4caf50;">
+        <span>Discount</span><span id="bDiscount">-₹0</span>
+      </div>
       <div class="booking-summary-item"><span>Tax (12%)</span><span id="bTax">₹0</span></div>
 
       <div class="booking-summary-total"><span>Total Payable</span><span id="bTotal">₹0</span></div>
+    </div>
 
-  </div>
-
-</div>
-  <!-- PAYMENT -->
+    <!-- PAYMENT -->
     <div class="payment-card" id="paymentSection">
-      <div class="payment-title">Payment</div>
+      <div class="payment-title">Select Payment Method</div>
 
       <div class="pay-options">
         <div class="pay-btn" onclick="selectPay(this,'upi')"><i class="fa fa-qrcode"></i> UPI</div>
         <div class="pay-btn" onclick="selectPay(this,'card')"><i class="fa fa-credit-card"></i> Card</div>
         <div class="pay-btn" onclick="selectPay(this,'wallet')"><i class="fa fa-wallet"></i> Wallet</div>
-        <div class="pay-btn" onclick="selectPay(this,'cod')"><i class="fa fa-truck-fast"></i> Pay at Hotel</div>
+        <div class="pay-btn" onclick="selectPay(this,'cod')"><i class="fa fa-building"></i> Pay at Hotel</div>
       </div>
 
-      <input type="text" id="promo" placeholder="Coupon Code" />
-      <button class="booking-btn-submit" onclick="payNow()">Proceed</button>
+      <button class="booking-btn-submit" onclick="payNow()">
+        <i class="fas fa-lock"></i> Confirm & Pay
+      </button>
     </div>
   </div>
 
+</div>
 </section>
 
 <!-- POPUP -->
 <div class="popup-overlay" id="pop">
  <div class="popup-card">
-  <h2>✅ Confirmed!</h2>
-  <p id="modalSubtitle">Your stay is booked.</p>
-  <button class="booking-btn-submit" onclick="closePop()">OK</button>
+  <h2>✅ Booking Confirmed!</h2>
+  <p id="modalSubtitle">Your reservation has been successfully completed.</p>
+  <p style="font-size:0.9rem;margin-top:1rem;">
+    <strong>Booking ID:</strong> <span id="bookingId">BMS-XXX</span><br>
+    <strong>Total Paid:</strong> <span id="totalPaid">₹0</span>
+  </p>
+  <button class="booking-btn-submit" onclick="closePop()">Back to Home</button>
  </div>
 </div>
 
 <script>
+let pMode = "";
+let discountAmount = 0;
+let discountType = null;
 
-function loadBill(){
-  const h = JSON.parse(localStorage.getItem("selectedHotel"));
-  const s = JSON.parse(localStorage.getItem("bookingSearch"));
-  if(!h || !s) return;
-
-  const nights = Math.round((new Date(s.checkout)-new Date(s.checkin))/(1000*60*60*24));
-  const rooms  = parseInt(s.rooms);
-  const base   = h.price * nights * rooms;
-  const tax    = base * 0.12;
-  const total  = base + tax;
-
-  document.getElementById("billHotel").textContent = h.name;
-  document.getElementById("billIn").textContent = s.checkin;
-  document.getElementById("billOut").textContent = s.checkout;
-  document.getElementById("billNights").textContent = nights;
-  document.getElementById("billRooms").textContent = rooms;
-  document.getElementById("billBase").textContent = base;
-  document.getElementById("billTax").textContent = tax;
-  document.getElementById("billTotal").textContent = total;
-}
-document.addEventListener("DOMContentLoaded", loadBill);
-
-let pMode="";
-function calc(){
-  const h = JSON.parse(localStorage.getItem("hotel")||"{}");
-  const r = JSON.parse(localStorage.getItem("room")||"{}");
+// Calculate bill
+function calc() {
+  const h = JSON.parse(localStorage.getItem("hotel") || "{}");
+  const r = JSON.parse(localStorage.getItem("room") || "{}");
   const fare = r.p || h.price || 0;
 
   document.getElementById("bName").textContent = h.name || "-";
@@ -264,48 +261,101 @@ function calc(){
   document.getElementById("bOut").textContent = cout.value || "-";
   document.getElementById("bFare").textContent = "₹" + fare;
 
-  if(cin.value && cout.value){
-    const n = Math.max(1,Math.ceil((new Date(cout.value)-new Date(cin.value))/(86400000)));
-    document.getElementById("bN").textContent = n;
-    document.getElementById("bG").textContent = gst.value || "-";
-
-    const subtotal = n * fare;
-    const tax = subtotal * 0.12;
-    const total = subtotal + tax;
-    document.getElementById("bTotal").textContent = "₹" + total;
-    document.getElementById("bTax").textContent = "₹" + Math.round(tax);
-  }
-}
-cin.onchange=calc;
-cout.onchange=calc;
-gst.onchange=calc;
-
-function submitBook(e){e.preventDefault();calc();}
-function closePop(){pop.classList.remove("active");}
-function selectPay(btn,m){document.querySelectorAll('.pay-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');pMode=m;}
-function payNow(){document.getElementById("pop").classList.add("active");}
-function closePop(){document.getElementById("pop").classList.remove("active");}
-function submitBook(e){e.preventDefault();calc();document.getElementById("pop").classList.add("active");}
-window.onload=calc;
-async function applyOffer() {
-  const offerCode = document.getElementById('offerCodeInput').value;
-  const basePrice = 7000; // Get from your booking data
-  
-  try {
-    const result = await api.validateOffer(offerCode, basePrice);
+  if (cin.value && cout.value) {
+    const n = Math.max(1, Math.ceil((new Date(cout.value) - new Date(cin.value)) / (86400000)));
+    const rooms = parseInt(gst.value) || 1;
     
-    if (result.valid) {
-      document.getElementById('discountAmount').textContent = `₹${result.discount}`;
-      document.getElementById('totalPrice').textContent = `₹${basePrice - result.discount}`;
-      alert(`✅ Offer applied! You saved ₹${result.discount}`);
+    document.getElementById("bN").textContent = n;
+    document.getElementById("bG").textContent = rooms + " Room" + (rooms > 1 ? "s" : "");
+
+    const subtotal = n * fare * rooms;
+    document.getElementById("bSubtotal").textContent = "₹" + subtotal;
+
+    // Apply discount
+    let finalSubtotal = subtotal;
+    if (discountAmount > 0) {
+      if (discountType === 'percent') {
+        discountAmount = Math.round((subtotal * discountAmount) / 100);
+      }
+      finalSubtotal = subtotal - discountAmount;
+      document.getElementById("discountRow").style.display = "flex";
+      document.getElementById("bDiscount").textContent = "-₹" + discountAmount;
     } else {
-      alert('❌ Invalid or expired offer code');
+      document.getElementById("discountRow").style.display = "none";
     }
-  } catch (error) {
-    console.error('Error applying offer:', error);
+
+    const tax = Math.round(finalSubtotal * 0.12);
+    const total = finalSubtotal + tax;
+    
+    document.getElementById("bTotal").textContent = "₹" + total;
+    document.getElementById("bTax").textContent = "₹" + tax;
   }
 }
 
+// Apply offer
+function applyOffer(type, value) {
+  discountType = type;
+  discountAmount = value;
+  calc();
+  
+  const msg = type === 'percent' ? `${value}% discount applied!` : `₹${value} discount applied!`;
+  alert("✅ " + msg);
+}
+
+// Event listeners
+cin.onchange = calc;
+cout.onchange = calc;
+gst.onchange = calc;
+
+function submitBook(e) {
+  e.preventDefault();
+  
+  if (!cin.value || !cout.value || !gst.value) {
+    alert("⚠️ Please fill all required fields");
+    return;
+  }
+  
+  calc();
+}
+
+function selectPay(btn, m) {
+  document.querySelectorAll('.pay-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  pMode = m;
+}
+
+function payNow() {
+  if (!pMode) {
+    alert("⚠️ Please select a payment method");
+    return;
+  }
+  
+  if (!cin.value || !cout.value || !gst.value) {
+    alert("⚠️ Please fill all booking details");
+    return;
+  }
+  
+  // Generate booking ID
+  const bookingId = "BMS" + Date.now();
+  document.getElementById("bookingId").textContent = bookingId;
+  document.getElementById("totalPaid").textContent = document.getElementById("bTotal").textContent;
+  
+  // Show confirmation popup
+  document.getElementById("pop").classList.add("active");
+}
+
+function closePop() {
+  document.getElementById("pop").classList.remove("active");
+  window.location.href = "index.html";
+}
+
+// Initialize
+window.onload = calc;
+
+// Set minimum date to today
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('cin').min = today;
+document.getElementById('cout').min = today;
 </script>
 
 </body>

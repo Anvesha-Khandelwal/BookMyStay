@@ -32,6 +32,10 @@ body { background:var(--bg2); font-family:"Poppins",sans-serif; }
 
 .sub { color:#555; font-weight:600; font-size:0.95rem; }
 
+.big-price {
+  font-size:2rem; font-weight:800; color:var(--gold); margin:1rem 0;
+}
+
 .section-card {
   background:white; border-radius:var(--radius-sm); box-shadow:var(--shadow); padding:1.4rem; margin:2rem 0;
 }
@@ -53,9 +57,9 @@ body { background:var(--bg2); font-family:"Poppins",sans-serif; }
 .attraction i { color:var(--gold); }
 
 .book-btn {
-  width:100%; padding:1rem; background:var(--gold); color:var(--navy); font-weight:800; border:none; border-radius:10px; font-size:0.9rem; cursor:pointer;
+  width:100%; padding:1.2rem; background:var(--gold); color:var(--navy); font-weight:800; border:none; border-radius:12px; font-size:1rem; cursor:pointer; transition:0.3s; text-transform:uppercase; letter-spacing:1px;
 }
-.book-btn:hover { opacity:0.9; }
+.book-btn:hover { opacity:0.9; transform:translateY(-2px); box-shadow:0 8px 20px rgba(212,175,55,0.4); }
 @media (max-width:768px){ .hero img{height:220px;} .info-row{gap:1rem;} }
 </style>
 </head>
@@ -95,32 +99,28 @@ body { background:var(--bg2); font-family:"Poppins",sans-serif; }
 
     <!-- ATTRACTIONS -->
     <div class="section-card">
-      <h2><i class="fas fa-location-arrow"></i> Nearby</h2>
+      <h2><i class="fas fa-location-arrow"></i> Nearby Attractions</h2>
       <div id="attractionList"></div>
     </div>
 
-    <!-- BOOK -->
-    <button class="book-btn" onclick="href='proceedToPayment'"><i class="fas fa-lock"></i> BOOK & PAY</button>
+    <!-- BOOK BUTTON -->
+    <button class="book-btn" onclick="proceedToBooking()">
+      <i class="fas fa-lock"></i> BOOK & PAY NOW
+    </button>
 
   </div>
 </section>
 
 <script>
-  function proceedToPayment() {
-  const hotelData = JSON.parse(localStorage.getItem('selectedHotel'));
-  if (hotelData) {
-    localStorage.setItem('bookingData', JSON.stringify({hotel: hotelData}));
-    window.location.href = 'booking.html';
-  } else {
-    alert('Please select a hotel first!');
-    window.location.href = 'listings.html';
-  }
+// Load hotel details
+const h = JSON.parse(localStorage.getItem("selectedHotel"));
+
+if(!h) { 
+  alert("No hotel selected!"); 
+  window.location.href="listings.html"; 
 }
 
-const h = JSON.parse(localStorage.getItem("selectedHotel"));
-if(!h){ alert("No hotel selected!"); window.location.href="listings.html"; }
-
-
+// Display hotel details
 document.getElementById("hotelName").textContent = h.name;
 document.getElementById("hotelLocation").textContent = h.location;
 document.getElementById("hotelRating").textContent = h.rating;
@@ -128,33 +128,38 @@ document.getElementById("hotelReviews").textContent = h.reviews;
 document.getElementById("hotelPrice").textContent = h.price.toLocaleString();
 document.getElementById("mainImage").src = h.image;
 
+// Gallery
 document.getElementById("photoGallery").innerHTML =
   `<img src="${h.image}">` +
   (h.gallery || []).map(p=>`<img src="${p}">`).join("");
 
-
+// Amenities
 document.getElementById("amenitiesList").innerHTML =
   (h.amenities || []).map(a => `
     <div class="amenity">
       <i class="fas fa-check-circle"></i><br>${a}
     </div>`).join("");
 
-
+// Attractions
 document.getElementById("attractionList").innerHTML =
   (h.attractions || []).map(a => `
     <div class="attraction"><i class="fas fa-map-pin"></i> ${a}</div>`).join("");
 
-    function loadHotelDetails(){
-  const h = JSON.parse(localStorage.getItem("selectedHotel"));
-  if(!h) return;
-
-  document.getElementById("hotelTitle").textContent = h.name;
-  document.getElementById("hotelDescription").textContent = h.location;
-  document.getElementById("hotelRating").textContent = "⭐ " + h.rating;
-  document.getElementById("hotelPrice").textContent = h.price;
+// Proceed to booking
+function proceedToBooking() {
+  if (!h) {
+    alert('Please select a hotel first!');
+    window.location.href = 'listings.html';
+    return;
+  }
+  
+  // Save hotel and room data
+  localStorage.setItem('hotel', JSON.stringify(h));
+  localStorage.setItem('room', JSON.stringify({p: h.price}));
+  
+  // Redirect to booking page
+  window.location.href = 'booking.html';
 }
-document.addEventListener("DOMContentLoaded", loadHotelDetails);
-
 </script>
 
 </body>
