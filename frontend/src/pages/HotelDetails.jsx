@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getHotelById } from '../utils/api'
+import ImageCarousel from '../components/ImageCarousel'
+import ImageWithFallback from '../components/ImageWithFallback'
 import './HotelDetails.css'
 
 function HotelDetails({ showToast, user }) {
@@ -89,10 +91,17 @@ function HotelDetails({ showToast, user }) {
         {/* Image Gallery */}
         <div className="gallery-section">
           <div className="gallery-main">
-            <img
-              src={hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop'}
-              alt={hotel.name}
-            />
+            {(() => {
+              // Generate multiple images for gallery
+              const galleryImages = [
+                hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=800&fit=crop&auto=format',
+                'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&h=800&fit=crop&auto=format',
+                'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&h=800&fit=crop&auto=format',
+                'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&h=800&fit=crop&auto=format',
+                'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&h=800&fit=crop&auto=format'
+              ]
+              return <ImageCarousel images={galleryImages} autoPlay={true} interval={4000} />
+            })()}
           </div>
         </div>
 

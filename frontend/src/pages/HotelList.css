@@ -2,11 +2,56 @@
   min-height: 100vh;
   padding: 2rem 0;
   background: var(--bg);
+  position: relative;
+}
+
+.hotel-list::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(13, 110, 124, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 217, 61, 0.05) 0%, transparent 50%);
+  z-index: 0;
+  pointer-events: none;
+  animation: backgroundPulse 10s ease-in-out infinite;
+}
+
+.hotel-list > .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes backgroundPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .listings-header {
   text-align: center;
   margin-bottom: 2rem;
+  animation: fadeInUp 0.8s ease;
+  position: relative;
+}
+
+.listings-header::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  border-radius: 2px;
+  animation: expand 1s ease;
 }
 
 .listings-header h1 {
@@ -37,6 +82,24 @@
   height: fit-content;
   position: sticky;
   top: 100px;
+  animation: slideInLeft 0.6s ease;
+  transition: all 0.3s ease;
+}
+
+.filters-sidebar:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateX(5px);
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .filters-sidebar h3 {
@@ -103,12 +166,44 @@
   overflow: hidden;
   box-shadow: var(--shadow);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  position: relative;
+}
+
+.hotel-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(13, 110, 124, 0.05) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hotel-card:hover::before {
+  opacity: 1;
 }
 
 .hotel-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-12px) scale(1.02);
   box-shadow: var(--shadow-hover);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hotel-image {

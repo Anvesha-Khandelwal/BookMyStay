@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ImageCarousel from '../components/ImageCarousel'
+import AnimatedBackground from '../components/AnimatedBackground'
 import './Home.css'
 
 function Home({ showToast }) {
@@ -26,16 +28,65 @@ function Home({ showToast }) {
   }
 
   const popularDestinations = [
-    { name: 'Goa', image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=400&h=300&fit=crop', desc: 'Beach Paradise' },
-    { name: 'Mumbai', image: 'https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=400&h=300&fit=crop', desc: 'City of Dreams' },
-    { name: 'Delhi', image: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=400&h=300&fit=crop', desc: 'Historic Capital' },
-    { name: 'Bangalore', image: 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=400&h=300&fit=crop', desc: 'Tech Hub' },
-    { name: 'Dubai', image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&h=300&fit=crop', desc: 'Luxury Destination' },
-    { name: 'Bali', image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&h=300&fit=crop', desc: 'Tropical Paradise' }
+    { 
+      name: 'Goa', 
+      images: [
+        'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop&auto=format'
+      ],
+      desc: 'Beach Paradise' 
+    },
+    { 
+      name: 'Mumbai', 
+      images: [
+        'https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&h=600&fit=crop&auto=format'
+      ],
+      desc: 'City of Dreams' 
+    },
+    { 
+      name: 'Delhi', 
+      images: [
+        'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1539650116574-75c0c6d73a6e?w=800&h=600&fit=crop&auto=format'
+      ],
+      desc: 'Historic Capital' 
+    },
+    { 
+      name: 'Bangalore', 
+      images: [
+        'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&auto=format'
+      ],
+      desc: 'Tech Hub' 
+    },
+    { 
+      name: 'Dubai', 
+      images: [
+        'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&h=600&fit=crop&auto=format'
+      ],
+      desc: 'Luxury Destination' 
+    },
+    { 
+      name: 'Bali', 
+      images: [
+        'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1539650116574-75c0c6d73a6e?w=800&h=600&fit=crop&auto=format',
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop&auto=format'
+      ],
+      desc: 'Tropical Paradise' 
+    }
   ]
 
   return (
     <div className="home">
+      <AnimatedBackground />
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
@@ -129,7 +180,7 @@ function Home({ showToast }) {
                 }}
               >
                 <div className="destination-image">
-                  <img src={dest.image} alt={dest.name} />
+                  <ImageCarousel images={dest.images} autoPlay={true} interval={3000} />
                   <div className="destination-overlay">
                     <h3>{dest.name}</h3>
                     <p>{dest.desc}</p>

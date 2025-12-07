@@ -11,7 +11,7 @@ const hotels = [
     price: 5000,
     rating: 4.7,
     reviews: 210,
-    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&h=800&fit=crop&auto=format",
     description: "Beachside resort with infinity pool & spa. Experience luxury in the heart of Bali.",
     amenities: ["Free WiFi", "Swimming Pool", "Spa", "Restaurant", "Beach Access", "Air Conditioning"],
     attractions: ["Ubud Forest", "Kuta Beach", "Waterfalls", "Temple Tours"]
@@ -23,7 +23,7 @@ const hotels = [
     price: 8000,
     rating: 4.9,
     reviews: 320,
-    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&h=800&fit=crop&auto=format",
     description: "Luxury hotel near city center with stunning views of the Burj Khalifa.",
     amenities: ["Free WiFi", "Gym", "Spa", "Restaurant", "Room Service", "Concierge"],
     attractions: ["Burj Khalifa", "Desert Safari", "Dubai Mall", "Beaches"]
@@ -35,7 +35,7 @@ const hotels = [
     price: 4500,
     rating: 4.7,
     reviews: 180,
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=800&fit=crop&auto=format",
     description: "Beachfront resort with direct access to pristine beaches and water sports.",
     amenities: ["Free WiFi", "Beach Access", "Water Sports", "Restaurant", "Bar", "Parking"],
     attractions: ["Baga Beach", "Chapora Fort", "Tito's Lane", "Anjuna Beach"]
@@ -47,7 +47,7 @@ const hotels = [
     price: 3500,
     rating: 4.5,
     reviews: 210,
-    image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&h=800&fit=crop&auto=format",
     description: "Cozy beachside villa perfect for families and couples.",
     amenities: ["Free WiFi", "Kitchen", "Beach Access", "Parking", "Air Conditioning"],
     attractions: ["Baga Beach", "Fort Aguada", "Night Market", "Dudhsagar Falls"]
@@ -59,7 +59,7 @@ const hotels = [
     price: 3000,
     rating: 4.6,
     reviews: 150,
-    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&h=800&fit=crop&auto=format",
     description: "Scenic mountain hotel with breathtaking views of the Himalayas.",
     amenities: ["Free WiFi", "Heating", "Restaurant", "Parking", "Room Service"],
     attractions: ["Rohtang Pass", "Solang Valley", "Hadimba Temple", "Mall Road"]
@@ -71,7 +71,7 @@ const hotels = [
     price: 4000,
     rating: 4.8,
     reviews: 280,
-    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&h=800&fit=crop&auto=format",
     description: "Luxurious heritage hotel showcasing royal Rajasthani architecture.",
     amenities: ["Free WiFi", "Spa", "Restaurant", "Pool", "Concierge", "Parking"],
     attractions: ["Amber Fort", "City Palace", "Hawa Mahal", "Jantar Mantar"]

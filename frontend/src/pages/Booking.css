@@ -2,6 +2,26 @@
   min-height: 100vh;
   padding: 2rem 0;
   background: var(--bg);
+  position: relative;
+}
+
+.booking-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(135deg, rgba(13, 110, 124, 0.02) 0%, transparent 50%),
+    linear-gradient(225deg, rgba(255, 217, 61, 0.02) 0%, transparent 50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.booking-page > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .page-title {
@@ -10,6 +30,21 @@
   text-align: center;
   margin-bottom: 3rem;
   color: var(--text-primary);
+  animation: fadeInUp 0.8s ease;
+  position: relative;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  border-radius: 2px;
+  animation: expand 1.2s ease;
 }
 
 .booking-content {

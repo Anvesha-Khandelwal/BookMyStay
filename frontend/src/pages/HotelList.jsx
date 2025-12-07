@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { getHotels, searchHotels } from '../utils/api'
+import ImageCarousel from '../components/ImageCarousel'
 import './HotelList.css'
 
 function HotelList({ showToast }) {
@@ -161,22 +162,33 @@ function HotelList({ showToast }) {
                 <p>Try adjusting your filters</p>
               </div>
             ) : (
-              filteredHotels.map(hotel => (
-                <div
-                  key={hotel._id || hotel.id}
-                  className="hotel-card"
-                  onClick={() => navigate(`/hotel/${hotel._id || hotel.id}`)}
-                >
-                  <div className="hotel-image">
-                    <img
-                      src={hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop'}
-                      alt={hotel.name}
-                    />
-                    <div className="hotel-rating">
-                      <i className="fas fa-star"></i>
-                      <span>{hotel.rating || 4.5}</span>
+              filteredHotels.map((hotel, idx) => {
+                // Generate multiple images for carousel
+                const hotelImages = [
+                  hotel.image || `https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop&auto=format&sig=${idx}`,
+                  `https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop&auto=format&sig=${idx + 10}`,
+                  `https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=600&fit=crop&auto=format&sig=${idx + 20}`
+                ]
+
+                return (
+                  <div
+                    key={hotel._id || hotel.id}
+                    className="hotel-card"
+                    onClick={() => navigate(`/hotel/${hotel._id || hotel.id}`)}
+                    style={{ animationDelay: `${idx * 0.1}s` }}
+                  >
+                    <div className="hotel-image">
+                      <ImageCarousel 
+                        images={hotelImages} 
+                        autoPlay={true} 
+                        interval={3500}
+                        key={hotel._id || hotel.id}
+                      />
+                      <div className="hotel-rating">
+                        <i className="fas fa-star"></i>
+                        <span>{hotel.rating || 4.5}</span>
+                      </div>
                     </div>
-                  </div>
                   <div className="hotel-info">
                     <h3>{hotel.name}</h3>
                     <p className="hotel-location">
@@ -196,7 +208,8 @@ function HotelList({ showToast }) {
                     </div>
                   </div>
                 </div>
-              ))
+                )
+              })
             )}
           </div>
         </div>

@@ -1,5 +1,7 @@
 .home {
   flex: 1;
+  position: relative;
+  overflow-x: hidden;
 }
 
 /* Hero Section */
@@ -10,6 +12,9 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
 }
 
 .hero::before {
@@ -19,9 +24,41 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1920&h=1080&fit=crop') center/cover;
-  opacity: 0.15;
+  background: url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1920&h=1080&fit=crop&auto=format') center/cover;
+  opacity: 0.2;
   z-index: 0;
+  animation: backgroundMove 20s ease-in-out infinite;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: float 30s linear infinite;
+  z-index: 0;
+}
+
+@keyframes backgroundMove {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1.1) translateY(-20px);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50px, -50px) rotate(360deg);
+  }
 }
 
 .hero-content {
@@ -29,6 +66,27 @@
   z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
+  animation: fadeInUp 1s ease;
+}
+
+.hero-content::before {
+  content: '✈️';
+  position: absolute;
+  font-size: 3rem;
+  top: -50px;
+  left: 10%;
+  animation: float 3s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+.hero-content::after {
+  content: '🏖️';
+  position: absolute;
+  font-size: 3rem;
+  top: -30px;
+  right: 15%;
+  animation: float 3s ease-in-out infinite 1.5s;
+  opacity: 0.3;
 }
 
 .hero-title {
@@ -181,8 +239,32 @@
   transition: transform 0.5s ease;
 }
 
-.destination-card:hover .destination-image img {
-  transform: scale(1.1);
+.destination-card:hover .destination-image {
+  transform: scale(1.05);
+}
+
+.destination-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.destination-card:nth-child(1) { animation-delay: 0.1s; }
+.destination-card:nth-child(2) { animation-delay: 0.2s; }
+.destination-card:nth-child(3) { animation-delay: 0.3s; }
+.destination-card:nth-child(4) { animation-delay: 0.4s; }
+.destination-card:nth-child(5) { animation-delay: 0.5s; }
+.destination-card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .destination-overlay {
@@ -224,13 +306,49 @@
   text-align: center;
   padding: 2rem;
   border-radius: var(--radius);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+.feature-card:nth-child(4) { animation-delay: 0.4s; }
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(13, 110, 124, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+  animation: rotate 10s linear infinite;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: var(--shadow-hover);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .feature-icon {
@@ -244,6 +362,23 @@
   justify-content: center;
   font-size: 2rem;
   color: #fff;
+  position: relative;
+  transition: all 0.4s ease;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.15) rotate(360deg);
+  box-shadow: 0 10px 30px rgba(13, 110, 124, 0.4);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(13, 110, 124, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(13, 110, 124, 0);
+  }
 }
 
 .feature-card h3 {

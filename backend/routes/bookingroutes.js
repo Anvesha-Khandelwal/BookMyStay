@@ -78,6 +78,8 @@ router.post("/", auth, async (req, res) => {
 // Get user bookings
 router.get("/", auth, async (req, res) => {
   try {
+    // Query bookings by userId - using find() not findById()
+    // findById() expects a single document ID, not a filter object
     const bookings = await Booking.find({ userId: req.user.id })
       .populate("hotel", "name image location")
       .sort({ createdAt: -1 });
@@ -97,8 +99,11 @@ router.get("/:id", auth, async (req, res) => {
       return res.status(404).json({ success: false, error: "Booking not found" });
     }
 
-    // Check if booking belongs to user
-    if (booking.userId.toString() !== req.user.id) {
+    // Check if booking belongs to user - handle both string and ObjectId comparisons
+    const bookingUserId = booking.userId.toString();
+    const requestUserId = req.user.id.toString();
+    
+    if (bookingUserId !== requestUserId) {
       return res.status(403).json({ success: false, error: "Unauthorized" });
     }
 

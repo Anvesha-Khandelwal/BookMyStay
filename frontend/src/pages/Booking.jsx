@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { getHotelById, createBooking, validateOffer } from '../utils/api'
+import ImageWithFallback from '../components/ImageWithFallback'
 import './Booking.css'
 
 function Booking({ showToast, user }) {
@@ -176,7 +177,10 @@ function Booking({ showToast, user }) {
             {/* Hotel Summary */}
             <section className="hotel-summary">
               <div className="summary-image">
-                <img src={hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop'} alt={hotel.name} />
+                <ImageWithFallback 
+                  src={hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop&auto=format'} 
+                  alt={hotel.name} 
+                />
               </div>
               <div className="summary-info">
                 <h2>{hotel.name}</h2>
