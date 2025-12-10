@@ -1,40 +1,30 @@
 require("dotenv").config();
 
-require("dotenv").config();
-
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
 
 const authRoutes = require("./routes/auth");
-const hotelRoutes = require("./routes/hotelroutes");
 const bookingRoutes = require("./routes/bookingroutes");
-const offerRoutes = require("./routes/offerroutes");
+const hotelRoutes = require("./routes/hotelroutes");
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// middleware
 app.use(express.json());
 
-// Routes
+// routes
 app.use("/api/auth", authRoutes);
-app.use("/api/hotels", hotelRoutes);
 app.use("/api/bookings", bookingRoutes);
-app.use("/api/offers", offerRoutes);
+app.use("/api/hotels", hotelRoutes);
 
-// Health check
-app.get("/api/health", (req, res) => {
-  res.json({ success: true, message: "Server is running" });
-});
-
-// DB connection
-mongoose.connect(process.env.MONGO_URI, {
-  tls: true,
-  tlsAllowInvalidCertificates: true,
-})
-.then(() => console.log("✅ MongoDB Connected"))
-.catch(err => console.error("❌ DB connection error:", err));
+// db
+mongoose
+  .connect(process.env.MONGO_URI, {
+    tls: true,
+    tlsAllowInvalidCertificates: true,
+  })
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.error("❌ DB error:", err));
 
 // server
 const PORT = process.env.PORT || 5000;

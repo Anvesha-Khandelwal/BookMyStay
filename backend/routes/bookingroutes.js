@@ -5,7 +5,7 @@ const Hotel = require("../models/hotel");
 const { calculateBill } = require("../utils/calculatebill");
 const auth = require("../middleware/auth");
 
-// Create booking
+
 router.post("/", auth, async (req, res) => {
   try {
     const {

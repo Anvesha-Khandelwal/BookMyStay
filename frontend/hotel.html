@@ -145,7 +145,6 @@ document.getElementById("attractionList").innerHTML =
   (h.attractions || []).map(a => `
     <div class="attraction"><i class="fas fa-map-pin"></i> ${a}</div>`).join("");
 
-// Proceed to booking
 function proceedToBooking() {
   if (!h) {
     alert('Please select a hotel first!');
@@ -153,11 +152,11 @@ function proceedToBooking() {
     return;
   }
   
-  // Save hotel and room data
+
   localStorage.setItem('hotel', JSON.stringify(h));
   localStorage.setItem('room', JSON.stringify({p: h.price}));
   
-  // Redirect to booking page
+
   window.location.href = 'booking.html';
 }
 </script>
