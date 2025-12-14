@@ -81,14 +81,25 @@ nav .logo {
 .nav-links a:hover {
   background:rgba(79,209,229,0.2);
   color:var(--accent-cyan);
-}
-.btn-login {
-  background:var(--accent-cyan) !important;
-  color:#fff !important;
+
+}.btn-login {
+  position: fixed !important;
+  top: 20px;
+  right: 20px;
+  background: var(--accent-cyan) !important;
+  color: #fff !important;
+  z-index: 1000;
+  padding: 12px 24px !important;
+  border-radius: 50px !important;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .btn-login:hover {
-  opacity:0.9;
-  transform:translateY(-2px);
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
 /* CONTAINER */
@@ -437,10 +448,11 @@ footer h4 {
       <li><a href="listings.html">Hotels</a></li>
       <li><a href="#destinations">Destinations</a></li>
       <li><a href="#offers">Offers</a></li>
-      <li><a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-    </ul>
+   </ul>
   </div>
 </nav>
+<li><a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt"></i></a></li>
+ 
 
 <div class="search-bar-mini">
   <div class="search-item">
