@@ -14,7 +14,7 @@
 }
 
 :root {
-  --accent:#4fd1e5;
+  --accent:#358793;
   --accent-soft:rgba(79,209,229,0.25);
   --card-light:rgba(255,255,255,0.78);
   --bg-page:#fdf8f2;
@@ -47,6 +47,7 @@ nav {
 }
 
 .nav-links {
+float: relative;
   list-style: none;
   display: flex;
   gap: 2rem;
@@ -239,7 +240,7 @@ input:focus, select:focus{
 
 <body>
 <nav>
- <div class="logo">✦ BookMyStay</div>
+ <div class="logo"> BookMyStay</div>
  <ul class="nav-links"><li><a href="index.html">Home</a></li></ul>
 </nav>
 
@@ -310,10 +311,12 @@ input:focus, select:focus{
       <div class="booking-summary-item"><span>Tax (12%)</span><span id="bTax">₹0</span></div>
 
       <div class="booking-summary-total"><span>Total Payable</span><span id="bTotal">₹0</span></div>
+      
     </div>
 
     <!-- PAY NOW BUTTON -->
     <div class="payment-card">
+      
       <div class="payment-title">Ready to Book?</div>
       <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">
         Complete your booking details above and proceed to secure payment
