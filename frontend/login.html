@@ -13,14 +13,14 @@
 }
 
 :root {
-  --primary: #2563eb;
-  --primary-dark: #1e40af;
+  --primary: #0d6e7c;
+  --primary-dark: #0d6e7c;
   --error: #dc2626;
   --success: #16a34a;
   --text: #1f2937;
   --text-light: #6b7280;
   --border: #e5e7eb;
-  --bg: #f9fafb;
+  --bg: #f5f0ea;
 }
 
 body {
@@ -60,7 +60,7 @@ body {
   background: white;
   border-radius: 16px;
   padding: 40px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0.3, 0.5, 0.3);
 }
 
 .tabs {
@@ -213,7 +213,7 @@ body {
   margin-top: 24px;
   padding: 16px;
   background: #fef3c7;
-  border: 1px solid #fde68a;
+  border: 1px solid #f0e5bd;
   border-radius: 10px;
   font-size: 13px;
   color: #92400e;
@@ -362,15 +362,24 @@ function handleLogin(e) {
 
     // Success
     currentUser = user;
-    alert(`✅ Welcome back, ${user.name}!\n\nYou've successfully logged in.`);
-    
-    // Reset form
-    document.getElementById('loginEmail').value = '';
-    document.getElementById('loginPassword').value = '';
-    btn.disabled = false;
-    btn.textContent = 'Login';
+    showMessage('loginMessage', '✅ Login successful! Redirecting to index.html...');
+    document.getElementById('loginMessage').classList.remove('error');
+    document.getElementById('loginMessage').classList.add('success');
     
     console.log('Logged in user:', currentUser);
+    console.log('Attempting redirect to index.html...');
+    
+    // Redirect to index.html after 1 second
+    setTimeout(() => {
+      // This will work in your actual project, but not in Claude artifacts
+      console.log('Redirecting now...');
+      window.location.href = 'index.html';
+      
+      // If still here after 100ms, show message (artifacts only)
+      setTimeout(() => {
+        alert('✅ Login Successful!\n\nIn your actual project, you will be redirected to index.html\n\nUser: ' + user.name);
+      }, 100);
+    }, 1000);
   }, 800);
 }
 
