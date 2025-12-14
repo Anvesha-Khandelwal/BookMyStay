@@ -4,171 +4,572 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Payment - BookMyStay</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* ========== Aesthetic Payment UI ========== */
-body {
-  font-family: Poppins, sans-serif;
-  background: #F9FAFB;
-  color: #1F2937;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Glass Navbar */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #F9FAFB;
+  color: #1F2937;
+  min-height: 100vh;
+}
+
+/* Navbar */
 nav {
-  width: 90%;
-  max-width: 900px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.95);
   backdrop-filter: blur(20px);
-  padding: 15px 25px;
-  border-radius: 14px;
-  margin-bottom: 25px;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0 8px 22px rgba(0,0,0,0.04);
+  align-items: center;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 800;
-  color: #0A6E6E;
+  color: #358793;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* Payment Card Container */
-.container {
-  width: 90%;
-  max-width: 900px;
+/* Main Container */
+.payment-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media(max-width: 768px) {
+  .payment-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Booking Summary Card */
+.summary-card {
   background: white;
-  padding: 28px;
-  border-radius: 22px;
-  box-shadow: 0 6px 40px rgba(0,0,0,0.06);
-  animation: fade 0.5s ease;
+  padding: 2rem;
+  border-radius: 24px;
+  box-shadow: 0 8px 35px rgba(0,0,0,0.08);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.summary-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #358793;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.9rem 0;
+  border-bottom: 1px dashed #E5E7EB;
+  font-size: 0.95rem;
+}
+
+.summary-item span:first-child {
+  color: #6B7280;
+  font-weight: 600;
+}
+
+.summary-item span:last-child {
+  color: #111827;
+  font-weight: 700;
+}
+
+.summary-total {
+  margin-top: 1.2rem;
+  padding: 1.3rem;
+  background: linear-gradient(135deg, #E0F2F7 0%, #F0FDFA 100%);
+  border-radius: 14px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #358793;
+}
+
+/* Payment Card */
+.payment-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 24px;
+  box-shadow: 0 8px 35px rgba(0,0,0,0.08);
 }
 
 .section-title {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 800;
-  margin-bottom: 22px;
+  margin-bottom: 1.5rem;
   color: #111827;
 }
 
 /* Payment Method Buttons */
-.search-bar-mini {
+.payment-methods {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.category-btn {
+.payment-btn {
   background: white;
-  border: 1.5px solid #E5E7EB;
-  padding: 14px;
+  border: 2px solid #E5E7EB;
+  padding: 1.1rem;
   border-radius: 14px;
-  font-size: 1rem;
-  font-weight:700;
+  font-size: 0.95rem;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  transition: 0.3s ease;
+  gap: 10px;
+  transition: all 0.3s ease;
+  color: #4B5563;
 }
 
-.category-btn:hover {
+.payment-btn:hover {
   transform: translateY(-3px);
-  border-color: #0A6E6E;
-  box-shadow: 0 6px 16px rgba(10,110,110,0.12);
+  border-color: #358793;
+  box-shadow: 0 6px 20px rgba(53,135,147,0.15);
 }
 
-.category-btn:active {
-  transform: scale(0.96);
-  opacity: 0.8;
+.payment-btn.selected {
+  border-color: #358793;
+  background: linear-gradient(135deg, #E0F2F7 0%, #F0FDFA 100%);
+  color: #358793;
 }
 
-/* Coupon Input Glass */
-.search-input {
+.payment-btn i {
+  font-size: 1.3rem;
+}
+
+/* Input Fields */
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.input-field {
   width: 100%;
   padding: 14px 18px;
-  border: 1.5px solid #E5E7EB;
-  border-radius: 14px;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
   font-size: 0.95rem;
   background: #F9FAFB;
-  outline:none;
+  outline: none;
   transition: 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-  margin-bottom: 15px;
+  font-weight: 500;
 }
 
-.search-input:focus {
-  border-color:#0A6E6E;
-  box-shadow: 0 0 0 4px rgba(10,110,110,0.13);
+.input-field:focus {
+  border-color: #358793;
+  box-shadow: 0 0 0 4px rgba(53,135,147,0.1);
+  background: white;
 }
 
-/* Proceed Button */
-.search-btn {
+/* Currency Select */
+.select-field {
   width: 100%;
-  background:#0A6E6E;
-  color:white;
+  padding: 14px 18px;
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  background: white;
+  cursor: pointer;
+  outline: none;
+  transition: 0.3s ease;
+  font-weight: 600;
+}
+
+.select-field:focus {
+  border-color: #358793;
+  box-shadow: 0 0 0 4px rgba(53,135,147,0.1);
+}
+
+/* Confirm Button */
+.confirm-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #358793 0%, #2c6b75 100%);
+  color: white;
   padding: 16px;
-  border:none;
-  border-radius: 16px;
-  font-size:1rem;
-  font-weight:800;
-  cursor:pointer;
-  transition:0.3s ease;
-  letter-spacing:0.6px;
-  text-transform:uppercase;
-  box-shadow: 0 4px 20px rgba(10,110,110,0.25);
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.3s ease;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 6px 25px rgba(53,135,147,0.3);
+  margin-top: 1rem;
 }
 
-.search-btn:hover {
+.confirm-btn:hover {
   transform: translateY(-2px);
-  box-shadow:0 8px 30px rgba(10,110,110,0.35);
+  box-shadow: 0 10px 35px rgba(53,135,147,0.4);
 }
 
-/* Animation */
-@keyframes fade {
-  from { opacity:0; transform: translateY(15px); }
-  to { opacity:1; transform: translateY(0); }
+.confirm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Success Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  padding: 3rem 2.5rem;
+  border-radius: 24px;
+  text-align: center;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+  animation: slideUp 0.4s ease;
+}
+
+.success-icon {
+  font-size: 5rem;
+  color: #10B981;
+  margin-bottom: 1.5rem;
+  animation: bounceIn 0.6s ease;
+}
+
+.modal-content h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 0.8rem;
+}
+
+.modal-content p {
+  color: #6B7280;
+  font-size: 1.05rem;
+  margin-bottom: 1.8rem;
+}
+
+.booking-id {
+  background: linear-gradient(135deg, #E0F2F7 0%, #F0FDFA 100%);
+  padding: 1.2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: #358793;
+  font-size: 1.1rem;
+}
+
+.modal-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #358793 0%, #2c6b75 100%);
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.modal-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 </style>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
 
 <nav>
-  <a class="logo" href="index.html"><i class="fa fa-globe"></i> BookMyStay</a>
+  <div class="nav-container">
+    <a class="logo" href="index.html">
+      <i class="fa fa-hotel"></i> BookMyStay
+    </a>
+  </div>
 </nav>
 
-<section class="container">
-  <h2 class="section-title">Secure Payment</h2>
-
-  <div class="search-bar-mini">
-    <button class="category-btn"><i class="fa fa-qrcode"></i> UPI</button>
-    <button class="category-btn"><i class="fa fa-credit-card"></i> Card</button>
-    <button class="category-btn"><i class="fa fa-wallet"></i> Wallet</button>
-    <button class="category-btn"><i class="fa fa-building"></i> Pay at Hotel</button>
+<div class="payment-wrapper">
+  
+  <!-- Booking Summary -->
+  <div class="summary-card">
+    <div class="summary-title">
+      <i class="fas fa-receipt"></i> Booking Summary
+    </div>
+    
+    <div class="summary-item">
+      <span>Hotel</span>
+      <span id="sumHotel">-</span>
+    </div>
+    <div class="summary-item">
+      <span>Guest Name</span>
+      <span id="sumGuest">-</span>
+    </div>
+    <div class="summary-item">
+      <span>Check-In</span>
+      <span id="sumCheckin">-</span>
+    </div>
+    <div class="summary-item">
+      <span>Check-Out</span>
+      <span id="sumCheckout">-</span>
+    </div>
+    <div class="summary-item">
+      <span>Nights</span>
+      <span id="sumNights">-</span>
+    </div>
+    <div class="summary-item">
+      <span>Rooms</span>
+      <span id="sumRooms">-</span>
+    </div>
+    <div class="summary-item">
+      <span>Subtotal</span>
+      <span id="sumSubtotal">₹0</span>
+    </div>
+    <div class="summary-item" id="discountRow" style="display:none;">
+      <span>Discount</span>
+      <span id="sumDiscount" style="color:#10B981;">-₹0</span>
+    </div>
+    <div class="summary-item">
+      <span>Tax (12%)</span>
+      <span id="sumTax">₹0</span>
+    </div>
+    
+    <div class="summary-total">
+      <span>Total</span>
+      <span id="sumTotal">₹0</span>
+    </div>
   </div>
 
-  <input class="search-input" id="couponInput" placeholder="Enter Coupon Code">
+  <!-- Payment Section -->
+  <div class="payment-card">
+    <h2 class="section-title">Complete Payment</h2>
 
-  <div style="margin: 12px 0;">
-    <label style="font-size:0.85rem; font-weight:600; color:#4B5563;">Select Currency:</label>
-    <select class="category-btn" style="padding:10px; width:auto;">
-      <option>INR (₹)</option>
-      <option>USD ($)</option>
-      <option>EUR (€)</option>
-    </select>
+    <div class="payment-methods">
+      <button class="payment-btn" onclick="selectPayment(this, 'upi')">
+        <i class="fa fa-qrcode"></i> UPI
+      </button>
+      <button class="payment-btn" onclick="selectPayment(this, 'card')">
+        <i class="fa fa-credit-card"></i> Card
+      </button>
+      <button class="payment-btn" onclick="selectPayment(this, 'wallet')">
+        <i class="fa fa-wallet"></i> Wallet
+      </button>
+      <button class="payment-btn" onclick="selectPayment(this, 'hotel')">
+        <i class="fa fa-building"></i> Pay at Hotel
+      </button>
+    </div>
+
+    <div class="input-group">
+      <label><i class="fas fa-tag"></i> Coupon Code (Optional)</label>
+      <input type="text" class="input-field" id="couponInput" placeholder="Enter coupon code">
+    </div>
+
+    <div class="input-group">
+      <label><i class="fas fa-money-bill"></i> Select Currency</label>
+      <select class="select-field" id="currencySelect">
+        <option value="INR">INR (₹)</option>
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+    </div>
+
+    <button class="confirm-btn" id="confirmBtn" onclick="processPayment()">
+      <i class="fas fa-lock"></i> Confirm & Pay
+    </button>
   </div>
+</div>
 
-  <di
+<!-- Success Modal -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-content">
+    <div class="success-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h2>Payment Successful!</h2>
+    <p>Your booking has been confirmed</p>
+    <div class="booking-id">
+      Booking ID: <span id="modalBookingId">-</span>
+    </div>
+    <button class="modal-btn" onclick="goToHome()">Go to Home</button>
+  </div>
+</div>
+
+<script>
+// Check authentication
+function checkAuth() {
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const token = localStorage.getItem('authToken');
+  
+  if (!isLoggedIn || !token) {
+    alert('⚠️ Please login first');
+    window.location.href = 'login.html';
+    return false;
+  }
+  return true;
+}
+
+// Check auth
+if (!checkAuth()) {
+  throw new Error('Not authenticated');
+}
+
+// Global variables
+let selectedPaymentMethod = '';
+let bookingData = {};
+
+// Load booking data
+function loadBookingData() {
+  const data = localStorage.getItem('pendingBooking');
+  
+  if (!data) {
+    alert('⚠️ No booking data found. Please complete booking first.');
+    window.location.href = 'booking.html';
+    return;
+  }
+  
+  bookingData = JSON.parse(data);
+  console.log('Loaded booking:', bookingData);
+  
+  // Populate summary
+  document.getElementById('sumHotel').textContent = bookingData.hotelName || '-';
+  document.getElementById('sumGuest').textContent = bookingData.guestName || '-';
+  document.getElementById('sumCheckin').textContent = bookingData.checkIn || '-';
+  document.getElementById('sumCheckout').textContent = bookingData.checkOut || '-';
+  document.getElementById('sumNights').textContent = bookingData.nights || '-';
+  document.getElementById('sumRooms').textContent = bookingData.rooms + ' Room' + (bookingData.rooms > 1 ? 's' : '');
+  document.getElementById('sumSubtotal').textContent = '₹' + (bookingData.subtotal || 0);
+  document.getElementById('sumTax').textContent = '₹' + (bookingData.tax || 0);
+  document.getElementById('sumTotal').textContent = '₹' + (bookingData.total || 0);
+  
+  // Show discount if applicable
+  if (bookingData.discount && bookingData.discount > 0) {
+    document.getElementById('discountRow').style.display = 'flex';
+    document.getElementById('sumDiscount').textContent = '-₹' + bookingData.discount;
+  }
+}
+
+// Select payment method
+function selectPayment(btn, method) {
+  document.querySelectorAll('.payment-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedPaymentMethod = method;
+  console.log('Selected:', method);
+}
+
+// Process payment
+function processPayment() {
+  if (!selectedPaymentMethod) {
+    alert('⚠️ Please select a payment method');
+    return;
+  }
+  
+  const btn = document.getElementById('confirmBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+  
+  // Simulate payment
+  setTimeout(() => {
+    const bookingId = 'BMS' + Date.now();
+    
+    const confirmedBooking = {
+      ...bookingData,
+      bookingId: bookingId,
+      paymentMethod: selectedPaymentMethod,
+      paymentStatus: 'paid',
+      bookingDate: new Date().toISOString(),
+      status: 'confirmed'
+    };
+    
+    // Save booking
+    let bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+    bookings.push(confirmedBooking);
+    localStorage.setItem('userBookings', JSON.stringify(bookings));
+    
+    // Clear pending
+    localStorage.removeItem('pendingBooking');
+    
+    console.log('Booking confirmed:', confirmedBooking);
+    
+    // Show success
+    document.getElementById('modalBookingId').textContent = bookingId;
+    document.getElementById('successModal').classList.add('active');
+    
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-lock"></i> Confirm & Pay';
+  }, 2000);
+}
+
+// Go to home
+function goToHome() {
+  window.location.href = 'index.html';
+}
+
+// Initialize
+window.addEventListener('DOMContentLoaded', loadBookingData);
+</script>
+
+</body>
+</html>
