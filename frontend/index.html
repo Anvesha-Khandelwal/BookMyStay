@@ -45,6 +45,7 @@ nav {
   box-shadow:var(--shadow);
 }
 .nav-container {
+  
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -52,6 +53,9 @@ nav {
   margin:0 auto;
 }
 nav .logo {
+  position: fixed ;
+  top: 10px;
+  left: 20px;
   font-size:1.6rem;
   font-weight:800;
   color:var(--accent-cyan);
@@ -84,7 +88,7 @@ nav .logo {
 
 }.btn-login {
   position: fixed !important;
-  top: 20px;
+  top: 10px;
   right: 20px;
   background: var(--accent-cyan) !important;
   color: #fff !important;
@@ -442,7 +446,7 @@ footer h4 {
 
 <nav>
   <div class="nav-container">
-    <a href="index.html" class="logo"><i class="fas fa-building"></i> BookMyStay</a>
+  <a href="index.html" class="logo"><i class="fas fa-building"></i> BookMyStay</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="listings.html">Hotels</a></li>

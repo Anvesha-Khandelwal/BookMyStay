@@ -305,11 +305,22 @@ body {
 </div>
 
 <script>
-// In-memory storage for demo purposes (replaces localStorage in Claude)
-let users = [
-  { name: 'Demo User', email: 'demo@bookmystay.com', password: 'password123' }
-];
-let currentUser = null;
+// Load existing users from localStorage or use demo user
+function loadUsers() {
+  const stored = localStorage.getItem('bookmystay_users');
+  if (stored) {
+    return JSON.parse(stored);
+  }
+  return [
+    { name: 'Demo User', email: 'demo@bookmystay.com', password: 'password123' }
+  ];
+}
+
+function saveUsers(users) {
+  localStorage.setItem('bookmystay_users', JSON.stringify(users));
+}
+
+let users = loadUsers();
 
 function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -345,11 +356,9 @@ function handleLogin(e) {
   const password = document.getElementById('loginPassword').value;
   const btn = document.getElementById('loginBtn');
 
-  // Disable button
   btn.disabled = true;
   btn.textContent = 'Logging in...';
 
-  // Simulate API delay
   setTimeout(() => {
     const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
 
@@ -360,25 +369,32 @@ function handleLogin(e) {
       return;
     }
 
-    // Success
-    currentUser = user;
-    showMessage('loginMessage', '✅ Login successful! Redirecting to index.html...');
+    // ✅ SAVE TO LOCALSTORAGE - THIS IS THE FIX!
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('authToken', 'token_' + Date.now());
+    localStorage.setItem('user', JSON.stringify({
+      name: user.name,
+      email: user.email
+    }));
+
+    console.log('✅ Login successful! Data saved to localStorage');
+    console.log('isLoggedIn:', localStorage.getItem('isLoggedIn'));
+    console.log('authToken:', localStorage.getItem('authToken'));
+    console.log('user:', localStorage.getItem('user'));
+
+    showMessage('loginMessage', '✅ Login successful! Redirecting...');
     document.getElementById('loginMessage').classList.remove('error');
     document.getElementById('loginMessage').classList.add('success');
     
-    console.log('Logged in user:', currentUser);
-    console.log('Attempting redirect to index.html...');
-    
-    // Redirect to index.html after 1 second
     setTimeout(() => {
-      // This will work in your actual project, but not in Claude artifacts
-      console.log('Redirecting now...');
-      window.location.href = 'index.html';
-      
-      // If still here after 100ms, show message (artifacts only)
-      setTimeout(() => {
-        alert('✅ Login Successful!\n\nIn your actual project, you will be redirected to index.html\n\nUser: ' + user.name);
-      }, 100);
+      // Check if there's a redirect URL
+      const redirectUrl = localStorage.getItem('redirectAfterLogin');
+      if (redirectUrl) {
+        localStorage.removeItem('redirectAfterLogin');
+        window.location.href = redirectUrl;
+      } else {
+        window.location.href = 'index.html';
+      }
     }, 1000);
   }, 800);
 }
@@ -392,13 +408,10 @@ function handleSignup(e) {
   const password = document.getElementById('signupPassword').value;
   const btn = document.getElementById('signupBtn');
 
-  // Disable button
   btn.disabled = true;
   btn.textContent = 'Creating account...';
 
-  // Simulate API delay
   setTimeout(() => {
-    // Check if user already exists
     if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
       showMessage('signupErrorMessage', 'An account with this email already exists');
       btn.disabled = false;
@@ -406,7 +419,6 @@ function handleSignup(e) {
       return;
     }
 
-    // Validation
     if (name.length < 2) {
       showMessage('signupErrorMessage', 'Please enter a valid name');
       btn.disabled = false;
@@ -421,15 +433,12 @@ function handleSignup(e) {
       return;
     }
 
-    // Create new user
     const newUser = { name, email, password };
     users.push(newUser);
-    currentUser = newUser;
+    saveUsers(users);
 
-    // Show success
-    showMessage('signupSuccessMessage', 'Account created successfully! Welcome aboard! 🎉');
+    showMessage('signupSuccessMessage', 'Account created successfully! Please login. 🎉');
     
-    // Reset form
     setTimeout(() => {
       document.getElementById('signupName').value = '';
       document.getElementById('signupEmail').value = '';
@@ -441,9 +450,19 @@ function handleSignup(e) {
     }, 2000);
 
     console.log('New user created:', newUser);
-    console.log('All users:', users);
   }, 800);
 }
+
+// Check if already logged in
+window.addEventListener('DOMContentLoaded', function() {
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  if (isLoggedIn === 'true') {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (confirm('You are already logged in as ' + user.name + '. Go to home page?')) {
+      window.location.href = 'index.html';
+    }
+  }
+});
 </script>
 
 </body>
