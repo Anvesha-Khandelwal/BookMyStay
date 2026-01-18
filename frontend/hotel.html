@@ -63,6 +63,7 @@ body { background:var(--bg2); font-family:"Poppins",sans-serif; }
 @media (max-width:768px){ .hero img{height:220px;} .info-row{gap:1rem;} }
 </style>
 </head>
+
 <body>
 
 <nav>
@@ -110,7 +111,7 @@ body { background:var(--bg2); font-family:"Poppins",sans-serif; }
 
   </div>
 </section>
-
+<script src="api.js"></script>
 <script>
 // Load hotel details
 const h = JSON.parse(localStorage.getItem("selectedHotel"));
@@ -132,6 +133,12 @@ document.getElementById("mainImage").src = h.image;
 document.getElementById("photoGallery").innerHTML =
   `<img src="${h.image}">` +
   (h.gallery || []).map(p=>`<img src="${p}">`).join("");
+
+// <div style="text-align: center; margin: 20px;">
+//   <button onclick="toggleAmenities()" style="padding: 15px 30px; background: #0d6e7c; color: white; border: none; border-radius: 50px; font-weight: bold; cursor: pointer;">
+//     <span id="buttonText">Hide Amenities</span>
+//   </button>
+// </div>
 
 // Amenities
 document.getElementById("amenitiesList").innerHTML =
@@ -159,7 +166,98 @@ function proceedToBooking() {
 
   window.location.href = 'booking.html';
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+        const hotelsContainer = document.getElementById('hotelsContainer');
+        
+        // Show loading
+        hotelsContainer.innerHTML = '<div class="loading">Loading hotels...</div>';
+
+        try {
+            const response = await hotelsAPI.getAll();
+            
+            if (response.success && response.data.length > 0) {
+                displayHotels(response.data);
+            } else {
+                hotelsContainer.innerHTML = '<p>No hotels available</p>';
+            }
+        } catch (error) {
+            hotelsContainer.innerHTML = `<div class="error">Failed to load hotels: ${error.message}</div>`;
+        }
+    });
+
+    function displayHotels(hotels) {
+        const hotelsContainer = document.getElementById('hotelsContainer');
+        
+        hotelsContainer.innerHTML = hotels.map(hotel => `
+            <div class="hotel-card">
+                ${hotel.images && hotel.images[0] ? 
+                    `<img src="${hotel.images[0]}" alt="${hotel.name}">` : 
+                    '<div class="no-image">No Image</div>'
+                }
+                <h3>${hotel.name}</h3>
+                <p class="location">${hotel.location.city}</p>
+                <p class="description">${hotel.description}</p>
+                <p class="price">₹${hotel.price}/night</p>
+                <div class="rating">⭐ ${hotel.rating}/5</div>
+                <button onclick="viewHotelDetails('${hotel._id}')">View Details</button>
+            </div>
+        `).join('');
+    }
+
+    function viewHotelDetails(hotelId) {
+        window.location.href = `/details.html?id=${hotelId}`;
+    }
+
+    // Search function
+    async function searchHotels() {
+        const city = document.getElementById('searchCity')?.value;
+        const checkIn = document.getElementById('searchCheckIn')?.value;
+        const checkOut = document.getElementById('searchCheckOut')?.value;
+        const guests = document.getElementById('searchGuests')?.value;
+
+        const hotelsContainer = document.getElementById('hotelsContainer');
+        hotelsContainer.innerHTML = '<div class="loading">Searching...</div>';
+
+        try {
+            const response = await hotelsAPI.search(city, checkIn, checkOut, guests);
+            
+            if (response.success && response.data.length > 0) {
+                displayHotels(response.data);
+            } else {
+                hotelsContainer.innerHTML = '<p>No hotels found matching your criteria</p>';
+            }
+        } catch (error) {
+            hotelsContainer.innerHTML = `<div class="error">Search failed: ${error.message}</div>`;
+        }
+    }
 </script>
+<!-- <div style="max-width: 600px; margin: 50px auto; padding: 30px; background: white; border-radius: 20px;">
+  <h2>📝 Send Us Feedback</h2>
+  
+  <form id="myForm" onsubmit="return checkForm(event)">
+    
+    <p><b>Your Name:</b></p>
+    <input type="text" id="userName" required style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid #ddd;">
+    
+    <p><b>Your Email:</b></p>
+    <input type="email" id="userEmail" required style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid #ddd;">
+    
+    <p><b>Mobile Number (10 digits):</b></p>
+    <input type="text" id="userMobile" required style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid #ddd;">
+    
+    <p><b>Message:</b></p>
+    <textarea id="userMessage" required style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid #ddd;"></textarea>
+    
+    <p id="errorMsg" style="color: red; display: none;"></p>
+    
+    <button type="submit" style="width: 100%; padding: 15px; background: #0d6e7c; color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px;">
+      Submit Feedback
+    </button>
+    
+  </form>
+</div> -->
+
 
 </body>
 </html>
