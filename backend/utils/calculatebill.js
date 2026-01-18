@@ -71,4 +71,4 @@ async function calculateBill(bookingData, offerCode = null) {
   };
 }
 
-module.exports = { calculateBill };s
+module.exports = { calculateBill };
